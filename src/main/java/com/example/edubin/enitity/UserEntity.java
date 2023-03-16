@@ -1,16 +1,17 @@
 package com.example.edubin.enitity;
 
+import com.example.edubin.dto.request.UserRegister;
+import com.example.edubin.enitity.role.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 public class UserEntity implements UserDetails {
 
@@ -32,7 +34,7 @@ public class UserEntity implements UserDetails {
     private String password;
 
     private String name;
-    private LocalDateTime birthDay;
+    private LocalDate birthDay;
 
     @NotBlank
     @Column(unique = true)
@@ -44,9 +46,20 @@ public class UserEntity implements UserDetails {
     @ElementCollection
     private List<String> permission;
 
+    public static UserEntity from(UserRegister userRegister){
+        return UserEntity.builder()
+                .name(userRegister.getName())
+                .email(userRegister.getEmail())
+                .password(userRegister.getPassword())
+                .username(userRegister.getUsername())
+                .build();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return list;
     }
 
     @Override
