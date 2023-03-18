@@ -5,19 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class MediaEntity {
+public class MediaContentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private byte[] bytes;
+    private byte[] videoBytes;
+    private byte[] fileBytes;
 
     @OneToOne(cascade =CascadeType.REMOVE)
     private ContentEntity content;

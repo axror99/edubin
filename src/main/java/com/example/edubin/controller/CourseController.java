@@ -1,6 +1,7 @@
 package com.example.edubin.controller;
 
 import com.example.edubin.dto.response.ApiResponse;
+import com.example.edubin.dto.response.TokenDTO;
 import com.example.edubin.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,8 @@ public final class CourseController {
 
     private final CourseService courseService;
 
-    private ApiResponse addCourse(){
+    private ApiResponse<TokenDTO> addCourse(){
+
         return null;
     }
 }

@@ -1,21 +1,15 @@
-package com.example.edubin.enitity;
+package com.example.edubin.dto.request;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class CategoryEntity extends BaseEntity {
-
+public class CategoryRequest {
     @NotBlank
-    @Column(unique = true)
     private String name;
 }

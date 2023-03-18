@@ -67,7 +67,7 @@ public final class EmployeeController {
         List<UserEntity> allEmployees = employeeService.getAllEmployees();
         return new ApiResponse<>("all Employees were token successfully ",allEmployees);
     }
-    @GetMapping("/list")
+    @GetMapping("/listAdmin")
     @ResponseStatus(HttpStatus.OK)
 //    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<UserEntity>> getAllAdminList(){
@@ -75,9 +75,9 @@ public final class EmployeeController {
         return new ApiResponse<>("all Admins were token successfully ",allAdmins);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listTeacher")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize(Teachere('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
+//    @PreAuthorize(Teacher('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<UserEntity>> getAllTeacherList(){
         List<UserEntity> allTeachers = employeeService.getAllEmployees();
         return new ApiResponse<>("all Teachers were token successfully ",allTeachers);

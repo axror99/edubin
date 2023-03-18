@@ -15,8 +15,11 @@ import java.util.List;
 @Entity
 public class ContentEntity extends BaseEntity{
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private CourseEntity courseEntity;
-
-    private String contentName;
+    private String title;
+    @Column(columnDefinition="TEXT")
+    private String definition;
+    private String videoName;
+    private String taskName;
+    @ManyToOne
+    private CourseEntity course;
 }

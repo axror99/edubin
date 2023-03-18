@@ -54,7 +54,7 @@ public class WebSecurity {
                 .cors().disable()
                 .authorizeHttpRequests()
 //                .requestMatchers("/api/auth/register").permitAll()
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/**").permitAll()
                 .requestMatchers("/api/employee/**").permitAll()
                 .requestMatchers("/oauth2/**").permitAll()
                 .anyRequest().authenticated()

@@ -19,8 +19,13 @@ public class CourseEntity extends BaseEntity{
     @ManyToOne(cascade = CascadeType.ALL)
     private CategoryEntity category;
 
-    @ManyToMany
-    private List<UserEntity> teacher;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
+    private List<ContentEntity> contents;
 
+    @ManyToOne
+    private UserEntity teacher;
+    private String image;
 
+    private String courseSummery;
+    private String requirements;
 }

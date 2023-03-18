@@ -2,6 +2,7 @@ package com.example.edubin.exception.handle;
 
 import com.example.edubin.dto.response.ApiResponse;
 import com.example.edubin.dto.response.TokenDTO;
+import com.example.edubin.exception.PSQLException;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.exception.UserAlreadyExistException;
 import org.springframework.http.HttpStatus;
@@ -33,5 +34,10 @@ public class CommonExceptionHandler {
     @ExceptionHandler(UserAlreadyExistException.class)
     ResponseEntity<?> userAlreadyExist(Exception e){
         return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_ACCEPTABLE);
+    }
+    @ExceptionHandler(PSQLException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    ApiResponse<Void> duplicateItemInPostgersSQL(Exception e){
+        return new ApiResponse<>(e.getMessage());
     }
 }
