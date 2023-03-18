@@ -7,10 +7,15 @@ refresh-token:
 spring:
   jpa:
     database: POSTGRESQL
-    hibernate.ddl-auto: create
+    hibernate.ddl-auto: update
     show-sql: true
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/edubin
     username: postgres
     password: admin
+
+server:
+  tomcat:
+    max-swallow-size: -1
+    max-http-form-post-size: -1

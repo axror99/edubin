@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.IOException;
+
 @Controller
 @RestControllerAdvice
 public class CommonExceptionHandler {
@@ -38,6 +40,12 @@ public class CommonExceptionHandler {
     @ExceptionHandler(PSQLException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     ApiResponse<Void> duplicateItemInPostgersSQL(Exception e){
+        return new ApiResponse<>(e.getMessage());
+    }
+
+    @ExceptionHandler(IOException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    ApiResponse<Void> notWriteInFile(Exception e){
         return new ApiResponse<>(e.getMessage());
     }
 }

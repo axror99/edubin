@@ -1,11 +1,14 @@
 package com.example.edubin.controller;
 
+import com.example.edubin.dto.request.CourseRequest;
 import com.example.edubin.dto.response.ApiResponse;
 import com.example.edubin.dto.response.TokenDTO;
+import com.example.edubin.enitity.CourseEntity;
 import com.example.edubin.service.CourseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/course")
@@ -14,8 +17,11 @@ public final class CourseController {
 
     private final CourseService courseService;
 
-    private ApiResponse<TokenDTO> addCourse(){
-
-        return null;
+    @PostMapping("/add")
+    @ResponseStatus(HttpStatus.OK)
+//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
+    private ApiResponse<TokenDTO> addCourse(@ModelAttribute CourseRequest course){
+        courseService.addCourse(course);
+        return new ApiResponse<>("course was saved successfully in database");
     }
 }

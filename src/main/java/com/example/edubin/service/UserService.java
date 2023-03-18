@@ -10,8 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +35,11 @@ public class UserService {
     public TokenDTO login(UserLogin userLogin) {
         Authentication authentication = daoAuthenticationProvider.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(userLogin.getUsername(), userLogin.getPassword()));
         return generateToken.createToken(authentication);
+    }
+
+    public UserEntity findUser(int teacher_id) {
+        return userRepository.findById(teacher_id).orElseThrow(() -> new UsernameNotFoundException(
+                MessageFormat.format("id = {0} user is not in database ", teacher_id)
+        ));
     }
 }

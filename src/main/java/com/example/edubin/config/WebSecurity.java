@@ -35,6 +35,8 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthen
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.springframework.web.multipart.MultipartResolver;
+
 @Configuration
 @EnableWebSecurity
 @EnableJpaAuditing
@@ -64,54 +66,56 @@ public class WebSecurity {
                 )
                 .exceptionHandling((exceptions) -> exceptions
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
-                .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
+                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
                 );
         return http.build();
     }
 
     @Bean
     @Primary
-    JwtDecoder jwtAccessTokenDecoder(){
+    JwtDecoder jwtAccessTokenDecoder() {
         return NimbusJwtDecoder.withPublicKey(keyUtils.getAccessTokenPublicKey()).build();
     }
 
     @Bean
     @Primary
-    JwtEncoder jwtAccessTokenEncoder(){
-        JWK jwk =new RSAKey
+    JwtEncoder jwtAccessTokenEncoder() {
+        JWK jwk = new RSAKey
                 .Builder(keyUtils.getAccessTokenPublicKey())
                 .privateKey(keyUtils.getAccessTokenPrivateKey())
                 .build();
-        JWKSource<SecurityContext> jwks =new ImmutableJWKSet<>(new JWKSet(jwk));
+        JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwks);
     }
+
     @Bean
     @Qualifier("jwtRefreshTokenDecoder")
-    JwtDecoder jwtRefreshTokenDecoder(){
+    JwtDecoder jwtRefreshTokenDecoder() {
         return NimbusJwtDecoder.withPublicKey(keyUtils.getRefreshTokenPublicKey()).build();
     }
 
     @Bean
     @Qualifier("jwtRefreshTokenEncoder")
-    JwtEncoder jwtRefreshTokenEncoder(){
-        JWK jwt =new RSAKey
+    JwtEncoder jwtRefreshTokenEncoder() {
+        JWK jwt = new RSAKey
                 .Builder(keyUtils.getRefreshTokenPublicKey())
                 .privateKey(keyUtils.getRefreshTokenPrivateKey())
                 .build();
-        JWKSource<SecurityContext> jwks =new ImmutableJWKSet<>(new JWKSet(jwt));
+        JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwt));
         return new NimbusJwtEncoder(jwks);
     }
 
     @Bean
     @Qualifier("jwtRefreshTokenAuthProvider")
-    JwtAuthenticationProvider jwtRefreshTokenAuthProvider(){
-        JwtAuthenticationProvider provider =new JwtAuthenticationProvider(jwtRefreshTokenDecoder());
+    JwtAuthenticationProvider jwtRefreshTokenAuthProvider() {
+        JwtAuthenticationProvider provider = new JwtAuthenticationProvider(jwtRefreshTokenDecoder());
         provider.setJwtAuthenticationConverter(jwtToUserConverter);
         return provider;
     }
+
     @Bean
-    DaoAuthenticationProvider daoAuthenticationProvider(){
-        DaoAuthenticationProvider provider =new DaoAuthenticationProvider();
+    DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(userDetailsServiceImpl);
         return provider;
@@ -127,5 +131,4 @@ public class WebSecurity {
                 .addModule(new JavaTimeModule())
                 .build();
     }
-
 }

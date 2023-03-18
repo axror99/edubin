@@ -47,4 +47,10 @@ public class CategoryService {
             return all;
         }
     }
+
+    public CategoryEntity findCategory(int category_di) {
+        return categoryRepository.findById(category_di).orElseThrow(() -> new RecordNotFoundException(
+                MessageFormat.format("id={0} category was not in database", category_di)
+        ));
+    }
 }

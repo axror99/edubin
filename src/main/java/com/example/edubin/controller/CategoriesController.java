@@ -45,7 +45,7 @@ public final class CategoriesController {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-   // @PreAuthorize("(hasRole('ADMIN') and hasAuthority('GET')) or (hasRole('SUPER_ADMIN'))")
+//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('GET')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<CategoryEntity>> getAllCategoryList(){
         List<CategoryEntity> allCategoryList = categoryService.getAllCategoryList();
         return new ApiResponse<>("here are your all categories list",allCategoryList);
