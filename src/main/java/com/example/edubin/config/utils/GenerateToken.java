@@ -42,7 +42,7 @@ public class GenerateToken {
                 .issuer("eduBin")
                 .issuedAt(now)
                 .expiresAt(now.plus(5, ChronoUnit.MINUTES))
-                .subject(userEntity.getEmail())
+                .subject(userEntity.getUsername())
                 .claim("authorities",userEntity.getAuthorities())
                 .build();
         return accessTokenEncoder.encode(JwtEncoderParameters.from(claimsSet)).getTokenValue();
@@ -52,7 +52,7 @@ public class GenerateToken {
         Instant now = Instant.now();
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("EduBin")
-                .subject(userEntity.getEmail())
+                .subject(userEntity.getUsername())
                 .issuedAt(now)
                 .expiresAt(now.plus(30,ChronoUnit.DAYS))
                 .claim("authorities",userEntity.getAuthorities())

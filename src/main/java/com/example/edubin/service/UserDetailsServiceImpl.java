@@ -35,10 +35,10 @@ public class UserDetailsServiceImpl implements UserDetailsService, AuditorAware<
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
                 .orElseThrow(()->new UsernameNotFoundException(
-                        MessageFormat.format("email {0} not found",email)
+                        MessageFormat.format("username {0} not found",username)
         ));
     }
 

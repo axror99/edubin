@@ -4,6 +4,8 @@ import com.example.edubin.config.utils.JwtToUserConverter;
 import com.example.edubin.config.utils.KeyUtils;
 import com.example.edubin.service.UserDetailsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -51,8 +53,9 @@ public class WebSecurity {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/user/register").permitAll()
-//                .requestMatchers("/api/auth/**").permitAll()
+//                .requestMatchers("/api/auth/register").permitAll()
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/employee/**").permitAll()
                 .requestMatchers("/oauth2/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -113,9 +116,16 @@ public class WebSecurity {
         provider.setUserDetailsService(userDetailsServiceImpl);
         return provider;
     }
+//    @Bean
+//    public ObjectMapper objectMapper(){
+//        return new ObjectMapper();
+//    }
+
     @Bean
-    public ObjectMapper objectMapper(){
-        return new ObjectMapper();
+    public ObjectMapper objectMapper() {
+        return JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
     }
 
 }

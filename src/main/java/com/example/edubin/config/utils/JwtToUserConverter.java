@@ -19,7 +19,8 @@ public class JwtToUserConverter implements Converter<Jwt, UsernamePasswordAuthen
     @Override
     public UsernamePasswordAuthenticationToken convert(Jwt jwt) {
         UserEntity user = new UserEntity();
-        user.setId(Integer.parseInt(jwt.getSubject()));
+        System.out.println(jwt.getSubject());
+        user.setUsername(jwt.getSubject());
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         List<Map<String, String>> authoritiesList = jwt.getClaim("authorities");

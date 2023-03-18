@@ -2,6 +2,7 @@ package com.example.edubin.enitity;
 
 import com.example.edubin.dto.request.UserRegister;
 import com.example.edubin.enitity.role.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -39,13 +41,13 @@ public class UserEntity implements UserDetails {
     @NotBlank
     @Column(unique = true)
     private String email;
-
     @ElementCollection
     private List<String> roles;
 
     @ElementCollection
     private List<String> permission;
 
+    @JsonIgnore
     public static UserEntity from(UserRegister userRegister){
         return UserEntity.builder()
                 .name(userRegister.getName())
@@ -55,28 +57,38 @@ public class UserEntity implements UserDetails {
                 .build();
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> list = new ArrayList<>();
-        list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        return list;
+        List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
+        if (roles!=null){
+            roles.forEach((role)-> authorityList.add(new SimpleGrantedAuthority("ROLE_"+role)));
+        }else {
+            authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        if (permission!=null){
+            permission.forEach((permiss)-> authorityList.add(new SimpleGrantedAuthority(permiss)));
+        }
+
+        return authorityList;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
-
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;
