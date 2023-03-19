@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +39,47 @@ public class CourseService {
         return courseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} course is not in database", id)
         ));
+    }
+
+    public CourseEntity getCourseById(int id) {
+        return courseRepository.findById(id).orElseThrow(()->new RecordNotFoundException(
+                MessageFormat.format("id={0} course  is not found in database",id)
+        ));
+    }
+
+    public void updateCourse(int id, CourseRequest courseRequest) {
+        CourseEntity course = courseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+                MessageFormat.format("id = {0} course was not found in database", id)
+        ));
+        if (courseRequest.getImage()!=null){
+            mediaService.deleteExistImage(course.getImage());
+            String randomName = mediaService.saveMultiPartFile(courseRequest.getImage());
+            course.setImage(randomName);
+        }
+        if (!courseRequest.getCourseSummery().equals("") && courseRequest.getCourseSummery()!=null){
+            course.setCourseSummery(courseRequest.getCourseSummery());
+        }
+        if (!courseRequest.getRequirements().equals("") && courseRequest.getRequirements()!=null){
+            course.setRequirements(courseRequest.getRequirements());
+        }
+        if (courseRequest.getCategory_di()!=0){
+            CategoryEntity category = categoryService.findCategory(courseRequest.getCategory_di());
+            course.setCategory(category);
+        }
+        if (courseRequest.getTeacher_id()!=0){
+            UserEntity teacher = userService.findUser(courseRequest.getTeacher_id());
+            course.setTeacher(teacher);
+        }
+        if (!courseRequest.getName().equals("") && courseRequest.getName()!=null){
+            course.setName(courseRequest.getName());
+        }
+        courseRepository.save(course);
+    }
+
+    public void deleteCourse(int id) {
+        CourseEntity courseEntity = courseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+                MessageFormat.format("id = {0} course is not in database", id)
+        ));
+        courseRepository.delete(courseEntity);
     }
 }

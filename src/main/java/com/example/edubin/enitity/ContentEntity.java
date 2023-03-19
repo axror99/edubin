@@ -1,5 +1,6 @@
 package com.example.edubin.enitity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,8 @@ public class ContentEntity extends BaseEntity{
     private String definition;
     private String videoName;
     private String taskName;
-    @ManyToOne
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private CourseEntity course;
 }

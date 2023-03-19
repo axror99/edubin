@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min/js"></script>
+</head>
+<body>
+<script>
+    const req = new XMLHttpRequest();
+    req.open('GET','http://localhost:8080/api/course/get/2');
+    req.addEventListener('load',function (){
+        const res = JSON.parse(req.responseText);
+        console.log(res)
+    })
+    req.send();
+</script>
+<p>aknskna </p>
+<!--<script>-->
+<!--    function getDAtaFromAPI(){-->
+<!--        $.ajax({-->
+<!--            url:"http://localhost:8080/api/course/get/2",-->
+<!--            type:"GET",-->
+<!--            success:function (data){-->
+<!--                console.log("GET DATA API RESPONSE ::"+data.message)-->
+<!--            },error:function (jqXHR,textStatus,errorThrown){-->
+
+<!--            }-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+<input type="button" name="getData" id="getData" value="GET DATA" onclick="getDAtaFromAPI();"/>
+
+</body>
+</html>

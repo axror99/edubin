@@ -9,6 +9,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -71,5 +72,15 @@ public class MediaService {
                 .fileBytes(getBytes(contentRequest.getTask()))
                 .build();
         mediaRepository.save(mediaContent);
+    }
+
+    public void deleteExistImage(String image) {
+        File existFile= new File(pathForImage+image);
+        if (existFile.delete()){
+            System.out.println("image was deleted !!!");
+        }else {
+            System.out.println("image was NOT deleted and check it");
+        }
+
     }
 }

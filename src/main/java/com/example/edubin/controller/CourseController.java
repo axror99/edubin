@@ -20,8 +20,28 @@ public final class CourseController {
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
 //    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
-    private ApiResponse<TokenDTO> addCourse(@ModelAttribute CourseRequest course){
+    private ApiResponse<TokenDTO> addCourse(@ModelAttribute CourseRequest course) {
         courseService.addCourse(course);
         return new ApiResponse<>("course was saved successfully in database");
     }
+
+    @GetMapping("/get/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<CourseEntity> getCourse(@PathVariable("id") int id){
+        CourseEntity course = courseService.getCourseById(id);
+        return new ApiResponse<>("course was taken successfully in database",course);
+    }
+    @PutMapping("/update/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<Void> updateCourse(@PathVariable("id")int id, @ModelAttribute CourseRequest courseRequest){
+        courseService.updateCourse(id,courseRequest);
+        return new ApiResponse<>("course was updated successfully");
+    }
+    @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<Void> deleteCourse(@PathVariable("id") int id){
+        courseService.deleteCourse(id);
+        return new ApiResponse<>("course was deleted successfully in database");
+    }
+
 }
