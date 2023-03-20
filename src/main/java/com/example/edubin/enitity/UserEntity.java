@@ -32,6 +32,8 @@ public class UserEntity implements UserDetails {
     @NotBlank
     @Column(unique = true)
     private String username;
+
+    @JsonIgnore
     @NotBlank
     private String password;
 

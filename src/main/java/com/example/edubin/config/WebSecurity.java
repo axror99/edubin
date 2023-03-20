@@ -40,6 +40,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
@@ -61,9 +62,9 @@ public class WebSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .cors().disable()
+//                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests()
-//                .requestMatchers("/api/auth/register").permitAll()
+                .requestMatchers("/api/auth/register").permitAll()
                 .requestMatchers("/api/**").permitAll()
                 .requestMatchers("/api/employee/**").permitAll()
                 .requestMatchers("/oauth2/**").permitAll()

@@ -1,6 +1,8 @@
 package com.example.edubin.enitity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +17,8 @@ import java.util.List;
 public class CourseEntity extends BaseEntity{
 
     private String name;
-    @JsonIgnore
+
+    @JsonManagedReference
     @ManyToOne
     private CategoryEntity category;
 
@@ -26,6 +29,8 @@ public class CourseEntity extends BaseEntity{
     private UserEntity teacher;
     private String image;
 
+    private String definition;
+    private String headline;
     private String courseSummery;
     private String requirements;
 }
