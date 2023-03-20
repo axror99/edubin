@@ -16,12 +16,14 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final MediaService mediaService;
     public void addCategory(CategoryEntity categoryEntity) {
         try {
             categoryRepository.save(categoryEntity);
         } catch (Exception e){
             throw new PSQLException(MessageFormat.format("ERROR: duplicate <= {0} =>  key value violates unique constraint",categoryEntity.getName()));
         }
+        mediaService.createFolder(categoryEntity.getName());
     }
 
     public void deleteCategory(String name) {
@@ -29,6 +31,7 @@ public class CategoryService {
                 MessageFormat.format("name={0} category is not found in  database", name)
         ));
         categoryRepository.delete(categoryEntity);
+        mediaService.deleteFolder(categoryEntity.getName());
     }
 
     public void updateCategory(CategoryRequest category, String name) {

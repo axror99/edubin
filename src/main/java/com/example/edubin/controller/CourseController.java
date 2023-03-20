@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/course")
 @RequiredArgsConstructor
@@ -42,6 +44,11 @@ public final class CourseController {
     private ApiResponse<Void> deleteCourse(@PathVariable("id") int id){
         courseService.deleteCourse(id);
         return new ApiResponse<>("course was deleted successfully in database");
+    }
+    @GetMapping("/list")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<List<CourseEntity>> getCourseList(){
+        return new ApiResponse<>("courseList is here",courseService.getCourseList());
     }
 
 }

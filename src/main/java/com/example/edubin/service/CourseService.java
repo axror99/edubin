@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +22,7 @@ public class CourseService {
     public void addCourse(CourseRequest course) {
         CategoryEntity category = categoryService.findCategory(course.getCategory_di());
         UserEntity teacher = userService.findUser(course.getTeacher_id());
-        String imageRandomName = mediaService.saveMultiPartFile(course.getImage());
+        String imageRandomName = mediaService.saveMultiPartFile(course.getImage(),course.getName(),category.getName());
         CourseEntity courseEntity=CourseEntity.builder()
                 .name(course.getName())
                 .courseSummery(course.getCourseSummery())
@@ -31,7 +32,7 @@ public class CourseService {
 //                .contents(course.getContentEntities())
                 .image(imageRandomName)
                 .build();
-
+       // mediaService.createFolder(category.getName()+"\\"+course.getName());
         courseRepository.save(courseEntity);
     }
 
@@ -52,8 +53,9 @@ public class CourseService {
                 MessageFormat.format("id = {0} course was not found in database", id)
         ));
         if (courseRequest.getImage()!=null){
-            mediaService.deleteExistImage(course.getImage());
-            String randomName = mediaService.saveMultiPartFile(courseRequest.getImage());
+            String image = course.getCategory().getName() + "\\" + course.getName() + "\\image\\" + course.getImage();
+            mediaService.deleteExistFile(image);
+            String randomName = mediaService.saveMultiPartFile(courseRequest.getImage(),course.getName(),course.getCategory().getName());
             course.setImage(randomName);
         }
         if (!courseRequest.getCourseSummery().equals("") && courseRequest.getCourseSummery()!=null){
@@ -81,5 +83,9 @@ public class CourseService {
                 MessageFormat.format("id = {0} course is not in database", id)
         ));
         courseRepository.delete(courseEntity);
+        mediaService.deleteFolder(courseEntity.getCategory().getName()+"\\"+courseEntity.getName());
+    }
+    public List<CourseEntity> getCourseList() {
+        return courseRepository.findAll();
     }
 }

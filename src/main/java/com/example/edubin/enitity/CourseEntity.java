@@ -1,5 +1,6 @@
 package com.example.edubin.enitity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,8 @@ import java.util.List;
 public class CourseEntity extends BaseEntity{
 
     private String name;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToOne
     private CategoryEntity category;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")

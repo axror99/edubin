@@ -23,4 +23,8 @@ public class ContentEntity extends BaseEntity{
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private CourseEntity course;
+
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.REMOVE,mappedBy ="content")
+    private MediaContentEntity mediaContent;
 }

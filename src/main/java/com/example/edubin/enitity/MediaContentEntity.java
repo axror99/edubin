@@ -17,6 +17,6 @@ public class MediaContentEntity {
     private byte[] videoBytes;
     private byte[] fileBytes;
 
-    @OneToOne(cascade =CascadeType.REMOVE)
+    @OneToOne
     private ContentEntity content;
 }

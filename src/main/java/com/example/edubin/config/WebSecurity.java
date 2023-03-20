@@ -61,7 +61,7 @@ public class WebSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-//                /.cors(withDefaults())
+                .cors().disable()
                 .authorizeHttpRequests()
 //                .requestMatchers("/api/auth/register").permitAll()
                 .requestMatchers("/api/**").permitAll()
