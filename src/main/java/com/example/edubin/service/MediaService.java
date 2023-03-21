@@ -23,10 +23,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MediaService {
     private final MediaRepository mediaRepository;
-    private String pathForImage = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\courseImage\\";
-    private String pathForApplication = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\application\\";
-    private String pathForVideo = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\video\\";
-    private String pathForAudio = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\audio\\";
+    private String pathForImage = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
+//    private String pathForApplication = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\application\\";
+//    private String pathForVideo = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\video\\";
+//    private String pathForAudio = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\audio\\";
     private String pathCategory = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\category\\";
 
 
@@ -44,7 +44,7 @@ public class MediaService {
     }
 
 
-    private String generateRandomName(String originalName) {
+    public String generateRandomName(String originalName) {
         String[] split = originalName.split("\\.");
         return UUID.randomUUID() + "." + split[split.length - 1];
     }
@@ -74,7 +74,7 @@ public class MediaService {
             }
         }
     }
-    private void internalWrite(MultipartFile file,Path download_Path){
+    public void internalWrite(MultipartFile file,Path download_Path){
         try {
             Files.copy(file.getInputStream(), download_Path);
         } catch (IOException e) {
@@ -110,6 +110,14 @@ public class MediaService {
     public void deleteExistFile(String taskName) {
         File existTask = new File(pathCategory, taskName);
         if (existTask.delete()) {
+            System.out.println("file was deleted !!!");
+        } else {
+            System.out.println("file was NOT deleted and check it");
+        }
+    }
+    public void deleteExistImage(String imageName) {
+        File existImage = new File(pathForImage, imageName);
+        if (existImage.delete()) {
             System.out.println("file was deleted !!!");
         } else {
             System.out.println("file was NOT deleted and check it");

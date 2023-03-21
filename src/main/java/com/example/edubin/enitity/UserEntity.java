@@ -3,6 +3,7 @@ package com.example.edubin.enitity;
 import com.example.edubin.dto.request.UserRegister;
 import com.example.edubin.enitity.role.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -39,13 +40,28 @@ public class UserEntity implements UserDetails {
 
     private String name;
     private LocalDate birthDay;
+    private String picture;
+    private String profession;
+    @Column(columnDefinition="TEXT")
+    private String about;
+    @Column(columnDefinition="TEXT")
+    private String achievement;
+    @Column(columnDefinition="TEXT")
+    private String myObjective;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "teacher",fetch = FetchType.EAGER)
+    private List<CommentEntity> comments;
 
     @NotBlank
     @Column(unique = true)
     private String email;
+
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
+    private SocialMediaEntity socialMedia;
     @ElementCollection
     private List<String> roles;
-
     @ElementCollection
     private List<String> permission;
 

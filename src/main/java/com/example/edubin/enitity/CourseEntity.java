@@ -27,8 +27,13 @@ public class CourseEntity extends BaseEntity{
 
     @ManyToOne
     private UserEntity teacher;
-    private String image;
 
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "course")
+    private List<CommentEntity> comments;
+
+    private String image;
+    private Double price;
     private String definition;
     private String headline;
     private String courseSummery;

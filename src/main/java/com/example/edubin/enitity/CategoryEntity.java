@@ -29,6 +29,10 @@ public class CategoryEntity extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
     private List<CourseEntity> course;
 
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "categoryEntity")
+    private List<BlogEntity> blogEntity;
+
     public CategoryEntity(String name) {
         this.name=name;
     }
