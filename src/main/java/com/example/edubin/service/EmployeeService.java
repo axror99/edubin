@@ -162,4 +162,9 @@ public class EmployeeService {
         }
         return socialMediaEntity;
     }
+
+    public UserEntity findById(int id) {
+       return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(
+                MessageFormat.format("id={0} user is not in database", id)));
+    }
 }

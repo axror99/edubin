@@ -30,7 +30,7 @@ public final class EventsController {
         eventService.deleteEvent(id);
         return new ApiResponse<>("event was deleted successfully in database");
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{id}")// event id
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<Void> updateEvent(@PathVariable("id") int id, @ModelAttribute EventRequest eventRequest){
         eventService.updateEvent(id,eventRequest);

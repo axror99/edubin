@@ -1,0 +1,7 @@
+package com.example.edubin.repository;
+
+import com.example.edubin.enitity.CommentEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CommentRepository extends JpaRepository<CommentEntity, Integer> {
+}

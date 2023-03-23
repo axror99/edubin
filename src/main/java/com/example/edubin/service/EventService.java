@@ -5,10 +5,12 @@ import com.example.edubin.enitity.EventEntity;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,6 +82,6 @@ public class EventService {
     }
 
     public List<EventEntity> getList() {
-        return eventRepository.findAll();
+        return eventRepository.findAllByOrderByDate();
     }
 }

@@ -84,7 +84,12 @@ public final class EmployeeController {
     @ResponseStatus(HttpStatus.OK)
 //    @PreAuthorize(Teacher('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<UserEntity>> getAllTeacherList(){
-        List<UserEntity> allTeachers = employeeService.getAllEmployees();
+        List<UserEntity> allTeachers = employeeService.getTeacherList();
         return new ApiResponse<>("all Teachers were token successfully ",allTeachers);
+    }
+    @GetMapping("teacher/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<UserEntity> getTeacherById(@PathVariable("id") int id){
+        return new ApiResponse<>("teacher was token successfully",employeeService.findById(id));
     }
 }
