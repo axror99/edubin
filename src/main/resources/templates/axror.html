@@ -53,7 +53,7 @@
         req.open('GET', 'http://localhost:8080/api/course/get/1');
         req.addEventListener('load', function () {
             const res = JSON.parse(req.responseText);
-
+            console.log(res.data)
             const course = {
                 id: res.data.id,
                 name: res.data.name,
@@ -79,90 +79,6 @@
                     }
                 ]
             };
-
-            for (let i = 0; i < lectureData.length; i++) {
-                for (let i = 1; i <= 3; i++) {
-                    const card = document.createElement("div");
-                    card.classList.add("card");
-
-                    const header = document.createElement("div");
-                    header.classList.add("card-header");
-                    header.setAttribute("id", "heading" + i);
-
-                    const link = document.createElement("a");
-                    link.setAttribute("href", "#");
-                    link.classList.add("collapsed");
-                    link.setAttribute("data-toggle", "collapse");
-                    link.setAttribute("data-target", "#collapse" + i);
-                    link.setAttribute("aria-expanded", "false");
-                    link.setAttribute("aria-controls", "collapse" + i);
-
-                    const ul = document.createElement("ul");
-
-                    const li1 = document.createElement("li");
-                    const i1 = document.createElement("i");
-                    i1.classList.add("fa", "fa-file-o");
-                    li1.appendChild(i1);
-
-                    const li2 = document.createElement("li");
-                    li2.innerHTML = "<span class='lecture'>Lecture 1." + i + "</span>";
-
-                    const li3 = document.createElement("li");
-                    li3.innerHTML = "<span class='head' id='title'>What is javascirpt</span>";
-
-                    const li4 = document.createElement("li");
-                    const span4 = document.createElement("span");
-                    span4.classList.add("time", "d-none", "d-md-block");
-                    const i4 = document.createElement("i");
-                    i4.classList.add("fa", "fa-clock-o");
-                    span4.appendChild(i4);
-                    const span4Inner = document.createElement("span");
-                    span4Inner.textContent = "00.30.00";
-                    span4.appendChild(span4Inner);
-                    li4.appendChild(span4);
-
-                    ul.appendChild(li1);
-                    ul.appendChild(li2);
-                    ul.appendChild(li3);
-                    ul.appendChild(li4);
-                    link.appendChild(ul);
-
-                    header.appendChild(link);
-                    card.appendChild(header);
-
-                    const collapse = document.createElement("div");
-                    collapse.classList.add("collapse");
-                    collapse.setAttribute("id", "collapse" + i);
-                    collapse.setAttribute("aria-labelledby", "heading" + i);
-                    collapse.setAttribute("data-parent", "#accordionExample");
-
-                    const body1 = document.createElement("div");
-                    body1.classList.add("card-body");
-                    const p1 = document.createElement("p");
-                    p1.setAttribute("id", "definitionContent");
-                    p1.textContent = "Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.";
-                    body1.appendChild(p1);
-                    collapse.appendChild(body1);
-
-                    const body2 = document.createElement("div");
-                    body2.classList.add("card-body");
-                    const video = document.createElement("video");
-                    video.setAttribute("width", "320");
-                    video.setAttribute("height", "210");
-                    video.setAttribute("controls", "");
-                    const source = document.createElement("source");
-                    source.setAttribute("id", "course-video");
-                    source.setAttribute("src", "../../home%20alone/Functional-Programming-with-Java-Streams-API.mp4");
-                    source.setAttribute("type", "video/mp4");
-                    video.appendChild(source);
-                    body2.appendChild(video);
-                    collapse.appendChild(body2);
-
-                    card.appendChild(collapse);
-
-                    accordion.appendChild(card);
-                }
-            }document.getElementById("course-name").
 
             console.log(course);
             document.getElementById("course-name").innerHTML =course.name;

@@ -16,13 +16,13 @@ import java.util.List;
 @RequestMapping("/api/course")
 @RequiredArgsConstructor
 @CrossOrigin
-public final class CourseController {
+public class CourseController {
 
     private final CourseService courseService;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
+    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<TokenDTO> addCourse(@ModelAttribute CourseRequest course) {
         courseService.addCourse(course);
         return new ApiResponse<>("course was saved successfully in database");
@@ -51,5 +51,4 @@ public final class CourseController {
     private ApiResponse<List<CourseEntity>> getCourseList(){
         return new ApiResponse<>("courseList is here",courseService.getCourseList());
     }
-
 }

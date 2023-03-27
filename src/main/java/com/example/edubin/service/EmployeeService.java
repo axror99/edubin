@@ -8,7 +8,10 @@ import com.example.edubin.enitity.role.Role;
 import com.example.edubin.exception.UserAlreadyExistException;
 import com.example.edubin.repository.SocialMediaRepository;
 import com.example.edubin.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +25,6 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
-
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final SocialMediaRepository socialMediaRepository;

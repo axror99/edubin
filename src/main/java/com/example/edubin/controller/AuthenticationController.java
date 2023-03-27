@@ -46,6 +46,7 @@ public final class AuthenticationController {
     }
 
     @GetMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
     private ApiResponse<TokenDTO> login(@RequestBody UserLogin userLogin) {
         TokenDTO token = userService.login(userLogin);
         return new ApiResponse<>("login successfully",token);
