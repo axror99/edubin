@@ -1,17 +1,13 @@
-package com.example.edubin;
+package com.example.edubin.data;
 
 import com.example.edubin.controller.AuthenticationController;
-import com.example.edubin.controller.EmployeeController;
-import com.example.edubin.repository.UserRepository;
-import com.example.edubin.service.EmployeeService;
-import org.junit.jupiter.api.AfterEach;
+import com.example.edubin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.lifecycle.Startables;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
@@ -22,21 +18,31 @@ public class CommonIntegrationTest {
 
     @Autowired
     protected UserRepository userRepository;
+    @Autowired
+    protected CategoryRepository categoryRepository;
+    @Autowired
+    protected CommentRepository commentRepository;
+    @Autowired
+    protected BlogRepository blogRepository;
+    @Autowired
+    protected ContentRepository contentRepository;
 
     @Autowired
     protected AuthenticationController authenticationController;
 
-    @Autowired
-    protected EmployeeController employeeController;
 
     @Autowired
     protected TestDataHelperUser testDataHelperUser;
     @Autowired
     protected TestDataHelperEmployee testDataHelperEmployee;
-
     @Autowired
     protected TestDataHelperBlog testDataHelperBlog;
-
+    @Autowired
+    protected TestDataHelperCategory testDataHelperCategory;
+    @Autowired
+    protected TestDataHelperComment testDataHelperComment;
+    @Autowired
+    protected TestDataHelperContent testDataHelperContent;
 //    @AfterEach
 //    void testDataCleanUp() {
 //        userRepository.deleteAll();

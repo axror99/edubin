@@ -1,4 +1,4 @@
-package com.example.edubin;
+package com.example.edubin.data;
 
 import com.example.edubin.service.EmployeeService;
 import org.mockito.Mockito;

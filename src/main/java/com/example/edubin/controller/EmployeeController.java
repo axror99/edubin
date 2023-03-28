@@ -6,7 +6,10 @@ import com.example.edubin.dto.request.EmployeeUpdateHimself;
 import com.example.edubin.dto.response.ApiResponse;
 import com.example.edubin.dto.response.TokenDTO;
 import com.example.edubin.enitity.UserEntity;
+import com.example.edubin.service.BlogService;
 import com.example.edubin.service.EmployeeService;
+import com.example.edubin.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/employee/")
 public class EmployeeController {
@@ -27,13 +30,13 @@ public class EmployeeController {
     private final GenerateToken generateToken;
 
 
-    public EmployeeController(
-            EmployeeService employeeService,
-            GenerateToken generateToken
-    ) {
-        this.employeeService = employeeService;
-        this.generateToken = generateToken;
-    }
+//    public EmployeeController(
+//            EmployeeService employeeService,
+//            GenerateToken generateToken
+//    ) {
+//        this.employeeService = employeeService;
+//        this.generateToken = generateToken;
+//    }
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
