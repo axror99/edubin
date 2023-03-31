@@ -22,4 +22,6 @@ public class CourseRequest {
     private MultipartFile image;
     private String courseSummery;
     private String requirements;
+    private String headline;
+    private String definition;
 }

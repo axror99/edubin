@@ -50,4 +50,11 @@ public class UserService {
                 MessageFormat.format("id = {0} user is not in database ", teacher_id)
         ));
     }
+
+    public int findUserByUsername(String username) {
+        UserEntity user = userRepository.getIdByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
+                MessageFormat.format("username {0} not found in database", username)
+        ));
+        return user.getId();
+    }
 }

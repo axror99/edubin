@@ -63,11 +63,13 @@ public class WebSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-//                .cors(Customizer.withDefaults())
+                .cors().and()
+                //                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests()
-                .requestMatchers("/api/auth/register").permitAll()
+                .requestMatchers( "images/**").permitAll()
                 .requestMatchers("/api/**").permitAll()
-                .requestMatchers("/api/employee/**").permitAll()
+//                .requestMatchers("/api/**").permitAll()
+//                .requestMatchers("/api/employee/**").permitAll()
                 .requestMatchers("/oauth2/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -22,8 +22,8 @@ public class ContentService {
 
     public void saveContent(ContentRequest content,int id) {
         CourseEntity course = courseService.findCourse(id);
-        String taskName = mediaService.saveMultiPartFile(content.getTask(),course.getName(),course.getCategory().getName());
         String videoName = mediaService.saveMultiPartFile(content.getVideo(),course.getName(),course.getCategory().getName());
+        String taskName = mediaService.saveMultiPartFile(content.getTask(),course.getName(),course.getCategory().getName());
         ContentEntity contentEntity=ContentEntity.builder()
                 .title(content.getTitle())
                 .definition(content.getDefinition())

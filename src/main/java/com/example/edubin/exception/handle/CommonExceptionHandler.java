@@ -8,6 +8,10 @@ import com.example.edubin.exception.UserAlreadyExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +33,18 @@ public class CommonExceptionHandler {
     }
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    ApiResponse<TokenDTO> notUserInContextHolder(Exception e){
+    ApiResponse<?> notUserInContextHolder(Exception e){
+        return new ApiResponse<>(e.getMessage(),401);
+    }
+
+    @ExceptionHandler({
+            AuthenticationException.class,
+            CredentialsExpiredException.class,
+            LockedException.class,
+            DisabledException.class
+    })
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    ApiResponse<?> notAuthenticated(Exception e){
         return new ApiResponse<>(e.getMessage());
     }
 

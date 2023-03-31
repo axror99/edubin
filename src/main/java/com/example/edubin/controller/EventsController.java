@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/event/")
 @RequiredArgsConstructor
-public final class EventsController {
+public class EventsController {
 
     private final EventService eventService;
 

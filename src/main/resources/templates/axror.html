@@ -47,61 +47,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min/js"></script>
 </head>
 <body>
-<script>
-    function getInformationFromService() {
-        const req = new XMLHttpRequest();
-        req.open('GET', 'http://localhost:8080/api/course/get/1');
-        req.addEventListener('load', function () {
-            const res = JSON.parse(req.responseText);
-            console.log(res.data)
-            const course = {
-                id: res.data.id,
-                name: res.data.name,
-                teacher: {
-                    name: res.data.teacher.name,
-                    email: res.data.teacher.email
-                },
-                category: {
-                    id: res.data.category.id,
-                    name: res.data.category.name
-                },
-                image: res.data.image,
-                headline: res.data.headline,
-                definition: res.data.definition,
-                courseSummery: res.data.courseSummery,
-                requirements: res.data.requirements,
-                contents: [
-                    {
-                        title: res.data.contents[0].title,
-                        definition: res.data.contents[0].definition,
-                        videoName: res.data.contents[0].videoName,
-                        taskName: res.data.contents[0].taskName
-                    }
-                ]
-            };
 
-            console.log(course);
-            document.getElementById("course-name").innerHTML =course.name;
-            document.getElementById("course-teacher").innerHTML = course.teacher.name;
-            document.getElementById("course-category").innerHTML = course.category.name;
-            document.getElementById("course-summery").innerHTML = course.courseSummery;
-            document.getElementById("course-requirement").innerHTML = course.requirements;
-            document.getElementById("course").innerHTML = course.name;
-            document.getElementById("headline").innerHTML = course.headline;
-            document.getElementById("headline1").innerHTML = course.headline;
-            document.getElementById("course-definition").innerHTML = course.definition;
-            document.getElementById("definitionContent").innerHTML = course.contents[0].definition;
-            document.getElementById("content-title").innerHTML = course.contents[0].title;
-            const img = document.getElementById("course-image");
-            img.setAttribute('src', `D:/EduBin/edubin/src/main/resources/static/category/${course.category.name}/${course.name}/image/${course.image}`);
-            const vid = document.getElementById("course-video");
-            vid.setAttribute('src', `D:/EduBin/edubin/src/main/resources/static/category/${course.category.name}/${course.name}/video/${course.contents[0].videoName}`);
-            alert(course.contents[0].taskName)
-            console.log(course);
-        })
-        req.send();
-    }
-</script>
 <p>aknskna </p>
 
 <section id="corses-singel" class="pt-90 pb-120 gray-bg">
@@ -187,7 +133,7 @@
                                 </div> <!-- overview description -->
                             </div>
                             <div class="tab-pane fade" id="curriculam" role="tabpanel" aria-labelledby="curriculam-tab">
-                                <div class="curriculam-cont">
+                                <div class="curriculam-cont" id="curriculum-each">
                                     <div class="title">
                                         <h6 id="course-definition">Learn basis javascirpt Lecture Started</h6>
                                     </div>
@@ -199,7 +145,7 @@
                                                     <ul>
                                                         <li><i class="fa fa-file-o"></i></li>
                                                         <li><span class="lecture">Lecture 1.1</span></li>
-                                                        <li><span class="head" id="content-title">What is javascirpt</span></li>
+                                                        <li><span class="head" id="content_title">What is javascirpt</span></li>
                                                         <li><span class="time d-none d-md-block"><i
                                                                 class="fa fa-clock-o"></i> <span> 00.30.00</span></span>
                                                         </li>
@@ -462,6 +408,75 @@
         </div> <!-- row -->
     </div> <!-- container -->
 </section>
+<script>
+
+    fetch('http://localhost:8080/api/course/get/1')
+        .then((data) =>{
+            return data.json()
+        } )
+        .then((dataJson) =>{
+            console.log(dataJson)
+        })
+        .catch((err) =>{
+            console.log(err)
+        })
+
+    // function getInformationFromService() {
+    //     const req = new XMLHttpRequest();
+    //
+    //     req.open('GET', 'http://localhost:8080/api/course/get/1');
+    //     req.addEventListener('load', function () {
+    //         const res = JSON.parse(req.responseText);
+    //         console.log(res.data)
+    //         const course = {
+    //             id: res.data.id,
+    //             name: res.data.name,
+    //             teacher: {
+    //                 name: res.data.teacher.name,
+    //                 email: res.data.teacher.email
+    //             },
+    //             category: {
+    //                 id: res.data.category.id,
+    //                 name: res.data.category.name
+    //             },
+    //             image: res.data.image,
+    //             headline: res.data.headline,
+    //             definition: res.data.definition,
+    //             courseSummery: res.data.courseSummery,
+    //             requirements: res.data.requirements,
+    //             contents: [
+    //                 {
+    //                     title: res.data.contents[0].title,
+    //                     definition: res.data.contents[0].definition,
+    //                     videoName: res.data.contents[0].videoName,
+    //                     taskName: res.data.contents[0].taskName
+    //                 }
+    //             ]
+    //         };
+    //         ${"#curriculum-each"}
+    //         console.log(res.data.contents[0].title);
+    //         console.log(course.contents[0].title);
+    //         document.getElementById("course-name").innerHTML =course.name;
+    //         document.getElementById("course-teacher").innerHTML = course.teacher.name;
+    //         document.getElementById("course-category").innerHTML = course.category.name;
+    //         document.getElementById("course-summery").innerHTML = course.courseSummery;
+    //         document.getElementById("course-requirement").innerHTML = course.requirements;
+    //         document.getElementById("course").innerHTML = course.name;
+    //         document.getElementById("headline").innerHTML = course.headline;
+    //         document.getElementById("headline1").innerHTML = course.headline;
+    //         document.getElementById("course-definition").innerHTML = course.definition;
+    //         document.getElementById("definitionContent").innerHTML = course.contents[0].definition;
+    //         document.getElementById("content_title").innerHTML = course.contents[0].title;
+    //         document.getElementById("curriculum-each").innerHTML = course.contents[0].title;
+    //         const img = document.getElementById("course-image");
+    //         img.setAttribute('src', `D:/EduBin/edubin/src/main/resources/static/category/${course.category.name}/${course.name}/image/${course.image}`);
+    //         const vid = document.getElementById("course-video");
+    //         vid.setAttribute('src', `D:/EduBin/edubin/src/main/resources/static/category/${course.category.name}/${course.name}/video/${course.contents[0].videoName}`);
+    //         alert(course.contents[0].taskName)
+    //     })
+    //     req.send();
+    // }
+</script>
 
 <!--====== jquery js ======-->
 <script src="js/vendor/modernizr-3.6.0.min.js"></script>

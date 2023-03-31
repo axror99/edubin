@@ -1,5 +1,6 @@
 package com.example.edubin.enitity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,12 +22,15 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
 
+    @JsonIgnore
     @CreatedBy
     protected String createdBy;
 
+    @JsonIgnore
     @CreationTimestamp
     protected  Timestamp createdDate;
 
+    @JsonIgnore
     @UpdateTimestamp
     protected Timestamp updatedDAte;
 

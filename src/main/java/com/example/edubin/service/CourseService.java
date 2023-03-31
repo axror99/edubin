@@ -29,6 +29,8 @@ public class CourseService {
                 .requirements(course.getRequirements())
                 .category(category)
                 .teacher(teacher)
+                .headline(course.getHeadline())
+                .definition(course.getDefinition())
 //                .contents(course.getContentEntities())
                 .image(imageRandomName)
                 .build();

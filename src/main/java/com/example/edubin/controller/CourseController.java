@@ -5,6 +5,7 @@ import com.example.edubin.dto.response.ApiResponse;
 import com.example.edubin.dto.response.TokenDTO;
 import com.example.edubin.enitity.CourseEntity;
 import com.example.edubin.service.CourseService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +23,7 @@ public class CourseController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
+//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<TokenDTO> addCourse(@ModelAttribute CourseRequest course) {
         courseService.addCourse(course);
         return new ApiResponse<>("course was saved successfully in database");
@@ -49,6 +50,13 @@ public class CourseController {
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<List<CourseEntity>> getCourseList(){
+        return new ApiResponse<>("courseList is here",courseService.getCourseList());
+    }
+
+    @GetMapping("/myCourse/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<List<CourseEntity>> getCourseList(@PathParam("id") int id){
+
         return new ApiResponse<>("courseList is here",courseService.getCourseList());
     }
 }

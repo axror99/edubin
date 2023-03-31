@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/content/")
 @RequiredArgsConstructor
-public final class ContentController {
+public class ContentController {
     private final ContentService contentService;
 
     @PostMapping("/add/{id}")

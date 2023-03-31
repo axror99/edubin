@@ -13,6 +13,6 @@ import java.time.LocalDate;
 public class CommentRequest {
     private String firstName;
     private String lastName;
-    private LocalDate date;
+    private String date;
     private String text;
 }

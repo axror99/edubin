@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class CommentEntity extends BaseEntity{
 
     private String personName;
-    private LocalDate date;
+    private String date;
     @Column(columnDefinition = "TEXT")
     private String text;
 

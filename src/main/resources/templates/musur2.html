@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>fe</title>
+</head>
+
+<body>
+<script>
+    const d = new Date();
+    console.log(d.toDateString());
+
+    var options = {year: 'numeric', month: 'long', day: 'numeric'};
+    var today = new Date().toLocaleDateString('en-US', options);
+    console.log(today);
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+    console.log(today);
+
+    var dateFormat = require('dateformat');
+    dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+    // let localTeacherId ="";
+    // const req = new XMLHttpRequest();
+    //
+    // req.open('GET', 'http://localhost:8080/api/course/get/' + courseId);
+    // req.addEventListener('load', function () {
+    //     const res = JSON.parse(req.responseText);
+    //     console.log(res.data)
+    //     window.localTeacherId=res.data.teacher.id;
+    // })
+    // req.send();
+    //
+    // function getInformationFromService() {
+    //     fetch('http://localhost:8080/api/comment/teacher/' + localTeacherId, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             firstName: document.getElementById("inputId1").value,
+    //             lastName: document.getElementById("inputId2").value,
+    //             date: "2020-12-20",
+    //             text: document.getElementById("commentId").value,
+    //         })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => console.log(data))
+    //     document.getElementById("inputId1").value = "";
+    //     document.getElementById("inputId2").value = "";
+    //     document.getElementById("commentId").value = "";
+    // }
+</script>
+
+</body>
+</html>

@@ -22,7 +22,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/api/auth/")
-public final class AuthenticationController {
+public class AuthenticationController {
 
     private final UserService userService;
     private final GenerateToken generateToken;
@@ -44,21 +44,26 @@ public final class AuthenticationController {
         TokenDTO token=userService.registerUser(userRegister);
         return new ApiResponse<>("registered successfully", token);
     }
-
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<TokenDTO> login(@RequestBody UserLogin userLogin) {
+
         TokenDTO token = userService.login(userLogin);
-        return new ApiResponse<>("login successfully",token);
+        int userId = userService.findUserByUsername(userLogin.getUsername());
+        return new ApiResponse<>(""+userId,token);
     }
     @PostMapping("/token")
-    public ResponseEntity<?> token(
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResponse<TokenDTO> token(@Valid
             @RequestBody TokenDTO tokenDTO
     ) {
         Authentication authentication =
                 refreshTokenAuthProvider.authenticate(new BearerTokenAuthenticationToken(tokenDTO.getRefreshToken()));
 //        Jwt jwt = (Jwt) authentication.getCredentials();
 //         check if present in db and not revoked, etc
-        return ok(generateToken.createToken(authentication));
+        TokenDTO token = generateToken.createToken(authentication);
+        UserEntity credentials = (UserEntity) authentication.getPrincipal();
+        int userId = userService.findUserByUsername(credentials.getUsername());
+        return new ApiResponse<>(""+userId,token);
     }
 }
