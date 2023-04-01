@@ -27,6 +27,8 @@ public class CourseEntity extends BaseEntity{
 
     @ManyToOne
     private UserEntity teacher;
+    @ManyToMany(mappedBy = "courseList", fetch = FetchType.LAZY)
+    private List<StudentEntity> student;
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "course")
