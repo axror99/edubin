@@ -1,4 +1,4 @@
-package com.example.edubin;
+package com.example.edubin.data;
 
 import com.example.edubin.dto.request.UserRegister;
 import org.springframework.beans.factory.annotation.Autowired;

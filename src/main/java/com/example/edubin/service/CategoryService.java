@@ -8,6 +8,7 @@ import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.CategoryRepository;
 import com.example.edubin.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -21,6 +22,15 @@ public class CategoryService {
     private final CourseRepository courseRepository;
     private final MediaService mediaService;
     public void addCategory(CategoryEntity categoryEntity) {
+        try {
+            categoryRepository.save(categoryEntity);
+        } catch (Exception e){
+            throw new PSQLException(MessageFormat.format("ERROR: duplicate <= {0} =>  key value violates unique constraint",categoryEntity.getName()));
+        }
+        mediaService.createFolder(categoryEntity.getName());
+    }
+    public void addCategory(CategoryRequest category) {
+        CategoryEntity categoryEntity = new CategoryEntity(category.getName());
         try {
             categoryRepository.save(categoryEntity);
         } catch (Exception e){
