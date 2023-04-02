@@ -1,14 +1,14 @@
 package com.example.edubin.controller;
 
 import com.example.edubin.dto.request.CourseRequest;
+import com.example.edubin.dto.request.PurchaseRequest;
 import com.example.edubin.dto.response.ApiResponse;
 import com.example.edubin.dto.response.TokenDTO;
 import com.example.edubin.enitity.CourseEntity;
 import com.example.edubin.service.CourseService;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,32 +31,42 @@ public class CourseController {
 
     @GetMapping("/get/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<CourseEntity> getCourse(@PathVariable("id") int id){
+    private ApiResponse<CourseEntity> getCourse(@PathVariable("id") int id) {
         CourseEntity course = courseService.getCourseById(id);
-        return new ApiResponse<>("course was taken successfully in database",course);
+        return new ApiResponse<>("course was taken successfully in database", course);
     }
+
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<Void> updateCourse(@PathVariable("id")int id, @ModelAttribute CourseRequest courseRequest){
-        courseService.updateCourse(id,courseRequest);
+    private ApiResponse<Void> updateCourse(@PathVariable("id") int id, @ModelAttribute CourseRequest courseRequest) {
+        courseService.updateCourse(id, courseRequest);
         return new ApiResponse<>("course was updated successfully");
     }
+
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<Void> deleteCourse(@PathVariable("id") int id){
+    private ApiResponse<Void> deleteCourse(@PathVariable("id") int id) {
         courseService.deleteCourse(id);
         return new ApiResponse<>("course was deleted successfully in database");
     }
+
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<CourseEntity>> getCourseList(){
-        return new ApiResponse<>("courseList is here",courseService.getCourseList());
+    private ApiResponse<List<CourseEntity>> getCourseList() {
+        return new ApiResponse<>("courseList is here", courseService.getCourseList());
     }
 
-    @GetMapping("/myCourse/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<CourseEntity>> getCourseList(@PathParam("id") int id){
+//    @GetMapping("/buy/{id}") // course id
+//    @ResponseStatus(HttpStatus.OK)
+//    private ResponseEntity<Boolean> getCourseList(@PathVariable int id, @RequestBody PurchaseRequest purchase) {
+//        boolean buyCourse = courseService.buyCourse(id, purchase);
+//        return new ResponseEntity<>(buyCourse, HttpStatus.OK);
+//    }
 
-        return new ApiResponse<>("courseList is here",courseService.getCourseList());
+    @GetMapping("/{id}")
+    private ApiResponse<List<CourseEntity>> getStudentsCourse(@PathVariable int id) {
+
+        return new ApiResponse<>("client's course",courseService.getStudentCourses(id));
+
     }
 }

@@ -1,11 +1,16 @@
 package com.example.edubin.service;
 
 import com.example.edubin.config.utils.GenerateToken;
+import com.example.edubin.dto.request.AdminUpdateEmployee;
+import com.example.edubin.dto.request.EmployeeUpdateHimself;
 import com.example.edubin.dto.request.UserLogin;
 import com.example.edubin.dto.request.UserRegister;
 import com.example.edubin.dto.response.TokenDTO;
+import com.example.edubin.enitity.SocialMediaEntity;
 import com.example.edubin.enitity.UserEntity;
+import com.example.edubin.enitity.role.Role;
 import com.example.edubin.exception.UserAlreadyExistException;
+import com.example.edubin.repository.SocialMediaRepository;
 import com.example.edubin.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,8 +21,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Paths;
 import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -45,9 +55,9 @@ public class UserService {
         return generateToken.createToken(authentication);
     }
 
-    public UserEntity findUser(int teacher_id) {
-        return userRepository.findById(teacher_id).orElseThrow(() -> new UsernameNotFoundException(
-                MessageFormat.format("id = {0} user is not in database ", teacher_id)
+    public UserEntity findUser(int user_id) {
+        return userRepository.findById(user_id).orElseThrow(() -> new UsernameNotFoundException(
+                MessageFormat.format("id = {0} user is not in database ", user_id)
         ));
     }
 

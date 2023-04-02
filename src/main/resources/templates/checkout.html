@@ -11,7 +11,7 @@
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
     <!--====== Title ======-->
-    <title>Edubin - LMS Education HTML Template</title>
+    <title>Checkout</title>
 
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
@@ -58,37 +58,30 @@
             <div class="col-lg-5 offset-lg-1 col-md-8">
                 <div class="category-form category-form-3 pt-50">
                     <div class="form-title text-center">
-                        <a class="navbar-brand" href="index-4.html">
-                            <img src="images/logo.png" alt="Logo">
-                        </a>
+                        <h4 id="course-info"></h4>
                     </div>
                     <div class="main-form">
                         <form action="#">
                             <div class="singel-form">
-                                <input type="text" placeholder="Your Username" id="username">
+                                <input type="email" placeholder="Your Email" id="email" required>
                             </div>
                             <div class="singel-form">
-                                <input type="text" placeholder="Your Password" id="password">
+                                <input type="text" placeholder="Your Name" id="name">
                             </div>
                             <div class="singel-form">
-                                <button class="main-btn" type="button" onclick="sendLogin()">Sign up</button>
+                                <input type="text" placeholder="Card Number" id="card">
                             </div>
-                            <div>
-                                <a href="register.html" style="position: center">Register</a>
+                            <div class="singel-form">
+                                <input type="text" placeholder="Moth/Year" id="expiredDate">
+                            </div>
+                            <div class="singel-form">
+                                <button class="main-btn" type="button" onclick="sendBuy()">Buy</button>
+                            </div>
+                            <div class="singel-form">
+                                <a id="back" href='courses-singel.html?courseId=${courseId}'  class="main-btn">Back</a>
                             </div>
                         </form>
-                    </div>
-                    <div class="signup">
-                        <div class="signup-connect">
-                            <a href="#" class="btn1 btn-social btn-facebook"><i class="fa fa-facebook"></i> Sign in with
-                                Facebook</a>
-                            <a href="#" class="btn1 btn-social btn-twitter"><i class="fa fa-twitter"></i> Sign in with
-                                Twitter</a>
-                            <a href="#" class="btn1 btn-social btn-google"><i class="fa fa-google"></i> Sign in with
-                                Google</a>
-                            <a href="#" class="btn1 btn-social btn-linkedin"><i class="fa fa-linkedin"></i> Sign in with
-                                Linkedin</a>
-                        </div>
+                        <input type="hidden" id="hiddenVar"/>
                     </div>
                 </div>
             </div>
@@ -97,49 +90,55 @@
 
 </section>
 <script>
+    // Get the query parameters from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseId = urlParams.get('courseId');
+    const name = urlParams.get('name');
+    const price = urlParams.get('price');
+    const courseInfo = document.getElementById('course-info');
+    courseInfo.innerHTML = `<h3>Info</h3>
+                             <h4>${name}</h4>
+                             <h2>Price : $${price}</h2>`;
+    console.log("courseId="+courseId+' '+'name= '+name +'price= '+price)
+    const backHref = document.getElementById('back');
+    backHref.href=`courses-singel.html?courseId=${courseId}`;
+</script>
+<script>
     let status;
 
-    function sendLogin() {
-        fetch('http://localhost:8080/api/auth/login', {
+    function sendBuy() {
+        console.log(courseId);
+        fetch('http://localhost:8080/api/buy/'+courseId, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: document.getElementById("username").value,
-                password: document.getElementById("password").value,
+                email: document.getElementById("email").value,
+                name: document.getElementById("name").value,
+                card: document.getElementById("card").value,
+                expiredDate: document.getElementById("expiredDate").value,
             })
         })
             .then(response => {
                 status = response.status;
-                return response.json();
+                console.log(response);
+                if (status!==200){
+                    return null;
+                }
+                return response.json()
             })
             .then(data => {
                 if (status === 200){
                     console.log(status);
-                    console.log(data.message);
-                    console.log(data);
-                    localStorage.setItem('access_token', data.data.accessToken);
-                    localStorage.setItem('refresh_token', data.data.refreshToken);
-                    localStorage.setItem('id', data.message);
-                    window.location.replace('myCourses.html?userId='+data.message);
+                    if (data.data!==null){
+                        window.location.replace('myCourses.html?userId='+data.data)
+                    }
+
                 }else {
-                    document.getElementById("username").value="";
-                    document.getElementById("password").value="";
-                    alert('Sizning login muffaqiyatli amalga oshirmadi !!!')
-
+                    alert('Sizning to\'lovingiz muffaqiyatli amalga oshirilmadi !!!')
                 }
-
-                // console.log('accessToken' in data.data); // should output true if the property exists
-                // console.log('refreshToken' in data.data);
-                // console.log(JSON.stringify(data))
-                // console.log(data.data.accessToken)
-                // console.log(data.data.refreshToken)
-                // Store the new access token
-
-                // Optionally, store the new refresh token
-
             })
             .catch(error => console.error(error));
     }

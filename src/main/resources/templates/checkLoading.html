@@ -52,40 +52,41 @@
 <body>
 <script>
     if (localStorage.getItem('refresh_token') === undefined || localStorage.getItem('refresh_token') === null) {
-        window.location.replace("login.html");
+        window.location.replace("register.html");
     } else {
-        let status;
-        fetch('http://localhost:8080/api/auth/token', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                accessToken: localStorage.getItem('access_token'),
-                refreshToken: localStorage.getItem('refresh_token')
-            })
-        })
-            .then(response => {
-                status = response.status;
-                return response.json();
-            })
-            .then(data => {
-                console.log(status)
-                if (status === 200) {
-                    localStorage.setItem('access_token', data.data.accessToken);
-                    localStorage.setItem('refresh_token', data.data.accessToken);
-                    window.location.replace("myCourses.html?userId="+data.data.messege);
-                } else {
-                    console.log('status = ' + status);
-                    window.location.replace("login.html");
-                    alert('Siz  login qilishingiz kerek !!!');
-                }
-            })
-            .catch(data => {
-                alert('Siz  login qilishingiz kerek !!!')
-                window.location.replace("login.html");
-            })
+        window.location.replace("login.html");
+        // let status;
+        // fetch('http://localhost:8080/api/auth/token', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         accessToken: localStorage.getItem('access_token'),
+        //         refreshToken: localStorage.getItem('refresh_token')
+        //     })
+        // })
+        //     .then(response => {
+        //         status = response.status;
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         console.log(status)
+        //         if (status === 200) {
+        //             localStorage.setItem('access_token', data.data.accessToken);
+        //             localStorage.setItem('refresh_token', data.data.accessToken);
+        //             window.location.replace("myCourses.html?userId="+data.data.messege);
+        //         } else {
+        //             console.log('status = ' + status);
+        //             window.location.replace("login.html");
+        //             alert('Siz  login qilishingiz kerek !!!');
+        //         }
+        //     })
+        //     .catch(data => {
+        //         alert('Siz  login qilishingiz kerek !!!')
+        //         window.location.replace("login.html");
+        //     })
     }
 </script>
 

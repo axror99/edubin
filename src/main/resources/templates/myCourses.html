@@ -49,19 +49,6 @@
 </head>
 
 <body>
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const userId = urlParams.get('userId');
-
-    fetch('http://localhost:8080/api/course/myCourse/'+userId)
-    .then((response) =>{
-        return response.json();
-    })
-    .then((data) =>{
-        console.log(data);
-    })
-</script>
-
 <!--====== PRELOADER PART START ======-->
 
 <div class="preloader">
@@ -247,7 +234,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-banner-cont">
-                    <h2>Our Courses</h2>
+                    <h2>Your Courses</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -447,8 +434,15 @@
 
 
 <script>
-    function successA(){
-        fetch('http://localhost:8080/api/course/list')
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        fetch('http://localhost:8080/api/course/'+userId,{
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
             .then((data) => {
                 return data.json()
             })
@@ -504,7 +498,7 @@
 
                     const titleLink = document.createElement('a');
                     // titleLink.href = course.link;
-                    titleLink.href = 'courses-singel.html?courseId='+course.id;
+                    titleLink.href = 'myBuyedCourse.html?courseId='+course.id;
                     const title = document.createElement('h4');
                     title.textContent = course.name;
                     titleLink.appendChild(title);
@@ -524,7 +518,7 @@
                     teacherName.classList.add('name');
                     const teacherNameLink = document.createElement('a');
                     const teacherNameH6 = document.createElement('h6');
-                    teacherNameH6.textContent = course.teacher.name;
+                    teacherNameH6.textContent = course.teacher[0].name;
                     teacherNameLink.appendChild(teacherNameH6);
                     teacherName.appendChild(teacherNameLink);
 
@@ -575,7 +569,6 @@
             .catch((err) => {
                 console.log(err)
             })
-    }
 </script>
 
 <!--====== jquery js ======-->
