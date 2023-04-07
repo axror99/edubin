@@ -36,5 +36,24 @@ public class EmployeeControllerTest extends CommonIntegrationTest {
     public void shouldAddEmployee() throws Exception {
         mockMvc.perform(testDataHelperEmployee.shouldAddEmployee()).andExpect(status().isOk());
     }
+    @Test
+    @WithMockUser(roles = "SUPER_ADMIN")
+    public void shouldDeleteEmployee() throws Exception {
+        mockMvc.perform(testDataHelperEmployee.shouldAddEmployee()).andExpect(status().isOk());
+        mockMvc.perform(testDataHelperEmployee.shouldDeleteEmployee(1)).andExpect(status().isOk());
+    }
+    @Test
+    @WithMockUser(roles = "SUPER_ADMIN")
+    public void shouldNotDeleteEmployee() throws Exception {
+        mockMvc.perform(testDataHelperEmployee.shouldAddEmployee()).andExpect(status().isOk());
+        mockMvc.perform(testDataHelperEmployee.shouldDeleteEmployee(9)).andExpect(status().isNotFound());
+    }
+
+    @Test
+    @WithMockUser(roles = "SUPER_ADMIN")
+    public void shouldUpdateEmployee() throws Exception {
+        mockMvc.perform(testDataHelperEmployee.shouldAddEmployee()).andExpect(status().isOk());
+        mockMvc.perform(testDataHelperEmployee.shouldUpdateEmployee(1)).andExpect(status().isOk());
+    }
 
 }
