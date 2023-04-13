@@ -8,12 +8,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/buy/")
+@RequestMapping("/buy/")
 @RequiredArgsConstructor
 public class PurchaseController {
 
    private final PurchasingService purchasingService;
 
+
+   @GetMapping("/check")
+   @ResponseStatus(HttpStatus.OK)
+   private ApiResponse<Void> check(){
+       return new ApiResponse<>();
+   }
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<Integer> purchaseCourse(@PathVariable int id, @RequestBody PurchaseRequest purchase){

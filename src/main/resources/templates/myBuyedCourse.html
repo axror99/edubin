@@ -201,7 +201,7 @@
             <ul>
               <li><a href="#" id="search"><i class="fa fa-search"></i></a></li>
               <li><a href="#"><i class="fa fa-shopping-bag"></i><span>0</span></a></li>
-              <li><a href="checkLoading.html"><i style='font-size:24px' class="fas">&#xf015;</i></a></li>
+              <li><a href="myCourses.html"><i style='font-size:24px' class="fas">&#xf015;</i></a></li>
             </ul>
           </div> <!-- right icon -->
         </div>
@@ -270,8 +270,8 @@
             <ul>
               <li>
                 <div class="teacher-name">
-                  <div class="thum">
-                    <img src="images/course/teacher/t-1.jpg" alt="Teacher">
+                  <div class="thum" id="teacherPic">
+<!--                    <img src="images/course/teacher/t-1.jpg" alt="Teacher">-->
                   </div>
                   <div class="name">
                     <span>Teacher</span>
@@ -301,9 +301,8 @@
             </ul>
           </div> <!-- course terms -->
 
-          <div class="corses-singel-image pt-50">
-            <img id="course-image" src="images/course/cu-1.jpg" alt="Courses">
-            <!--                            <img id="" src="D:/EduBin/edubin/src/main/resources/static/category/{}" alt="Courses">-->
+          <div class="corses-singel-image pt-50" id="coursePicture">
+
           </div> <!-- corses singel image -->
 
           <div class="corses-tab mt-30">
@@ -384,7 +383,9 @@
                   </div>
 
 
-                  <div id="comments"></div>
+                  <div class="overflowx">
+                    <div id="comments"></div>
+                  </div>
 
 
                   <div class="title pt-15">
@@ -406,8 +407,6 @@
                         <div class="col-lg-12">
                           <div class="form-singel">
 
-
-
                             <div class="rate-wrapper">
                               <div class="rate-label">Your Rating:</div>
                               <div class="rate">
@@ -423,10 +422,6 @@
                                                           aria-hidden="true"></i></div>
                               </div>
                             </div>
-
-
-
-
 
                           </div>
                         </div>
@@ -452,21 +447,6 @@
       </div>
       <div class="col-lg-4">
         <div class="row">
-<!--          <div class="col-lg-12 col-md-6">-->
-<!--            <div class="course-features mt-30">-->
-<!--              <h4>Course Features </h4>-->
-<!--              <ul>-->
-<!--                <li><i class="fa fa-clock-o"></i>Duaration : <span>10 Hours</span></li>-->
-<!--                <li><i class="fa fa-clone"></i>Leactures : <span>09</span></li>-->
-<!--                <li><i class="fa fa-beer"></i>Quizzes : <span>05</span></li>-->
-<!--                <li><i class="fa fa-user-o"></i>Students : <span>100</span></li>-->
-<!--              </ul>-->
-<!--              <div class="price-button pt-10">-->
-<!--                <span>Price : <b>$</b><b id="course-price">25</b></span>-->
-<!--                <a type="button" id="enroll-button" href="checkout.html?courseId=${courseId}&name=${name}&price=${price}" class="main-btn" onclick="enroll()">Enroll Now</a>-->
-<!--              </div>-->
-<!--            </div> &lt;!&ndash; course features &ndash;&gt;-->
-<!--          </div>-->
           <div class="col-lg-12 col-md-6">
             <div class="You-makelike mt-30">
               <h4>You make like </h4>
@@ -746,6 +726,10 @@
     document.getElementById("headline1").innerHTML = res.data.headline;
     document.getElementById("definition").innerHTML = res.data.definition;
     document.getElementById("teacher-object").innerHTML = res.data.teacher[0].myObjective;
+    let pic = document.getElementById("coursePicture");
+    pic.innerHTML = `<img src="../static/category/${res.data.category.name}/${res.data.name}/image/${res.data.image}" alt="Course" >`;
+    let teachPic = document.getElementById("teacherPic");
+    teachPic.innerHTML = `<img src="../static/images/${res.data.teacher[0].picture}"width="40px" height="40px" alt="Course" >`;
 
 
 
@@ -775,8 +759,8 @@
     }
 
     temp2.innerHTML = `
-    <a href="#"><h5>${res.data.teacher[0].name}</h5></a>
-    <span>${res.data.teacher.profession}</span>
+    <a href="teachers-singel.html?teacherId=${res.data.teacher[0].id}"><h5>${res.data.teacher[0].name}</h5></a>
+    <span>${res.data.teacher[0].profession}</span>
     <ul class="social">
         ${socialIcons}
     </ul>
@@ -843,7 +827,7 @@
       <div class="card-body">
       <video width="320" height="210" controls>
       <source id="course-video"
-      src="../static/video/${res.data.contents[key].videoName}"
+      src="../static/category/${res.data.category.name}/${res.data.name}/video/${res.data.contents[key].videoName}"
       type="video/mp4">
       </video>
       </div>

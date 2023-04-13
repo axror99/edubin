@@ -1,4 +1,4 @@
-  <!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -201,7 +201,7 @@
                         <ul>
                             <li><a href="#" id="search"><i class="fa fa-search"></i></a></li>
                             <li><a href="#"><i class="fa fa-shopping-bag"></i><span>0</span></a></li>
-                            <li><a href="checkLoading.html"><i style='font-size:24px' class="fas">&#xf015;</i></a></li>
+                            <li><a href="myCourses.html"><i style='font-size:24px' class="fas">&#xf015;</i></a></li>
                         </ul>
                     </div> <!-- right icon -->
                 </div>
@@ -270,8 +270,8 @@
                         <ul>
                             <li>
                                 <div class="teacher-name">
-                                    <div class="thum">
-                                        <img src="images/course/teacher/t-1.jpg" alt="Teacher">
+                                    <div class="thum" id="teacherPic">
+<!--                                        <img src="images/course/teacher/t-1.jpg" alt="Teacher">-->
                                     </div>
                                     <div class="name">
                                         <span>Teacher</span>
@@ -301,8 +301,8 @@
                         </ul>
                     </div> <!-- course terms -->
 
-                    <div class="corses-singel-image pt-50">
-                        <img id="course-image" src="images/course/cu-1.jpg" alt="Courses">
+                    <div class="corses-singel-image pt-50" id="coursePicture">
+<!--                        <img id="course-image" src="images/course/cu-1.jpg" alt="Courses">-->
                         <!--                            <img id="" src="D:/EduBin/edubin/src/main/resources/static/category/{}" alt="Courses">-->
                     </div> <!-- corses singel image -->
 
@@ -358,23 +358,18 @@
                                 <div class="instructor-cont">
                                     <div class="instructor-author">
                                         <div class="author-thum" id="teacher-foto">
-
                                         </div>
-
-
                                         <div class="author-name">
                                             <div id="teacher-link"></div>
                                         </div>
 
-
                                     </div>
                                     <div class="instructor-description pt-25">
-                                        <p id="teacher-object">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus fuga
+                                        <p id="teacher-object">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                            Delectus fuga
                                             ratione molestiae unde provident quibusdam sunt, doloremque. Error omnis
                                         </p>
                                     </div>
-
-
                                 </div> <!-- instructor cont -->
                             </div>
                             <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
@@ -382,10 +377,9 @@
                                     <div class="title">
                                         <h6>Student Reviews</h6>
                                     </div>
-
-
-                                    <div id="comments"></div>
-
+                                    <div class="overflowx">
+                                        <div id="comments"></div>
+                                    </div>
 
                                     <div class="title pt-15">
                                         <h6>Leave A Comment</h6>
@@ -405,29 +399,6 @@
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="form-singel">
-
-
-
-                                                        <div class="rate-wrapper">
-                                                            <div class="rate-label">Your Rating:</div>
-                                                            <div class="rate">
-                                                                <div class="rate-item"><i class="fa fa-star"
-                                                                                          aria-hidden="true"></i></div>
-                                                                <div class="rate-item"><i class="fa fa-star"
-                                                                                          aria-hidden="true"></i></div>
-                                                                <div class="rate-item"><i class="fa fa-star"
-                                                                                          aria-hidden="true"></i></div>
-                                                                <div class="rate-item"><i class="fa fa-star"
-                                                                                          aria-hidden="true"></i></div>
-                                                                <div class="rate-item"><i class="fa fa-star"
-                                                                                          aria-hidden="true"></i></div>
-                                                            </div>
-                                                        </div>
-
-
-
-
-
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
@@ -437,7 +408,9 @@
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="form-singel">
-                                                        <button type="button" onclick="getInformationFromService()" class="main-btn">Post Comment</button>
+                                                        <button type="button" onclick="getInformationFromService()"
+                                                                class="main-btn">Post Comment
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div> <!-- row -->
@@ -456,14 +429,16 @@
                         <div class="course-features mt-30">
                             <h4>Course Features </h4>
                             <ul>
-                                <li><i class="fa fa-clock-o"></i>Duaration : <span>10 Hours</span></li>
-                                <li><i class="fa fa-clone"></i>Leactures : <span>09</span></li>
-                                <li><i class="fa fa-beer"></i>Quizzes : <span>05</span></li>
-                                <li><i class="fa fa-user-o"></i>Students : <span>100</span></li>
+                                <li><i class="fa fa-clock-o"></i>Duaration : <span id="courseHour">10 Hours</span></li>
+                                <li><i class="fa fa-clone"></i>Leactures : <span id="courseLecture">09</span></li>
+                                <li><i class="fa fa-beer"></i>Quizzes : <span>0</span></li>
+                                <li><i class="fa fa-user-o"></i>Students : <span id="courseStudent">100</span></li>
                             </ul>
                             <div class="price-button pt-10">
                                 <span>Price : <b>$</b><b id="course-price">25</b></span>
-                                <a type="button" id="enroll-button" href="checkout.html?courseId=${courseId}&name=${name}&price=${price}" class="main-btn" onclick="enroll()">Enroll Now</a>
+                                <a type="button" id="enroll-button"
+                                   href="checkout.html?courseId=${courseId}&name=${name}&price=${price}"
+                                   class="main-btn" onclick="enroll()">Enroll Now</a>
                             </div>
                         </div> <!-- course features -->
                     </div>
@@ -732,7 +707,7 @@
 
     const req = new XMLHttpRequest();
 
-    req.open('GET', 'http://localhost:8080/api/course/get/'+courseId);
+    req.open('GET', 'http://localhost:8080/api/course/get/' + courseId);
     req.addEventListener('load', function () {
         const res = JSON.parse(req.responseText);
         console.log(res.data);
@@ -747,74 +722,72 @@
         document.getElementById("definition").innerHTML = res.data.definition;
         document.getElementById("teacher-object").innerHTML = res.data.teacher[0].myObjective;
         document.getElementById("course-price").innerHTML = res.data.price;
+        document.getElementById("courseStudent").innerHTML = res.data.teacher.length-1;
+        document.getElementById("courseLecture").innerHTML = res.data.contents.length;
+        let pic = document.getElementById("coursePicture");
+        pic.innerHTML = `<img src="../static/category/${res.data.category.name}/${res.data.name}/image/${res.data.image}" width="670px" height="450px" alt="Course" >`;
+        let teachPic = document.getElementById("teacherPic");
+        teachPic.innerHTML = `<img src="../static/images/${res.data.teacher[0].picture}"width="40px" height="40px" alt="Course" >`;
 
 
-        window.localTeacherId=res.data.id;
-        console.log('localTeacherId = '+localTeacherId);
-        document.getElementById("hiddenVar").setAttribute("myCourseId",res.data.id);
-        document.getElementById("name").setAttribute("myCourseId",res.data.name);
-        document.getElementById("price").setAttribute("myCourseId",res.data.price);
+        window.localTeacherId = res.data.id;
+        console.log('localTeacherId = ' + localTeacherId);
+        document.getElementById("hiddenVar").setAttribute("myCourseId", res.data.id);
+        document.getElementById("name").setAttribute("myCourseId", res.data.name);
+        document.getElementById("price").setAttribute("myCourseId", res.data.price);
 
         let temp3 = document.getElementById("teacher-foto");
-            temp3.innerHTML=`<img src="../static/images/${res.data.teacher[0].picture}" width="170px" height="140px" alt="Instructor">`
+        temp3.innerHTML = `<img src="../static/images/${res.data.teacher[0].picture}" width="170px" height="140px" alt="Instructor">`
 
         let temp2 = document.getElementById("teacher-link");
         let socialLinks = [
-            { name: "facebook", link: res.data.teacher[0].socialMedia && res.data.teacher[0].socialMedia.facebook },
-            { name: "twitter", link: res.data.teacher[0].socialMedia && res.data.teacher[0].socialMedia.twitter },
-            { name: "google", link: res.data.teacher[0].socialMedia && res.data.teacher[0].socialMedia.google },
-            { name: "instagram", link: res.data.teacher[0].socialMedia && res.data.teacher[0].socialMedia.instagram }
+            {name: "facebook", link: res.data.teacher[0].socialMedia && res.data.teacher[0].socialMedia.facebook},
+            {name: "twitter", link: res.data.teacher[0].socialMedia && res.data.teacher[0].socialMedia.twitter},
+            {name: "google", link: res.data.teacher[0].socialMedia && res.data.teacher[0].socialMedia.google},
+            {name: "instagram", link: res.data.teacher[0].socialMedia && res.data.teacher[0].socialMedia.instagram}
         ];
 
 // Generate the social media icons based on the links
         let socialIcons = "";
         for (let i = 0; i < socialLinks.length; i++) {
-            if (socialLinks[i].link!==null) {
+            if (socialLinks[i].link !== null) {
                 socialIcons += `<li><a href="${socialLinks[i].link}"><i class="fa fa-${socialLinks[i].name}"></i></a></li>`;
             }
-        }
+        };
 
         temp2.innerHTML = `
-    <a href="#"><h5>${res.data.teacher[0].name}</h5></a>
-    <span>${res.data.teacher.profession}</span>
+    <a id="teacherID" href="teachers-singel.html?teacherId=${res.data.teacher[0].id}"><h5>${res.data.teacher[0].name}</h5></a>
+    <span>${res.data.teacher[0].profession}</span>
     <ul class="social">
         ${socialIcons}
     </ul>
 `;
 
         let temp4 = document.getElementById("comments");
-        let str4 ="<ul>";
+        let str4 = "<ul>";
 
-        for (key1 in res.data.comments){
-            str4+=`<li>
+       let array= res.data.comments.reverse();
+
+        for (key1 in array) {
+            str4 += `<li>
                       <div class="singel-reviews">
                         <div class="reviews-author">
                           <div class="author-thum">
-                            <img src="../static/images/${res.data.comments[key1]}" alt="Reviews">
+                            <img src="../static/images/${array[key1]}" alt="Reviews">
                           </div>
                           <div class="author-name">
-                            <h6>${res.data.comments[key1].personName}</h6>
-                            <span>${res.data.comments[key1].date}</span>
+                            <h6>${array[key1].personName}</h6>
+                            <span>${array[key1].date}</span>
                           </div>
                         </div>
                         <div class="reviews-description pt-20">
-                          <p>${res.data.comments[key1].text}.</p>
-                          <div class="rating">
-                            <ul>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                            </ul>
-                            <span>/ 5 Star</span>
-                          </div>
+                          <p>${array[key1].text}.</p>
                         </div>
                       </div> <!-- singel reviews -->
                     </li>`
         }
-        str4+="</ul>";
-        temp4.innerHTML=str4;
+        str4 += "</ul>";
+        temp4.innerHTML = str4;
         let temp = document.getElementById("forEach");
         let str = "";
 
@@ -852,8 +825,8 @@
         temp.innerHTML = str;
 
     })
-    req.send();
-    // }
+        req.send();
+        // }
 </script>
 
 <script>
@@ -871,30 +844,30 @@
 <script>
 
     function getInformationFromService() {
-        const courseId =document.getElementById("hiddenVar").getAttribute("myCourseId");
-        console.log('idId :'+courseId);
+        const courseId = document.getElementById("hiddenVar").getAttribute("myCourseId");
+        console.log('idId :' + courseId);
 
         var options = {year: 'numeric', month: 'long', day: 'numeric'};
         var today = new Date().toLocaleDateString('en-US', options);
 
-        fetch('http://localhost:8080/api/comment/course/'+courseId,{
+        fetch('http://localhost:8080/api/comment/course/' + courseId, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                firstName : document.getElementById("inputId1").value,
-                lastName : document.getElementById("inputId2").value,
-                date : today,
+                firstName: document.getElementById("inputId1").value,
+                lastName: document.getElementById("inputId2").value,
+                date: today,
                 text: document.getElementById("commentId").value,
             })
         })
             .then(response => response.json())
             .then(data => console.log(data))
-        document.getElementById("inputId1").value="";
-        document.getElementById("inputId2").value="";
-        document.getElementById("commentId").value="";
+        document.getElementById("inputId1").value = "";
+        document.getElementById("inputId2").value = "";
+        document.getElementById("commentId").value = "";
     }
 </script>
 

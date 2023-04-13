@@ -1,5 +1,6 @@
 package com.example.edubin.service;
 
+import com.example.edubin.config.JwtService;
 import com.example.edubin.dto.request.AdminUpdateEmployee;
 import com.example.edubin.dto.request.EmployeeUpdateHimself;
 import com.example.edubin.enitity.SocialMediaEntity;
@@ -12,6 +13,10 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -29,6 +35,7 @@ public class EmployeeService {
     private final UserRepository userRepository;
     private final SocialMediaRepository socialMediaRepository;
     private final MediaService mediaService;
+    private final JwtService jwtService;
 
     public void hireEmployee(UserEntity user) {
         boolean existedEmail = userRepository.existsByEmail(user.getEmail());
@@ -51,7 +58,7 @@ public class EmployeeService {
         userRepository.delete(user);
     }
 
-    public UserEntity updateEmployee(int id, AdminUpdateEmployee adminUpdateEmployee) {
+    public String updateEmployee(int id, AdminUpdateEmployee adminUpdateEmployee) {
 
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(
                 MessageFormat.format("id={0} is not in database", id))
@@ -77,7 +84,8 @@ public class EmployeeService {
         if(adminUpdateEmployee.getPermissionList()!=null){
             user.setPermission(adminUpdateEmployee.getPermissionList());
         }
-         return userRepository.save(user);
+        UserEntity savedUser = userRepository.save(user);
+        return jwtService.generateToken(savedUser);
     }
 
     public List<UserEntity> getAllEmployees() {
@@ -168,5 +176,13 @@ public class EmployeeService {
     public UserEntity findById(int id) {
        return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(
                 MessageFormat.format("id={0} user is not in database", id)));
+    }
+
+    public List<UserEntity> getTeachersPageableList(int id,int size) {
+        int start = 5 * id - 4;
+        return getTeacherList().stream()
+                .skip(start - 1)
+                .limit(size)
+                .collect(Collectors.toList());
     }
 }

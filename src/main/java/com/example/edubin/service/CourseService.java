@@ -1,5 +1,6 @@
 package com.example.edubin.service;
 
+import com.example.edubin.config.JwtService;
 import com.example.edubin.dto.request.CourseRequest;
 import com.example.edubin.dto.request.PurchaseRequest;
 import com.example.edubin.enitity.CategoryEntity;
@@ -8,6 +9,9 @@ import com.example.edubin.enitity.UserEntity;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -21,6 +25,7 @@ public class CourseService {
     private final CategoryService categoryService;
     private final UserService userService;
     private final MediaService mediaService;
+    private final JwtService jwtService;
 
     public void addCourse(CourseRequest course) {
         CategoryEntity category = categoryService.findCategory(course.getCategory_di());
@@ -95,19 +100,19 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-//    public boolean buyCourse(int id, PurchaseRequest purchase) {
-//        CourseEntity courseEntity = courseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
-//                MessageFormat.format("id = {0} course was not found in database", id)
-//        ));
-//        UserEntity user = userService.findUser(purchase.getUserId());
-//        List<UserEntity> teacher = courseEntity.getTeacher();
-//        teacher.add(user);
-//        courseEntity.setTeacher(teacher);
-//        courseRepository.save(courseEntity);
-//        return true;
-//    }
 
-    public List<CourseEntity> getStudentCourses(int id) {
+    public List<CourseEntity> getStudentCourses(String token) {
+        String username = jwtService.extractUsername(token.substring(7));
+        UserEntity user =userService.findUserByUsername(username);
+        return courseRepository.findByTeacherIn(List.of(user));
+    }
+
+    public List<CourseEntity> getPageableCourseList(int start, int size) {
+        Pageable pageable = PageRequest.of(start,size, Sort.by("id"));
+        return courseRepository.findAll(pageable).getContent();
+    }
+
+    public List<CourseEntity> getCourseByTeacherId(int id) {
         UserEntity user = userService.findUser(id);
         return courseRepository.findByTeacherIn(List.of(user));
     }

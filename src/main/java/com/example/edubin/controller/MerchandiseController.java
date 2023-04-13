@@ -34,6 +34,18 @@ public class MerchandiseController {
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<List<MerchandiseEntity>> getListOfMerchandise(){
-        return new ApiResponse<>("Merchandise was deleted successfully in database",merchandiseService.getListMerchandise());
+        return new ApiResponse<>("Merchandise was taken successfully in database",merchandiseService.getListMerchandise());
+    }
+
+    @GetMapping("/list/page/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<List<MerchandiseEntity>> getPageableListOfMerchandise(@PathVariable("id") int id){
+        return new ApiResponse<>("pageable Merchandise was taken successfully in database",merchandiseService.getPageableListOfMerchandise(id,7));
+    }
+
+    @GetMapping("/product/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<MerchandiseEntity> getOneProduct(@PathVariable("id") int id){
+        return new ApiResponse<>("one Merchandise was taken successfully in database",merchandiseService.getOneProduct(id));
     }
 }

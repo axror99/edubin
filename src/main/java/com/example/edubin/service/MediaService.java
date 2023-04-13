@@ -38,46 +38,6 @@ public class MediaService {
         String originalFilename = file.getOriginalFilename();
         String contentType = file.getContentType();
         String randomName = generateRandomName(originalFilename);
-        long size = file.getSize();
-        System.out.println(size);
-
-//        Path tempDir = Files.createTempDirectory(Path.of("C:/Users/Axror/Documents/"),"video");
-//        // Create a temporary file in the temporary directory with a custom name
-//        Path tempFile = Files.createTempFile(tempDir, "my-video", ".mp4");
-//        // Copy the contents of the uploaded video to the temporary file
-//        Files.copy(file.getInputStream(), tempFile, StandardCopyOption.REPLACE_EXISTING);
-//        // Execute the ffprobe command to get the video duration
-//        ProcessBuilder processBuilder = new ProcessBuilder("ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", tempFile.toString());
-//        Process process = processBuilder.start();
-//        process.waitFor();
-//        // Parse the output of the ffprobe command to get the duration
-//        String output = new String(process.getInputStream().readAllBytes());
-//        long durationInSeconds = Math.round(Double.parseDouble(output.trim()));
-//        // Delete the temporary file and directory
-//        Files.delete(tempFile);
-//        Files.delete(tempDir);
-//        System.out.println(durationInSeconds);
-
-//        String[] cmd = {"ffmpeg", "-i", file.getOriginalFilename(), "-vcodec", "copy", "-acodec", "copy", "-f", "null", "-"};
-//        ProcessBuilder processBuilder = new ProcessBuilder(cmd);
-//        Process process = processBuilder.start();
-//        try {
-//            process.waitFor();
-//        } catch (InterruptedException e) {
-//            Thread.currentThread().interrupt();
-//            throw new IOException("Error getting video duration", e);
-//        }
-//        long durationInMicroseconds = process.exitValue();
-//        long toSeconds = TimeUnit.MICROSECONDS.toSeconds(durationInMicroseconds);
-//        System.out.println(toSeconds);
-
-
-//        FFmpegFrameGrabber frameGrabber = new FFmpegFrameGrabber(file.getInputStream());
-//        frameGrabber.start();
-//        double duration = frameGrabber.getLengthInTime() / 1000000.0;
-//        frameGrabber.stop();
-//        System.out.println(duration);
-
 
         if (contentType!=null && !contentType.equals("")) {
             writeImageToFile(file, randomName, categoryName, courseName);

@@ -120,14 +120,14 @@
                     console.log(status);
                     console.log(data.message);
                     console.log(data);
-                    localStorage.setItem('access_token', data.data.accessToken);
-                    localStorage.setItem('refresh_token', data.data.refreshToken);
-                    localStorage.setItem('id', data.message);
-                    window.location.replace('myCourses.html?userId='+data.message);
+                    localStorage.setItem('access_token', 'Bearer '+data.data);
+                    // localStorage.setItem('id', data.message);
+                    // window.location.replace('myCourses.html?userId='+data.message);
+                    window.location.replace('myCourses.html');
                 }else {
                     document.getElementById("username").value="";
                     document.getElementById("password").value="";
-                    alert('Sizning login muffaqiyatli amalga oshirmadi !!!')
+                    alert('Sizning login muffaqiyatli amalga oshirilmadi !!!')
 
                 }
 

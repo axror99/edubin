@@ -200,7 +200,7 @@
                         <ul>
                             <li><a href="#" id="search"><i class="fa fa-search"></i></a></li>
                             <li><a href="#"><i class="fa fa-shopping-bag"></i><span>0</span></a></li>
-                            <li><a href="checkLoading.html"><i style='font-size:24px' class="fas">&#xf015;</i></a></li>
+                            <li><a href="myCourses.html"><i style='font-size:24px' class="fas">&#xf015;</i></a></li>
                         </ul>
                     </div> <!-- right icon -->
                 </div>
@@ -509,7 +509,10 @@
             document.getElementById('eventAdd').innerHTML = dataJson.data.address;
             document.getElementById('eventStartTime').innerHTML = formStartTime;
             document.getElementById('eventFinishTime').innerHTML = formEndTime;
-            document.getElementById('eventPicture').setAttribute('src', '../static/images/' + dataJson.data.picture);
+            let evenPic=document.getElementById('eventPicture');
+            evenPic.setAttribute('src', '../static/images/' + dataJson.data.picture);
+            evenPic.setAttribute('width', '400');
+            evenPic.setAttribute('height', '280');
 
             // set the target date and time
             var targetDate = new Date(monthNames[monthIndex]+''+day+','+ year+' '+formEndTime).getTime();

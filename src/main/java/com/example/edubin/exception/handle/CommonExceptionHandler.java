@@ -5,6 +5,7 @@ import com.example.edubin.dto.response.TokenDTO;
 import com.example.edubin.exception.PSQLException;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.exception.UserAlreadyExistException;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -63,4 +64,10 @@ public class CommonExceptionHandler {
     ApiResponse<Void> notWriteInFile(Exception e){
         return new ApiResponse<>(e.getMessage());
     }
+    @ExceptionHandler(ExpiredJwtException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    ApiResponse<Void> jwt_Expired_time(Exception e){
+        return new ApiResponse<>(e.getMessage());
+    }
+
 }

@@ -5,6 +5,9 @@ import com.example.edubin.enitity.MerchandiseEntity;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.MerchandiseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
@@ -42,5 +45,16 @@ public class MerchandiseService {
 
     public List<MerchandiseEntity> getListMerchandise() {
         return merchandiseRepository.findAll();
+    }
+
+    public List<MerchandiseEntity> getPageableListOfMerchandise(int id, int size) {
+        PageRequest page = PageRequest.of(id-1, size,Sort.by("id"));
+        return merchandiseRepository.findAll(page).getContent();
+    }
+
+    public MerchandiseEntity getOneProduct(int id) {
+        return merchandiseRepository.findById(id).orElseThrow(()-> new RecordNotFoundException(
+                MessageFormat.format("id = {0} merchandise was not found in database",id)
+        ));
     }
 }

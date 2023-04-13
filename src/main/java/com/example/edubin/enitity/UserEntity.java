@@ -60,9 +60,9 @@ public class UserEntity implements UserDetails {
     @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
     private SocialMediaEntity socialMedia;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> permission;
 
     @JsonIgnore
@@ -72,6 +72,7 @@ public class UserEntity implements UserDetails {
                 .email(userRegister.getEmail())
                 .password(userRegister.getPassword())
                 .username(userRegister.getUsername())
+//                .roles(List.of("USER"))
                 .build();
     }
 
@@ -79,7 +80,7 @@ public class UserEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
-        if (roles!=null){
+        if (roles!=null && roles.size()!=0 ){
             roles.forEach((role)-> authorityList.add(new SimpleGrantedAuthority("ROLE_"+role)));
         }else {
             authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));

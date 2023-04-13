@@ -18,10 +18,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsService, AuditorAware<Integer> {
-
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+public class UserDetailsServiceImpl implements AuditorAware<Integer> {
 
     @Override
     @NonNull
@@ -32,14 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService, AuditorAware<
             return Optional.empty();
         }
         return Optional.of(principal.getId());
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .orElseThrow(()->new UsernameNotFoundException(
-                        MessageFormat.format("username {0} not found",username)
-        ));
     }
 
 }

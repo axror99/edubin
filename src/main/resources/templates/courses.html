@@ -200,7 +200,7 @@
                         <ul>
                             <li><a href="#" id="search"><i class="fa fa-search"></i></a></li>
                             <li><a href="#"><i class="fa fa-shopping-bag"></i><span>0</span></a></li>
-                            <li><a href="checkLoading.html"><i style='font-size:24px' class="fas">&#xf015;</i></a></li>
+                            <li><a href="myCourses.html"><i style='font-size:24px' class="fas">&#xf015;</i></a></li>
                         </ul>
                     </div> <!-- right icon -->
                 </div>
@@ -299,9 +299,9 @@
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         </li>
-                        <li class="page-item"><a class="active" href="#">1</a></li>
-                        <li class="page-item"><a href="#">2</a></li>
-                        <li class="page-item"><a href="#">3</a></li>
+                        <li class="page-item"><a class="active" href="courses.html?pageID=1">1</a></li>
+                        <li class="page-item"><a href="courses.html?pageID=2">2</a></li>
+                        <li class="page-item"><a href="courses.html?pageID=3">3</a></li>
                         <li class="page-item">
                             <a href="#" aria-label="Next">
                                 <i class="fa fa-angle-right"></i>
@@ -437,7 +437,12 @@
 
 
 <script>
-    fetch('http://localhost:8080/api/course/list')
+    let urlParams = new URLSearchParams(window.location.search);
+    let pageID = urlParams.get("pageID");
+    if (pageID===undefined || pageID===null){
+        pageID=1;
+    }
+    fetch('http://localhost:8080/api/course/list/page/'+pageID)
         .then((data) => {
             return data.json()
         })
@@ -463,8 +468,11 @@
 
                 // img.src = '../static/images/'+course.image;
                 // <img src="../static/images/${res.data.teacher.picture}"
-                img.src = '../static/images/2b1e7ecc-fa63-4aed-9439-5808283aff52.png';
+
+                img.src = '../static/category/'+course.category.name+'/'+course.name+'/image/'+course.image;
                 img.alt = 'course-Avatar';
+                img.height="277";
+                img.width="370";
                 image.appendChild(img);
 
                 const price = document.createElement('div');
@@ -508,8 +516,7 @@
                 const teacherThum = document.createElement('div');
                 teacherThum.classList.add('thum');
                 const teacherImg = document.createElement('img');
-                // teacherImg.src = course.teacher.picture;
-                teacherImg.src = 'images/course/teacher/t-1.jpg';
+                teacherImg.src = '../static/images/'+course.teacher[0].picture;
                 teacherImg.alt = 'avatar';
                 teacherThum.appendChild(teacherImg);
 
@@ -531,7 +538,7 @@
                 studentsCountIcon.classList.add('fa', 'fa-user');
                 const studentsCountSpan = document.createElement('span');
                 // studentsCountSpan.textContent = course.users;
-                studentsCountSpan.textContent = 5;
+                studentsCountSpan.textContent = course.teacher.length-1;
                 studentsCountLink.appendChild(studentsCountIcon);
                 studentsCountLink.appendChild(studentsCountSpan);
                 studentsCountLi.appendChild(studentsCountLink);

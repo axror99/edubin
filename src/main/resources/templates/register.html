@@ -126,11 +126,10 @@
             .then(data => {
                 console.log(data);
                 if (status === 200) {
-                    localStorage.setItem('access_token', data.data.accessToken);
-                    localStorage.setItem('refresh_token', data.data.refreshToken);
-                    window.location.replace('myCourses.html?userId=' + data.data.messege);
+                    localStorage.setItem('access_token', 'Bearer '+data.data);
+                    window.location.replace('myCourses.html');
                 } else {
-                    alert('siz registerdan o\'ta olmadiz');
+                    alert('siz registerdan o\'ta o\'tmadiz');
 
                     document.getElementById("username").value = "";
                     document.getElementById("name").value = "";

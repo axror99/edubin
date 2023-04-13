@@ -1,6 +1,5 @@
 package com.example.edubin.controller;
 
-import com.example.edubin.config.utils.GenerateToken;
 import com.example.edubin.dto.request.AdminUpdateEmployee;
 import com.example.edubin.dto.request.EmployeeUpdateHimself;
 import com.example.edubin.dto.response.ApiResponse;
@@ -15,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +25,6 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 //    private final UserService employeeService;
-    private final GenerateToken generateToken;
 
 
 //    public EmployeeController(
@@ -65,10 +62,8 @@ public class EmployeeController {
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
 //    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('UPDATE')) or (hasRole('SUPER_ADMIN'))")
-    private ApiResponse<TokenDTO> updateEmployee(@PathVariable("id") int id, @RequestBody AdminUpdateEmployee adminUpdateEmployee) {
-        UserEntity updatedEmployee = employeeService.updateEmployee(id, adminUpdateEmployee);
-        Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(updatedEmployee, updatedEmployee.getPassword(), updatedEmployee.getAuthorities());
-        TokenDTO token = generateToken.createToken(authentication);
+    private ApiResponse<String> updateEmployee(@PathVariable("id") int id, @RequestBody AdminUpdateEmployee adminUpdateEmployee) {
+        String token = employeeService.updateEmployee(id, adminUpdateEmployee);
         return new ApiResponse<>("updated successfully", token);
     }
 
@@ -100,6 +95,14 @@ public class EmployeeController {
 //    @PreAuthorize(Teacher('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<UserEntity>> getAllTeacherList() {
         List<UserEntity> allTeachers = employeeService.getTeacherList();
+        return new ApiResponse<>("all Teachers were token successfully ", allTeachers);
+    }
+
+    @GetMapping("/listTeacher/page/{id}")
+    @ResponseStatus(HttpStatus.OK)
+//    @PreAuthorize(Teacher('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
+    private ApiResponse<List<UserEntity>> getTeachersPageableList(@PathVariable("id") int id) {
+        List<UserEntity> allTeachers = employeeService.getTeachersPageableList(id,5);
         return new ApiResponse<>("all Teachers were token successfully ", allTeachers);
     }
 

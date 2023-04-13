@@ -50,6 +50,23 @@
 </head>
 
 <body>
+<script>
+    let token = localStorage.getItem('access_token');
+    fetch('http://localhost:8080/buy/check',{
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': token
+        }
+    })
+    .then((data)=>{
+        if (data.status>=401 && data.status<=499){
+            alert("siz register dan o'tishingiz kerak")
+            window.location.replace("register.html");
+        }
+    })
+</script>
 
 <section id="count-down-part" class="bg_cover pt-70 pb-120" data-overlay="8"
          style="background-image: url(images/bg-2.jpg)">
@@ -104,15 +121,16 @@
     backHref.href=`courses-singel.html?courseId=${courseId}`;
 </script>
 <script>
-    let status;
+    let status1;
 
     function sendBuy() {
         console.log(courseId);
-        fetch('http://localhost:8080/api/buy/'+courseId, {
+        fetch('http://localhost:8080/buy/'+courseId, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': token
             },
             body: JSON.stringify({
                 email: document.getElementById("email").value,
@@ -122,20 +140,22 @@
             })
         })
             .then(response => {
-                status = response.status;
-                console.log(response);
-                if (status!==200){
+                status1 = response.status;
+                // console.log(response);
+                if (status1!==200){
                     return null;
                 }
-                return response.json()
+               return  response.json();
             })
-            .then(data => {
-                if (status === 200){
-                    console.log(status);
+            .then((data) => {
+                console.log(data)
+                console.log(data.data)
+                console.log(data)
+                console.log(data.status)
+                if (status1 === 200){
                     if (data.data!==null){
                         window.location.replace('myCourses.html?userId='+data.data)
                     }
-
                 }else {
                     alert('Sizning to\'lovingiz muffaqiyatli amalga oshirilmadi !!!')
                 }

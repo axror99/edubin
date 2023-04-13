@@ -15,19 +15,7 @@ public class EdubinApplication {
         SpringApplication.run(EdubinApplication.class, args);
     }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedMethods("GET","POST","DELETE","PUT");
-            }
-        };
-    }
+//    file:///D:/EduBin/edubin/src/main/resources/templates/teachers-singel.html?teacherId=2
+//    file:///D:/EduBin/edubin/src/main/resources/templates/teacher-singel.html?teacherID=14
 }

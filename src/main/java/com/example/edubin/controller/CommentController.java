@@ -5,6 +5,7 @@ import com.example.edubin.dto.response.ApiResponse;
 import com.example.edubin.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,5 +36,10 @@ public class CommentController {
         return new ApiResponse<>("blog Comment was saved successfully in database");
     }
 
-
+    @PostMapping("/merchandise/{id}")// merchandise id
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<Void> addCommentToMerchandise(@PathVariable("id") int id, @RequestBody CommentRequest commentRequest){
+        commentService.addCommentToMerchandise(id,commentRequest);
+        return new ApiResponse<>("merchandise Comment was saved successfully in database");
+    }
 }

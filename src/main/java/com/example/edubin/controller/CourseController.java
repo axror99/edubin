@@ -36,6 +36,13 @@ public class CourseController {
         return new ApiResponse<>("course was taken successfully in database", course);
     }
 
+    @GetMapping("/get/teacher/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<List<CourseEntity>> getCourseByTeacherId(@PathVariable("id") int id) {
+        List<CourseEntity> list = courseService.getCourseByTeacherId(id);
+        return new ApiResponse<>("course list related to TeacherId was taken successfully in database", list);
+    }
+
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<Void> updateCourse(@PathVariable("id") int id, @ModelAttribute CourseRequest courseRequest) {
@@ -56,17 +63,11 @@ public class CourseController {
         return new ApiResponse<>("courseList is here", courseService.getCourseList());
     }
 
-//    @GetMapping("/buy/{id}") // course id
-//    @ResponseStatus(HttpStatus.OK)
-//    private ResponseEntity<Boolean> getCourseList(@PathVariable int id, @RequestBody PurchaseRequest purchase) {
-//        boolean buyCourse = courseService.buyCourse(id, purchase);
-//        return new ResponseEntity<>(buyCourse, HttpStatus.OK);
-//    }
-
-    @GetMapping("/{id}")
-    private ApiResponse<List<CourseEntity>> getStudentsCourse(@PathVariable int id) {
-
-        return new ApiResponse<>("client's course",courseService.getStudentCourses(id));
-
+    @GetMapping("/list/page/{start}")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<List<CourseEntity>> getPageableCourseList(@PathVariable("start") int start) {
+        List<CourseEntity> pageableCourseList = courseService.getPageableCourseList(start-1,6);
+        System.out.println(pageableCourseList.size());
+        return new ApiResponse<>("pageable courseList is here", pageableCourseList);
     }
 }

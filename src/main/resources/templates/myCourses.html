@@ -434,16 +434,27 @@
 
 
 <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const userId = urlParams.get('userId');
-        fetch('http://localhost:8080/api/course/'+userId,{
+    let token = localStorage.getItem('access_token');
+    if ( token === undefined || token === null) {
+        window.location.replace("login.html");
+    }
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const userId = urlParams.get('userId');
+        fetch('http://localhost:8080/home/course/'+token,{
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': token
             }
         })
             .then((data) => {
+                if (data.status===401) {
+                    window.location.replace('register.html');
+                }else if (data.status===403){
+                    console.log(data)
+                    window.location.replace('login.html');
+                }
                 return data.json()
             })
             .then((dataJson) => {
@@ -468,7 +479,7 @@
 
                     // img.src = '../static/images/'+course.image;
                     // <img src="../static/images/${res.data.teacher.picture}"
-                    img.src = '../static/images/2b1e7ecc-fa63-4aed-9439-5808283aff52.png';
+                    img.src = '../static/category/'+course.category.name+'/'+course.name+'/image/'+course.image;
                     img.alt = 'course-Avatar';
                     image.appendChild(img);
 
@@ -510,7 +521,8 @@
                     teacherThum.classList.add('thum');
                     const teacherImg = document.createElement('img');
                     // teacherImg.src = course.teacher.picture;
-                    teacherImg.src = 'images/course/teacher/t-1.jpg';
+                    // teacherImg.src = 'images/course/teacher/t-1.jpg';
+                    teacherImg.src = '../static/images/'+course.teacher[0].picture;
                     teacherImg.alt = 'avatar';
                     teacherThum.appendChild(teacherImg);
 
