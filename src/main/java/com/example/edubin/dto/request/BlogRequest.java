@@ -15,7 +15,6 @@ import java.time.LocalDate;
 public class BlogRequest {
 
     private String text;
-    private LocalDate date;
     private MultipartFile picture;
     private String personName;
     private String headline;

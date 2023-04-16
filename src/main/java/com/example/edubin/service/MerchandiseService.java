@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
 import java.text.MessageFormat;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -23,10 +22,11 @@ public class MerchandiseService {
     private final MediaService mediaService;
 
     private String PATH_IMAGE = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
+
     public void addMerchandise(MerchandiseRequest merchandise) {
         String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(merchandise.getPicture().getOriginalFilename()));
-        mediaService.internalWrite(merchandise.getPicture(), Paths.get(PATH_IMAGE+newPictureName));
-        MerchandiseEntity merchandiseEntity=MerchandiseEntity.builder()
+        mediaService.internalWrite(merchandise.getPicture(), Paths.get(PATH_IMAGE + newPictureName));
+        MerchandiseEntity merchandiseEntity = MerchandiseEntity.builder()
                 .picture(newPictureName)
                 .price(merchandise.getPrice())
                 .definition(merchandise.getDefinition())
@@ -48,13 +48,32 @@ public class MerchandiseService {
     }
 
     public List<MerchandiseEntity> getPageableListOfMerchandise(int id, int size) {
-        PageRequest page = PageRequest.of(id-1, size,Sort.by("id"));
+        PageRequest page = PageRequest.of(id - 1, size, Sort.by("id"));
         return merchandiseRepository.findAll(page).getContent();
     }
 
     public MerchandiseEntity getOneProduct(int id) {
-        return merchandiseRepository.findById(id).orElseThrow(()-> new RecordNotFoundException(
-                MessageFormat.format("id = {0} merchandise was not found in database",id)
+        return merchandiseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+                MessageFormat.format("id = {0} merchandise was not found in database", id)
         ));
+    }
+
+    public List<MerchandiseEntity> getRecommendListOfMerchandise() {
+        List<MerchandiseEntity> allMerchandise = merchandiseRepository.findAll();
+        List<MerchandiseEntity> randomProduct= new ArrayList<>();
+
+        Set<Integer> index= new HashSet<>();
+
+        int size = allMerchandise.size() - 1;
+        for (int i = 0; i < 4; i++) {
+            int a =(int)(Math.random() * (size-1+1)+1);
+            if (!index.add(a)){
+                index.add((int)(Math.random() * (size-1+1)+1));
+            }
+        }
+        for (int i : index){
+            randomProduct.add(allMerchandise.get(i));
+        }
+        return randomProduct;
     }
 }

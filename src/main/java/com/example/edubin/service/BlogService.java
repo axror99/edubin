@@ -1,15 +1,20 @@
 package com.example.edubin.service;
 
 import com.example.edubin.dto.request.BlogRequest;
+import com.example.edubin.dto.response.BlogResponse;
 import com.example.edubin.enitity.BlogEntity;
 import com.example.edubin.enitity.CategoryEntity;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.BlogRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
 import java.text.MessageFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,10 +30,9 @@ public class BlogService {
     public void addBlog(int id, BlogRequest blogRequest) {
         CategoryEntity category = categoryService.findCategory(id);
         String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(blogRequest.getPicture().getOriginalFilename()));
-
         BlogEntity blog =BlogEntity.builder()
                 .text(blogRequest.getText())
-                .date(blogRequest.getDate())
+                .date(LocalDate.now())
                 .headline(blogRequest.getHeadline())
                 .personName(blogRequest.getPersonName())
                 .picture(newPictureName)
@@ -57,9 +61,7 @@ public class BlogService {
         if (blogRequest.getHeadline()!=null && !blogRequest.getHeadline().equals("")){
             blog.setHeadline(blogRequest.getHeadline());
         }
-        if (blogRequest.getDate()!=null){
-            blog.setDate(blogRequest.getDate());
-        }
+        blog.setDate(LocalDate.now());
         blogRepository.save(blog);
     }
 
@@ -78,8 +80,32 @@ public class BlogService {
     }
 
     public BlogEntity findBlogById(int id) {
-       return blogRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+        return blogRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} blog was not found in database", id)
         ));
+    }
+    public BlogResponse findResponseBlogById(int id) {
+        BlogEntity blog = findBlogById(id);
+        BlogResponse blogResponse =new BlogResponse();
+        blogResponse.setId(blog.getId());
+        blogResponse.setText(blog.getText());
+        blogResponse.setHeadline(blog.getHeadline());
+        blogResponse.setComments(blog.getComments());
+        blogResponse.setCategoryName(blog.getCategoryEntity().getName());
+        blogResponse.setDate(blog.getDate());
+        blogResponse.setPersonName(blog.getPersonName());
+        blogResponse.setPicture(blog.getPicture());
+        return blogResponse;
+    }
+
+    public List<BlogEntity> getPageableListByCategory(int id,int page1, int size) {
+        Pageable page = PageRequest.of(page1-1,size, Sort.by("id"));
+        return blogRepository.findByCategoryEntity_Id(id,page).getContent();
+//         return blogRepository.findAll(page).getContent();
+    }
+
+    public List<BlogEntity> findPopularBlogs() {
+        List<BlogEntity> allBlogs = blogRepository.findAll();
+        return null;
     }
 }

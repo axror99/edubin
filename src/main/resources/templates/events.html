@@ -416,15 +416,13 @@
 
             for (key in dataJson.data) {
                 const event = dataJson.data[key];
-                // create div with class "col-lg-6"
+
                 const div1 = document.createElement("div");
                 div1.className = "col-lg-6";
 
-                // create div with class "singel-event-list mt-30"
                 const div2 = document.createElement("div");
                 div2.className = "singel-event-list mt-30";
 
-                // create div with class "event-thum" and img inside
                 const div3 = document.createElement("div");
                 div3.className = "event-thum";
                 const img = document.createElement("img");
@@ -435,11 +433,9 @@
                 img.alt = "Event";
                 div3.appendChild(img);
 
-                // create div with class "event-cont"
                 const div4 = document.createElement("div");
                 div4.className = "event-cont";
 
-                // create span with date
                 const span1 = document.createElement("span");
                 const i1 = document.createElement("i");
                 i1.className = "fa fa-calendar";
@@ -455,7 +451,6 @@
                 span1.appendChild(document.createTextNode(formattedDate));
                 div4.appendChild(span1);
 
-                // create link with title
                 const a = document.createElement("a");
                 a.href = "events-singel.html?eventId="+event.id;
                 const h4 = document.createElement("h4");
@@ -463,7 +458,6 @@
                 a.appendChild(h4);
                 div4.appendChild(a);
 
-                // create span with time
                 const span2 = document.createElement("span");
                 const i2 = document.createElement("i");
                 i2.className = "fa fa-clock-o";
@@ -482,7 +476,6 @@
                 span2.appendChild(document.createTextNode( formStartTime+" - "+formEndTime));
                 div4.appendChild(span2);
 
-                // create span with location
                 const span3 = document.createElement("span");
                 const i3 = document.createElement("i");
                 i3.className = "fa fa-map-marker";
@@ -490,14 +483,12 @@
                 span3.appendChild(document.createTextNode(event.address));
                 div4.appendChild(span3);
 
-                // create paragraph with description
                 const p = document.createElement("p");
                 let text = document.createTextNode(event.about);
                 let substring = text.textContent.substring(0, 75) + " ...";
                 p.appendChild(document.createTextNode(substring));
                 div4.appendChild(p);
 
-                // add all created elements to their respective parent elements
                 div2.appendChild(div3);
                 div2.appendChild(div4);
                 div1.appendChild(div2);

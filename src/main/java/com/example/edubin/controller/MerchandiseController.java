@@ -42,6 +42,11 @@ public class MerchandiseController {
     private ApiResponse<List<MerchandiseEntity>> getPageableListOfMerchandise(@PathVariable("id") int id){
         return new ApiResponse<>("pageable Merchandise was taken successfully in database",merchandiseService.getPageableListOfMerchandise(id,7));
     }
+    @GetMapping("/list/recommend")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<List<MerchandiseEntity>> getRecommendListOfMerchandise(){
+        return new ApiResponse<>("pageable Merchandise was taken successfully in database",merchandiseService.getRecommendListOfMerchandise());
+    }
 
     @GetMapping("/product/{id}")
     @ResponseStatus(HttpStatus.OK)

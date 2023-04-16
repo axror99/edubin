@@ -20,6 +20,7 @@ public class CourseRequest {
 //    private List<ContentEntity> contentEntities;
     private int teacher_id;
     private MultipartFile image;
+    private Double price;
     private String courseSummery;
     private String requirements;
     private String headline;

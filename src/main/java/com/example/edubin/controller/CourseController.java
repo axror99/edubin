@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -61,6 +62,12 @@ public class CourseController {
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<List<CourseEntity>> getCourseList() {
         return new ApiResponse<>("courseList is here", courseService.getCourseList());
+    }
+
+    @GetMapping("/recommend/list")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<List<CourseEntity>> getRecommendCourseList() {
+        return new ApiResponse<>("courseList is here", courseService.getRecommendCourseList());
     }
 
     @GetMapping("/list/page/{start}")

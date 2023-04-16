@@ -39,7 +39,7 @@ public class CourseService {
                 .teacher(List.of(teacher))
                 .headline(course.getHeadline())
                 .definition(course.getDefinition())
-//                .contents(course.getContentEntities())
+                .price(course.getPrice())
                 .image(imageRandomName)
                 .build();
         // mediaService.createFolder(category.getName()+"\\"+course.getName());
@@ -115,5 +115,9 @@ public class CourseService {
     public List<CourseEntity> getCourseByTeacherId(int id) {
         UserEntity user = userService.findUser(id);
         return courseRepository.findByTeacherIn(List.of(user));
+    }
+
+    public List<CourseEntity> getRecommendCourseList() {
+        return null;
     }
 }

@@ -142,9 +142,6 @@
             .then(response => {
                 status1 = response.status;
                 // console.log(response);
-                if (status1!==200){
-                    return null;
-                }
                return  response.json();
             })
             .then((data) => {
@@ -156,7 +153,10 @@
                     if (data.data!==null){
                         window.location.replace('myCourses.html?userId='+data.data)
                     }
-                }else {
+                }if (status1 === 404){
+                    alert('siz ma\'lumotlaringizni to\'g\'ri kiritmadingiz . To\'lovingiz amalga oshirilmadi !!! ')
+                }
+                else {
                     alert('Sizning to\'lovingiz muffaqiyatli amalga oshirilmadi !!!')
                 }
             })

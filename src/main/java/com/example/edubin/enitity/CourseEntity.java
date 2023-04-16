@@ -35,8 +35,12 @@ public class CourseEntity extends BaseEntity{
 
     private String image;
     private Double price;
+    @Column(columnDefinition = "TEXT")
     private String definition;
+    @Column(columnDefinition = "TEXT")
     private String headline;
+    @Column(columnDefinition = "TEXT")
     private String courseSummery;
+    @Column(columnDefinition = "TEXT")
     private String requirements;
 }
