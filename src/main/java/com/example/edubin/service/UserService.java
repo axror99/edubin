@@ -55,6 +55,12 @@ public class UserService {
                 MessageFormat.format("id = {0} user is not in database ", user_id)
         ));
     }
+    public UserEntity findUserEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(
+                MessageFormat.format("email = {0} was not found in database",email)
+        ));
+    }
+
 
     public UserEntity findUserByUsername(String username) {
         UserEntity user = userRepository.getIdByUsername(username).orElseThrow(() -> new UsernameNotFoundException(

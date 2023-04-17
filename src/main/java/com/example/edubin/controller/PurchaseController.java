@@ -26,4 +26,10 @@ public class PurchaseController {
         int userId = purchasingService.purchase(id, purchase);
         return new ApiResponse<>("transaction was performed successfully",userId);
     }
+    @PostMapping("/book/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private ApiResponse<Integer> purchaseBook(@PathVariable int id, @RequestBody PurchaseRequest purchase){
+        int userId = purchasingService.purchaseBook(id, purchase);
+        return new ApiResponse<>("transaction was performed successfully",userId);
+    }
 }

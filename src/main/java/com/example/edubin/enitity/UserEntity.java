@@ -49,6 +49,8 @@ public class UserEntity implements UserDetails {
     @Column(columnDefinition="TEXT")
     private String myObjective;
 
+    @ManyToMany( cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    private List<MerchandiseEntity> merchandiseList;
     @JsonManagedReference
     @OneToMany(mappedBy = "teacher",fetch = FetchType.EAGER)
     private List<CommentEntity> comments;
@@ -72,7 +74,7 @@ public class UserEntity implements UserDetails {
                 .email(userRegister.getEmail())
                 .password(userRegister.getPassword())
                 .username(userRegister.getUsername())
-//                .roles(List.of("USER"))
+                .roles(List.of("USER"))
                 .build();
     }
 
