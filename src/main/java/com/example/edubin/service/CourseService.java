@@ -3,6 +3,7 @@ package com.example.edubin.service;
 import com.example.edubin.config.JwtService;
 import com.example.edubin.dto.request.CourseRequest;
 import com.example.edubin.dto.request.PurchaseRequest;
+import com.example.edubin.dto.response.MyItems;
 import com.example.edubin.enitity.CategoryEntity;
 import com.example.edubin.enitity.CourseEntity;
 import com.example.edubin.enitity.UserEntity;
@@ -101,10 +102,16 @@ public class CourseService {
     }
 
 
-    public List<CourseEntity> getStudentCourses(String token) {
+    public MyItems getStudentCourses(String token) {
+        MyItems myItems = new MyItems();
         String username = jwtService.extractUsername(token.substring(7));
         UserEntity user =userService.findUserByUsername(username);
-        return courseRepository.findByTeacherIn(List.of(user));
+        myItems.setCourses(courseRepository.findByTeacherIn(List.of(user)));
+        myItems.setMerchandises(user.getMerchandiseList());
+        myItems.setBirthday(user.getBirthDay());
+        myItems.setPicture(user.getPicture());
+        myItems.setName(user.getName());
+        return myItems;
     }
 
     public List<CourseEntity> getPageableCourseList(int start, int size) {

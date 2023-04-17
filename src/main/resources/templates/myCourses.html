@@ -308,6 +308,14 @@
                 </nav>  <!-- courses pagination -->
             </div>
         </div>  <!-- row -->
+    </div>
+    <div class="container">
+        <div class="tab-content" >
+            <div class="tab-pane fade show active" id="shop-grid" role="tabpanel" aria-labelledby="shop-grid-tab">
+                <div class="row justify-content-center" id="for-each-merchandise">
+                </div> <!-- row -->
+            </div>
+        </div> <!-- tab content -->
     </div> <!-- container -->
 </section>
 
@@ -462,8 +470,8 @@
                 const coursesGridRow =document.getElementById("course-foreach");
 
                 // <img src="images/course/cu-1.jpg" alt="Course">
-                for (key in dataJson.data) {
-                    const course = dataJson.data[key];
+                for (key in dataJson.data.courses) {
+                    const course = dataJson.data.courses[key];
                     const col = document.createElement('div');
                     col.classList.add('col-lg-4', 'col-md-6');
 
@@ -576,6 +584,96 @@
 
                     col.appendChild(singelCourse);
                     coursesGridRow.appendChild(col);
+                }
+
+                let temp = document.getElementById('for-each-merchandise');
+                for (key in dataJson.data.merchandises){
+                    const product=dataJson.data.merchandises[key];
+                    // create outer div with class attributes
+                    const outerDiv = document.createElement("div");
+                    outerDiv.classList.add("col-lg-3", "col-md-6", "col-sm-8");
+
+                    // create inner div with class attributes
+                    const innerDiv = document.createElement("div");
+                    innerDiv.classList.add("singel-publication", "mt-30");
+
+                    const image= document.createElement('div');
+                    image.classList.add("image");
+
+                    // create image element with src attribute
+                    const img = document.createElement("img");
+                    img.src = '../static/images/'+product.picture;
+                    img.width=280;
+                    img.height=280;
+                    img.alt = "Publication";
+
+                    const addCartDiv = document.createElement("div");
+                    addCartDiv.classList.add("add-cart");
+
+                    // const ul = document.createElement("ul");
+                    // const li1 = document.createElement("li");
+                    // const li2 = document.createElement("li");
+                    //
+                    // const link1 = document.createElement("a");
+                    // link1.href = "#";
+                    // const icon1 = document.createElement("i");
+                    // icon1.classList.add("fa", "fa-shopping-cart");
+                    // link1.appendChild(icon1);
+                    // li1.appendChild(link1);
+                    //
+                    // const link2 = document.createElement("a");
+                    // link2.href = "#";
+                    // const icon2 = document.createElement("i");
+                    // icon2.classList.add("fa", "fa-heart-o");
+                    // link2.appendChild(icon2);
+                    // li2.appendChild(link2);
+                    //
+                    // ul.appendChild(li1);
+                    // ul.appendChild(li2);
+                    // addCartDiv.appendChild(ul);
+
+                    image.appendChild(img);
+                    image.appendChild(addCartDiv);
+                    // create cont div with child elements
+                    const contDiv = document.createElement("div");
+                    contDiv.classList.add("cont");
+
+                    const nameDiv = document.createElement("div");
+                    nameDiv.classList.add("name");
+
+                    const nameLink = document.createElement("a");
+                    nameLink.href = "shop-singel.html?pageId="+product.id;
+
+                    const nameHeader = document.createElement("h6");
+                    let substring =  product.headline.substring(0, 25) + " ...";
+                    nameHeader.textContent = substring;
+                    nameLink.appendChild(nameHeader);
+
+                    const nameSpan = document.createElement("span");
+                    nameSpan.textContent = "$"+product.price;
+
+                    nameDiv.appendChild(nameLink);
+                    nameDiv.appendChild(nameSpan);
+
+                    const buttonDiv = document.createElement("div");
+                    buttonDiv.classList.add("button", "text-right");
+
+                    const buttonLink = document.createElement("a");
+                    buttonLink.href = "shop-singel.html?pageId="+product.id;
+                    buttonLink.classList.add("main-btn");
+                    buttonLink.textContent = "Buy Now";
+
+                    buttonDiv.appendChild(buttonLink);
+
+                    contDiv.appendChild(nameDiv);
+                    contDiv.appendChild(buttonDiv);
+
+                    // append child elements to parent elements
+                    // addCartDiv.appendChild(img);
+                    innerDiv.appendChild(image);
+                    innerDiv.appendChild(contDiv);
+                    outerDiv.appendChild(innerDiv);
+                    temp.appendChild(outerDiv);
                 }
             })
             .catch((err) => {

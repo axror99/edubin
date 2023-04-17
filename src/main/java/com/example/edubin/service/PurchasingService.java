@@ -62,7 +62,7 @@ public class PurchasingService {
         financeEntity.setExpiredDate(purchase.getExpiredDate());
         financeEntity.setUser(user);
         financeEntity.setMerchandise(merchandise);
-        financeEntity.setPrice(merchandise.getPrice());
+        financeEntity.setPrice(merchandise.getPrice()*purchase.getCount());
         financeEntity.setTransactionDate(LocalDate.now());
         financeEntity.setTransactionTime(LocalTime.now());
         financeRepository.save(financeEntity);

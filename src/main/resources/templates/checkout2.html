@@ -109,9 +109,11 @@
 <script>
     // Get the query parameters from the URL
     const urlParams = new URLSearchParams(window.location.search);
-    const courseId = urlParams.get('courseId');
+    const bookId = urlParams.get('bookId');
     const name = urlParams.get('name');
     const price = urlParams.get('price');
+    const count = urlParams.get('count');
+    console.log("id = "+bookId+"  name= "+name+"  price= "+price +'  count= '+count);
     const courseInfo = document.getElementById('course-info');
     if (price===null){
         courseInfo.innerHTML = `<h3>Info</h3>
@@ -123,16 +125,16 @@
                              <h2>Price : $${price}</h2>`;
     }
 
-    console.log("courseId="+courseId+' '+'name= '+name +'price= '+price)
+    // console.log("courseId="+courseId+' '+'name= '+name +'price= '+price+'  count= '+count);
     const backHref = document.getElementById('back');
-    backHref.href=`courses-singel.html?courseId=${courseId}`;
+    backHref.href=`shop-singel.html?pageId=${bookId}`;
 </script>
 <script>
     let status1;
 
     function sendBuy() {
-        console.log(courseId);
-        fetch('http://localhost:8080/buy/'+courseId, {
+        console.log(bookId);
+        fetch('http://localhost:8080/buy/book/'+bookId, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -144,6 +146,7 @@
                 name: document.getElementById("name").value,
                 card: document.getElementById("card").value,
                 expiredDate: document.getElementById("expiredDate").value,
+                count: count,
             })
         })
             .then(response => {

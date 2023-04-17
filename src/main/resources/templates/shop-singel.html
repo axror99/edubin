@@ -316,7 +316,7 @@
                         </div>
 
                         <div class="add-btn pt-15">
-                            <button type="button" class="main-btn">Add to Cart</button>
+                            <a id="enroll-button" href="checkout2.html?courseId=${bookId}&name=${name}&price=${price}" type="button" class="main-btn" onclick="enroll()">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -521,6 +521,8 @@
     </div> <!-- footer copyright -->
     <input type="hidden" id="hiddenVar"/>
     <input type="hidden" id="hiddenPrice"/>
+    <input type="hidden" id="name"/>
+    <input type="hidden" id="numberOfBook"/>
 </footer>
 
 <!--====== FOOTER PART ENDS ======-->
@@ -545,6 +547,9 @@
             document.getElementById('headline').innerHTML = ` <h3 >${dataJson.data.headline} </h3>`;
             let price = document.getElementById('price');
             price.innerHTML = `<span><h4>$ ${dataJson.data.price}</h4></span>`;
+
+
+            document.getElementById("name").setAttribute("myBookName", dataJson.data.headline);
 
 
             const printPicElement = document.getElementById("pills-tabContent");
@@ -649,12 +654,16 @@
             var incrementButton = document.getElementById('increment-btn');
             var decrementButton = document.getElementById('decrement-btn');
              let currentPrice ="";
+             let currentPriceToBackend =0;
 
             incrementButton.addEventListener('click', function() {
                 count++;
                 countDisplay.innerText = count;
                 currentPrice=""+count*dataJson.data.price;
                 currentPrice=currentPrice.substring(0,5);
+                currentPriceToBackend= parseFloat(currentPrice);
+                document.getElementById("numberOfBook").setAttribute("countOfBook", count);
+                document.getElementById("hiddenPrice").setAttribute("myCourseId", currentPriceToBackend);
                 price.innerHTML = `<span><h4>$ ${currentPrice}</h4></span>`;
             });
 
@@ -664,11 +673,26 @@
                     countDisplay.innerText = count;
                     currentPrice=""+count*dataJson.data.price;
                     currentPrice=currentPrice.substring(0,5);
+                    currentPriceToBackend= parseFloat(currentPrice);
+                    document.getElementById("numberOfBook").setAttribute("countOfBook", count);
+                    document.getElementById("hiddenPrice").setAttribute("myCourseId", currentPriceToBackend);
                     price.innerHTML = `<span><h4>$ ${currentPrice}</h4></span>`;
                 }
             });
         })
 
+</script>
+<script>
+    function enroll() {
+        const merchandiseId = document.getElementById("hiddenVar").getAttribute("merchandiseId");
+        const courseName = document.getElementById("name").getAttribute("myBookName");
+        const coursePrice = document.getElementById("hiddenPrice").getAttribute("myCourseId");
+        const numOfBook = document.getElementById('numberOfBook').getAttribute('countOfBook');
+        const enrollButton = document.getElementById("enroll-button");
+        console.log('courId=' + merchandiseId + "  courseId=" + pageId + ' ' + '  name= ' + name + '  price= ' + price);
+
+        enrollButton.href = `checkout2.html?bookId=${merchandiseId}&name=${courseName}&price=${coursePrice}&count=${numOfBook}`;
+    }
 </script>
 <script>
     function getInformationFromService() {

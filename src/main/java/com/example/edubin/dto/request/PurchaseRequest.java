@@ -17,4 +17,5 @@ public class PurchaseRequest {
     @Email
     private String email;
     private String expiredDate;
+    private int count;
 }
