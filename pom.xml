@@ -135,7 +135,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>myedubin</finalName>
+        <finalName>edubin</finalName>
     </build>
 
 </project>
