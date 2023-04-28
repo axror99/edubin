@@ -1,6 +1,7 @@
 package com.example.edubin.controller;
 
 import com.example.edubin.dto.request.EventRequest;
+import com.example.edubin.dto.request.OrderEvent;
 import com.example.edubin.dto.response.ApiResponse;
 import com.example.edubin.enitity.EventEntity;
 import com.example.edubin.service.EventService;

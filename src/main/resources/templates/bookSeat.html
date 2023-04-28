@@ -11,7 +11,7 @@
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
     <!--====== Title ======-->
-    <title>Edubin - LMS Education HTML Template</title>
+    <title>Checkout</title>
 
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
@@ -51,6 +51,7 @@
 
 <body>
 
+
 <section id="count-down-part" class="bg_cover pt-70 pb-120" data-overlay="8"
          style="background-image: url(images/bg-2.jpg)">
     <div class="container">
@@ -58,38 +59,22 @@
             <div class="col-lg-5 offset-lg-1 col-md-8">
                 <div class="category-form category-form-3 pt-50">
                     <div class="form-title text-center">
-                        <a class="navbar-brand" href="index-4.html">
-                            <img src="images/logo.png" alt="Logo">
-                        </a>
+                        <h4 id="course-info"></h4>
                     </div>
                     <div class="main-form">
                         <form action="#">
                             <div class="singel-form">
-                                <input type="text" placeholder="Your Username" id="username">
+                                <input type="email" placeholder="Your Email" id="email" required>
                             </div>
                             <div class="singel-form">
-                                <input type="text" placeholder="Your Password" id="password">
+                                <button class="main-btn" type="button" onclick="sendBuy()">Order</button>
                             </div>
                             <div class="singel-form">
-                                <button class="main-btn" type="button" onclick="sendLogin()">Sign up</button>
-                            </div>
-                            <div>
-                                <a href="register.html" style="position: center">Register</a>
+                                <a id="back" href='events-singel.html?eventId=${courseId}'  class="main-btn">Back</a>
                             </div>
                         </form>
+                        <input type="hidden" id="hiddenVar"/>
                     </div>
-<!--                    <div class="signup">-->
-<!--                        <div class="signup-connect">-->
-<!--                            <a href="#" class="btn1 btn-social btn-facebook"><i class="fa fa-facebook"></i> Sign in with-->
-<!--                                Facebook</a>-->
-<!--                            <a href="#" class="btn1 btn-social btn-twitter"><i class="fa fa-twitter"></i> Sign in with-->
-<!--                                Twitter</a>-->
-<!--                            <a href="#" class="btn1 btn-social btn-google"><i class="fa fa-google"></i> Sign in with-->
-<!--                                Google</a>-->
-<!--                            <a href="#" class="btn1 btn-social btn-linkedin"><i class="fa fa-linkedin"></i> Sign in with-->
-<!--                                Linkedin</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
             </div>
         </div> <!-- row -->
@@ -97,48 +82,48 @@
 
 </section>
 <script>
-    let status;
+    // Get the query parameters from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventId = urlParams.get('eventId');
+    const courseInfo = document.getElementById('course-info');
 
-    function sendLogin() {
-        fetch('http://localhost:8080/api/auth/login', {
+
+    console.log("eventId="+eventId+' '+'name= '+name +'price= '+price)
+    const backHref = document.getElementById('back');
+    backHref.href=`event-singel.html?eventId=${eventId}`;
+</script>
+<script>
+    let status1;
+
+    function sendBuy() {
+        console.log(eventId);
+        fetch('http://localhost:8080/api/event/order/'+eventId, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: document.getElementById("username").value,
-                password: document.getElementById("password").value,
+                email: document.getElementById("email").value,
             })
         })
             .then(response => {
-                status = response.status;
-                return response.json();
+                status1 = response.status;
+                // console.log(response);
+                return  response.json();
             })
-            .then(data => {
-                if (status === 200){
-                    console.log(status);
-                    console.log(data.message);
-                    console.log(data);
-                    localStorage.setItem('access_token', 'Bearer '+data.data);
-                    // localStorage.setItem('id', data.message);
-                    // window.location.replace('myCourses.html?userId='+data.message);
-                    window.location.replace('myCourses.html');
-                }else {
-                    document.getElementById("username").value="";
-                    document.getElementById("password").value="";
-                    alert('Sizning login muffaqiyatli amalga oshirilmadi !!!')
-
+            .then((data) => {
+                console.log(data)
+                console.log(data.data)
+                console.log(data)
+                console.log(data.status)
+                if (status1 === 200){
+                    if (data.data!==null){
+                        window.location.replace('events-singel.html?eventId='+eventId)
+                    }
+                } else {
+                    alert('emailingizni  noto\'g\'ri kiritdingiz');
                 }
-
-                // console.log('accessToken' in data.data); // should output true if the property exists
-                // console.log('refreshToken' in data.data);
-                // console.log(JSON.stringify(data))
-                // console.log(data.data.accessToken)
-                // console.log(data.data.refreshToken)
-                // Store the new access token
-
-                // Optionally, store the new refresh token
 
             })
             .catch(error => console.error(error));

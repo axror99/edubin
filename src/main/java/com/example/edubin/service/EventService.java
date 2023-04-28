@@ -1,7 +1,9 @@
 package com.example.edubin.service;
 
 import com.example.edubin.dto.request.EventRequest;
+import com.example.edubin.dto.request.OrderEvent;
 import com.example.edubin.enitity.EventEntity;
+import com.example.edubin.enitity.UserEntity;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.Objects;
 public class EventService {
     private final EventRepository eventRepository;
     private final MediaService mediaService;
+    private final UserService userService;
     private  String PATH_IMAGE="D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
 
     public void addEvent(EventRequest eventRequest) {
@@ -84,4 +87,6 @@ public class EventService {
     public List<EventEntity> getList() {
         return eventRepository.findAllByOrderByDate();
     }
+
+
 }

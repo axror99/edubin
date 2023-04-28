@@ -23,5 +23,6 @@ public class EventEntity extends BaseEntity{
     private String about;
     private String headline;
     private String address;
+    private int seats;
 
 }
