@@ -34,7 +34,9 @@ public class EventService {
                 .address(eventRequest.getAddress())
                 .headline(eventRequest.getHeadline())
                 .date(eventRequest.getDate())
-                .picture(pictureName).build();
+                .picture(pictureName)
+                .seats(eventRequest.getSeats())
+                .build();
         eventRepository.save(eventEntity);
     }
 
@@ -74,6 +76,9 @@ public class EventService {
             String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(eventRequest.getPicture().getOriginalFilename()));
             mediaService.internalWrite(eventRequest.getPicture(),Paths.get(PATH_IMAGE+newPictureName));
             eventEntity.setPicture(newPictureName);
+        }
+        if (eventRequest.getSeats()!=null){
+            eventEntity.setSeats(eventRequest.getSeats());
         }
         eventRepository.save(eventEntity);
     }

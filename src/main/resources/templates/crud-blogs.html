@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords"
+          content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="img-admin/icons/icon-48x48.png"/>
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/ui-cards.html"/>
+
+    <title>crud event</title>
+
+    <link href="css-admin/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <!--====== Slick css ======-->
+    <link rel="stylesheet" href="css/slick.css">
+
+    <!--====== Animate css ======-->
+    <link rel="stylesheet" href="css/animate.css">
+
+    <!--====== Nice Select css ======-->
+    <link rel="stylesheet" href="css/nice-select.css">
+
+    <!--====== Nice Number css ======-->
+    <link rel="stylesheet" href="css/jquery.nice-number.min.css">
+
+    <!--====== Magnific Popup css ======-->
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <!--====== Bootstrap css ======-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!--====== Fontawesome css ======-->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="css/default.css">
+
+    <!--====== Style css ======-->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--====== Responsive css ======-->
+    <link rel="stylesheet" href="css/responsive.css">
+
+
+</head>
+
+<body>
+<div class="wrapper">
+    <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+            <a class="sidebar-brand" href="sideBar.html">
+                <span class="align-middle">Admin Profile</span>
+            </a>
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-header">
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="crud-category.html">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Categories</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="crud-courses.html">
+                        <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Courses</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="crud-events.html">
+                        <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Event</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="crud-blogs.html">
+                        <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Blogs</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="sideBar.html">
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="pages-profile.html">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="pages-sign-in.html">
+                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="pages-sign-up.html">
+                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-header">
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="ui-buttons.html">
+                        <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="ui-cards.html">
+                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
+                    </a>
+                </li>
+
+
+                <li class="sidebar-header">
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="charts-chartjs.html">
+                        <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="maps-google.html">
+                        <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <a class="sidebar-toggle js-sidebar-toggle">
+                <i class="hamburger align-self-center"></i>
+            </a>
+        </nav>
+
+        <main class="content">
+            <div class="container-fluid p-0" id="destroy">
+
+                <div class="mb-2" id="categoryList">
+                    <h1 class="h3 d-inline align-middle">Blogs</h1>
+                    <a href="ui-forms-blog-add.html" class="btn btn-primary">Add Blog</a>
+                    <h1 class="h3 d-inline align-middle">Type : </h1>
+                </div>
+                <div class="row" id="blogs-foreach">
+                </div> <!-- row -->
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="js-admin/app.js"></script>
+
+</body>
+<script>
+    fetch('http://localhost:8080/api/blog/popular')
+    .then(data=>data.json())
+    .then((dataJson)=>{
+        console.log(dataJson.data)
+        const makeEventLoop = document.getElementById('blogs-foreach');
+        // makeEventLoop.parentNode.removeChild(makeEventLoop)
+
+        for (key in dataJson.data) {
+            const blog = dataJson.data[key];
+
+            const div1 = document.createElement("div");
+            div1.className = "col-lg-6";
+
+            const div2 = document.createElement("div");
+            div2.className = "singel-event-list mt-30";
+
+            const div3 = document.createElement("div");
+            div3.className = "event-thum";
+            const img = document.createElement("img");
+            img.src = "../static/images/" + blog.picture;
+            // img.src = "images/event/e-1.jpg";
+            img.width = 100;
+            img.height = 150;
+            img.alt = "Event";
+            div3.appendChild(img);
+
+            const div4 = document.createElement("div");
+            div4.className = "event-cont";
+
+            const span1 = document.createElement("span");
+            const i1 = document.createElement("i");
+            i1.className = "fa fa-calendar";
+            span1.appendChild(i1);
+            const day = blog.date[2];
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            const monthIndex = blog.date[1]-1;
+            const year = blog.date[0];
+            console.log(monthNames[monthIndex])
+            const formattedDate = `${day} ${monthNames[monthIndex]} ${year}`;
+            span1.appendChild(document.createTextNode(formattedDate));
+            div4.appendChild(span1);
+
+            const a = document.createElement("a");
+            a.href = "crud-one-blog.html?blogId=" + blog.id;
+            const h4 = document.createElement("h4");
+            h4.appendChild(document.createTextNode(blog.headline));
+            a.appendChild(h4);
+            div4.appendChild(a);
+
+            const span2 = document.createElement("span");
+            const i2 = document.createElement("i");
+            i2.className = "fa fa-user";
+            span2.appendChild(i2);
+
+            span2.appendChild(document.createTextNode(blog.personName));
+            div4.appendChild(span2);
+
+            const p = document.createElement("p");
+            let text = document.createTextNode(blog.text);
+            let substring = text.textContent.substring(0, 60) + " ...";
+            p.appendChild(document.createTextNode(substring));
+            div4.appendChild(p);
+
+            div2.appendChild(div3);
+            div2.appendChild(div4);
+            div1.appendChild(div2);
+            makeEventLoop.appendChild(div1);
+        }
+    })
+    .catch(err=>console.log(err))
+</script>
+<!--<script>-->
+<!--    fetch('http://localhost:8080/api/category/list')-->
+<!--        .then((data) => {-->
+<!--            return data.json();-->
+<!--        })-->
+<!--        .then((dataJson) => {-->
+<!--            console.log(dataJson.data)-->
+
+<!--            let categories = document.getElementById('categoryList');-->
+<!--            for (key in dataJson.data){-->
+<!--                let categ=dataJson.data[key];-->
+
+<!--                const anchor = document.createElement("a");-->
+<!--                anchor.href = "#";-->
+<!--                anchor.classList.add("btn", "btn-outline-warning");-->
+<!--                anchor.onclick = function() {-->
+<!--                    makeListBlogs(categ.id);-->
+<!--                };-->
+<!--                anchor.textContent =categ.name;-->
+<!--                categories.appendChild(anchor)-->
+<!--            }-->
+<!--        })-->
+<!--        .catch((err) => {-->
+<!--            console.log(err)-->
+<!--        })-->
+<!--</script>-->
+<script>
+    function makeListBlogs(id){
+        console.log(id)
+        fetch('http://localhost:8080/api/blog/list/'+id)
+            .then((data) => {
+                return data.json();
+            })
+            .then((dataJson) => {
+                console.log(dataJson)
+                // console.log(dataJson.data[0].date)
+                // console.log(dataJson.data[0].date[0])
+                const makeEventLoop = document.getElementById('blogs-foreach');
+                // makeEventLoop.parentNode.removeChild(makeEventLoop)
+
+                for (key in dataJson.data) {
+                    const event = dataJson.data[key];
+
+                    const div1 = document.createElement("div");
+                    div1.className = "col-lg-6";
+
+                    const div2 = document.createElement("div");
+                    div2.className = "singel-event-list mt-30";
+
+                    const div3 = document.createElement("div");
+                    div3.className = "event-thum";
+                    const img = document.createElement("img");
+                    img.src = "../static/images/" + event.picture;
+                    // img.src = "images/event/e-1.jpg";
+                    img.width = 100;
+                    img.height = 150;
+                    img.alt = "Event";
+                    div3.appendChild(img);
+
+                    const div4 = document.createElement("div");
+                    div4.className = "event-cont";
+
+                    const span1 = document.createElement("span");
+                    const i1 = document.createElement("i");
+                    i1.className = "fa fa-calendar";
+                    span1.appendChild(i1);
+                    const day = event.date[2];
+                    const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"
+                    ];
+                    const monthIndex = event.date[1];
+                    const year = event.date[0];
+
+                    const formattedDate = `${day} ${monthNames[monthIndex]} ${year}`;
+                    span1.appendChild(document.createTextNode(formattedDate));
+                    div4.appendChild(span1);
+
+                    const a = document.createElement("a");
+                    a.href = "crud-one-event.html?eventId=" + event.id;
+                    const h4 = document.createElement("h4");
+                    h4.appendChild(document.createTextNode(event.headline));
+                    a.appendChild(h4);
+                    div4.appendChild(a);
+
+                    const span2 = document.createElement("span");
+                    const i2 = document.createElement("i");
+                    i2.className = "fa fa-user";
+                    span2.appendChild(i2);
+
+                    span2.appendChild(document.createTextNode("ddddd"));
+                    div4.appendChild(span2);
+
+                    const span3 = document.createElement("span");
+                    const i3 = document.createElement("i");
+                    i3.className = "fa fa-tags";
+                    span3.appendChild(i3);
+                    span3.appendChild(document.createTextNode(event.address));
+                    div4.appendChild(span3);
+
+                    const p = document.createElement("p");
+                    let text = document.createTextNode(event.about);
+                    let substring = text.textContent.substring(0, 75) + " ...";
+                    p.appendChild(document.createTextNode(substring));
+                    div4.appendChild(p);
+
+                    div2.appendChild(div3);
+                    div2.appendChild(div4);
+                    div1.appendChild(div2);
+                    makeEventLoop.appendChild(div1);
+                }
+            })
+    }
+
+</script>
+
+
+<!--====== jquery js ======-->
+<script src="js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="js/vendor/jquery-1.12.4.min.js"></script>
+
+<!--====== Bootstrap js ======-->
+<script src="js/bootstrap.min.js"></script>
+
+<!--====== Slick js ======-->
+<script src="js/slick.min.js"></script>
+
+<!--====== Magnific Popup js ======-->
+<script src="js/jquery.magnific-popup.min.js"></script>
+
+<!--====== Counter Up js ======-->
+<script src="js/waypoints.min.js"></script>
+<script src="js/jquery.counterup.min.js"></script>
+
+<!--====== Nice Select js ======-->
+<script src="js/jquery.nice-select.min.js"></script>
+
+<!--====== Nice Number js ======-->
+<script src="js/jquery.nice-number.min.js"></script>
+
+<!--====== Count Down js ======-->
+<script src="js/jquery.countdown.min.js"></script>
+
+<!--====== Validator js ======-->
+<script src="js/validator.min.js"></script>
+
+<!--====== Ajax Contact js ======-->
+<script src="js/ajax-contact.js"></script>
+
+<!--====== Main js ======-->
+<script src="js/main.js"></script>
+
+
+</html>

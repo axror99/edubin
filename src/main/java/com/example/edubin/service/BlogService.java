@@ -61,6 +61,10 @@ public class BlogService {
         if (blogRequest.getHeadline()!=null && !blogRequest.getHeadline().equals("")){
             blog.setHeadline(blogRequest.getHeadline());
         }
+        if (blogRequest.getCategory_di()!=null){
+            CategoryEntity category = categoryService.findCategory(blogRequest.getCategory_di());
+            blog.setCategoryEntity(category);
+        }
         blog.setDate(LocalDate.now());
         blogRepository.save(blog);
     }
@@ -105,7 +109,6 @@ public class BlogService {
     }
 
     public List<BlogEntity> findPopularBlogs() {
-        List<BlogEntity> allBlogs = blogRepository.findAll();
-        return null;
+        return blogRepository.findAll();
     }
 }

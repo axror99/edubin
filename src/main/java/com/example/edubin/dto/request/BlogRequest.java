@@ -18,4 +18,5 @@ public class BlogRequest {
     private MultipartFile picture;
     private String personName;
     private String headline;
+    private Integer category_di;
 }

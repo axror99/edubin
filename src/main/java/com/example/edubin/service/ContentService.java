@@ -22,8 +22,8 @@ public class ContentService {
 
     public void saveContent(ContentRequest content,int id) {
         CourseEntity course = courseService.findCourse(id);
-        String videoName = mediaService.saveMultiPartFile(content.getVideo(),course.getName(),course.getCategory().getName());
-        String taskName = mediaService.saveMultiPartFile(content.getTask(),course.getName(),course.getCategory().getName());
+        String videoName = mediaService.saveMultiPartFile(content.getVideo());
+        String taskName = mediaService.saveMultiPartFile(content.getTask());
         ContentEntity contentEntity=ContentEntity.builder()
                 .title(content.getTitle())
                 .definition(content.getDefinition())
@@ -46,17 +46,13 @@ public class ContentService {
             content.setTitle(contentRequest.getTitle());
         }
         if (contentRequest.getVideo()!=null){
-            String courseName=content.getCourse().getName();
-            String categoryName=content.getCourse().getCategory().getName();
-            mediaService.deleteExistFile(categoryName+"\\"+courseName+"\\video\\"+content.getTaskName());
-            String newVideoName = mediaService.saveMultiPartFile(contentRequest.getVideo(),courseName,categoryName);
+            mediaService.deleteExistFile("\\video\\"+content.getVideoName());
+            String newVideoName = mediaService.saveMultiPartFile(contentRequest.getVideo());
             content.setVideoName(newVideoName);
         }
         if (contentRequest.getTask()!=null){
-            String courseName=content.getCourse().getName();
-            String categoryName=content.getCourse().getCategory().getName();
-            mediaService.deleteExistFile(categoryName+"\\"+courseName+"\\application\\"+content.getTaskName());
-            String newFileName = mediaService.saveMultiPartFile(contentRequest.getTask(),courseName,categoryName);
+            mediaService.deleteExistFile("\\application\\"+content.getTaskName());
+            String newFileName = mediaService.saveMultiPartFile(contentRequest.getTask());
             content.setTaskName(newFileName);
         }
         MediaContentEntity oldMedia = mediaService.findMediaById(content.getId());
@@ -67,11 +63,8 @@ public class ContentService {
         ContentEntity contentEntity = contentRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} content was not found in database", id)
         ));
-        String taskName = contentEntity.getCourse().getCategory().getName() +"\\"+ contentEntity.getCourse().getName() +"\\application\\"+ contentEntity.getTaskName();
-        String videoName = contentEntity.getCourse().getCategory().getName() +"\\"+ contentEntity.getCourse().getName() +"\\video\\"+ contentEntity.getVideoName();
-
-        mediaService.deleteExistFile(taskName);
-        mediaService.deleteExistFile(videoName);
+        mediaService.deleteExistFile("\\application\\"+ contentEntity.getTaskName());
+        mediaService.deleteExistFile("\\video\\"+ contentEntity.getVideoName());
         contentRepository.delete(contentEntity);
     }
 

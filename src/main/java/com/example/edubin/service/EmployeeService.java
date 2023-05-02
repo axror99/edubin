@@ -78,10 +78,10 @@ public class EmployeeService {
         if (adminUpdateEmployee.getBirthday()!=null){
             user.setBirthDay(adminUpdateEmployee.getBirthday());
         }
-        if (adminUpdateEmployee.getRoles()!=null){
+        if (adminUpdateEmployee.getRoles().size()!=0){
             user.setRoles(adminUpdateEmployee.getRoles());
         }
-        if(adminUpdateEmployee.getPermissionList()!=null){
+        if(adminUpdateEmployee.getPermissionList().size()!=0){
             user.setPermission(adminUpdateEmployee.getPermissionList());
         }
         UserEntity savedUser = userRepository.save(user);
@@ -89,8 +89,12 @@ public class EmployeeService {
     }
 
     public List<UserEntity> getAllEmployees() {
-        return  Stream.of(getAdminList(),getTeacherList())
-                .flatMap(Collection::stream).toList();
+        List<UserEntity> userRepositoryAll = userRepository.findAll();
+        return userRepositoryAll.stream()
+                .filter(user -> !user.getRoles().contains("USER")).toList();
+
+//        return  Stream.of(getAdminList(),getTeacherList())
+//                .flatMap(Collection::stream).toList();
     }
     public List<UserEntity> getTeacherList(){
         return  userRepository.findByRolesContains(Role.TEACHER.name())

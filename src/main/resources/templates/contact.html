@@ -237,42 +237,42 @@
                             <h2>Keep in touch</h2>
                         </div> <!-- section title -->
                         <div class="main-form pt-45">
-                            <form id="contact-form" action="#" method="post" data-toggle="validator">
+                            <form id="contact-form">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="singel-form form-group">
-                                            <input name="name" type="text" placeholder="Your name" data-error="Name is required." required="required">
+                                            <input id="name" type="text" placeholder="Your name" data-error="Name is required." required="required">
                                             <div class="help-block with-errors"></div>
                                         </div> <!-- singel form -->
                                     </div>
                                     <div class="col-md-6">
                                         <div class="singel-form form-group">
-                                            <input name="email" type="email" placeholder="Email" data-error="Valid email is required." required="required">
+                                            <input id="email" type="email" placeholder="Email" data-error="Valid email is required." required="required">
                                             <div class="help-block with-errors"></div>
                                         </div> <!-- singel form -->
                                     </div>
                                     <div class="col-md-6">
                                         <div class="singel-form form-group">
-                                            <input name="subject" type="text" placeholder="Subject" data-error="Subject is required." required="required">
+                                            <input id="subject" type="text" placeholder="Subject" data-error="Subject is required." required="required">
                                             <div class="help-block with-errors"></div>
                                         </div> <!-- singel form --> 
                                     </div>
                                     <div class="col-md-6">
                                         <div class="singel-form form-group">
-                                            <input name="phone" type="text" placeholder="Phone" data-error="Phone is required." required="required">
+                                            <input id="phone" type="text" placeholder="Phone" data-error="Phone is required." required="required">
                                             <div class="help-block with-errors"></div>
                                         </div> <!-- singel form -->
                                     </div>
                                     <div class="col-md-12">
                                         <div class="singel-form form-group">
-                                            <textarea name="messege" placeholder="Messege" data-error="Please,leave us a message." required="required"></textarea>
+                                            <textarea id="messege" placeholder="Messege" data-error="Please,leave us a message." required="required"></textarea>
                                             <div class="help-block with-errors"></div>
                                         </div> <!-- singel form -->
                                     </div>
                                     <p class="form-message"></p>
                                     <div class="col-md-12">
                                         <div class="singel-form">
-                                            <button type="submit" class="main-btn">Send</button>
+                                            <button type="submit" class="main-btn" onclick="sedInformation()">Send</button>
                                         </div> <!-- singel form -->
                                     </div> 
                                 </div> <!-- row -->
@@ -289,7 +289,7 @@
                                         <i class="fa fa-home"></i>
                                     </div>
                                     <div class="cont">
-                                        <p>143 castle road 517 district, kiyev port south Canada</p>
+                                        <p>3-home, Beruniy street,Shayxontohur district, Toshkent</p>
                                     </div>
                                 </div> <!-- singel address -->
                             </li>
@@ -299,8 +299,7 @@
                                         <i class="fa fa-phone"></i>
                                     </div>
                                     <div class="cont">
-                                        <p>+3 123 456 789</p>
-                                        <p>+1 222 345 342</p>
+                                        <p>+998 99 845 47 46</p>
                                     </div>
                                 </div> <!-- singel address -->
                             </li>
@@ -310,8 +309,7 @@
                                         <i class="fa fa-envelope-o"></i>
                                     </div>
                                     <div class="cont">
-                                        <p>info@yourmail.com</p>
-                                        <p>info@yourmail.com</p>
+                                        <p>ahror060799@gmail.com</p>
                                     </div>
                                 </div> <!-- singel address -->
                             </li>
@@ -446,8 +444,34 @@
     <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
     
     <!--====== BACK TO TOP PART ENDS ======-->
-    
-    
+
+    <script>
+
+        function sedInformation(){
+            fetch('http://localhost:8080/api/email/sms', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    subject: document.getElementById("subject").value,
+                    phone: document.getElementById("phone").value,
+                    text: document.getElementById("messege").value,
+                })
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("phone").value = "";
+            document.getElementById("messege").value = "";
+            document.getElementById("subject").value = "";
+        }
+    </script>
     
     
     
@@ -489,7 +513,7 @@
     <script src="js/main.js"></script>
     
     <!--====== Map js ======-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
+
     <script src="js/map-script.js"></script>
 
 </body>

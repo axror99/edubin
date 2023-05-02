@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form id="addId">
+  <div>
+    <h4 class="modal-title">Add Category</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  </div>
+  <div >
+    <div class="form-group">
+      <label>Name</label>
+      <input id="name" type="text" class="form-control" required>
+      <label>username</label>
+      <input id="username" type="text" class="form-control" required>
+      <label>password</label>
+      <input id="password" type="text" class="form-control" required>
+      <label>email</label>
+      <input id="email" type="email" class="form-control" required>
+      <label>birthday</label>
+      <input id="birthday" type="text" class="form-control" required placeholder="2023-06-23">
+      <div class="form-group">
+        <label>Roles</label>
+        <br/>
+        <input type="checkbox" name="rolesList" value="ADMIN"/> Admin
+        <br/>
+        <input type="checkbox" name="rolesList" value="USER"/> User
+        <br/>
+        <input type="checkbox" name="rolesList" value="TEACHER"/> Teacher
+      </div>
+      <div class="form-group">
+        <label>Permission</label>
+        <br/>
+        <input type="checkbox" name="permission" value="ADD"/> Add
+        <br>
+        <input type="checkbox" name="permission" value="READ"/> Read
+        <br>
+        <input type="checkbox" name="permission" value="UPDATE"/> Update
+        <br>
+        <input type="checkbox" name="permission" value="DELETE"/> Delete
+      </div>
+    </div>
+  </div>
+  <div >
+    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+    <input type="button" class="btn btn-success"  onclick="addEmployee(event)">
+  </div>
+</form>
+</body>
+<script>
+  function addEmployee(event) {
+    // event.preventDefault(false);
+    let checkboxes = document.getElementsByName("permission");
+    let selectedValues = [];
+    for (let i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) {
+        selectedValues.push(checkboxes[i].value);
+      }
+    }
+    let checkboxes2 = document.getElementsByName("rolesList");
+    let selectedValues2 = [];
+    for (let i = 0; i < checkboxes2.length; i++) {
+      if (checkboxes2[i].checked) {
+        selectedValues2.push(checkboxes2[i].value);
+      }
+    }
+    console.log(selectedValues)
+    console.log(selectedValues2)
+    let token = localStorage.getItem('access_token');
+
+    fetch('http://localhost:8080/api/employee/add',{
+      method:"POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': token
+      },
+      body: JSON.stringify({
+        name: document.getElementById("name").value,
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value,
+        email: document.getElementById("email").value,
+        birthday: document.getElementById("birthday").value,
+        roles: selectedValues2,
+        permissionList: selectedValues,
+      })
+    })
+            .then(data=>data.json())
+            .then((dataJson)=>{
+              console.log(dataJson.data)
+              console.log(dataJson.status)
+              event.preventDefault(true);
+            })
+            .catch(err=>console.log(err))
+  }
+
+</script>
+</html>

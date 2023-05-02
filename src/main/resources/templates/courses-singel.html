@@ -591,7 +591,7 @@
         document.getElementById("courseStudent").innerHTML = res.data.teacher.length - 1;
         document.getElementById("courseLecture").innerHTML = res.data.contents.length;
         let pic = document.getElementById("coursePicture");
-        pic.innerHTML = `<img src="../static/category/${res.data.category.name}/${res.data.name}/image/${res.data.image}" width="670px" height="450px" alt="Course" >`;
+        pic.innerHTML = `<img src="../static/images/${res.data.image}" width="670px" height="450px" alt="Course" >`;
         let teachPic = document.getElementById("teacherPic");
         teachPic.innerHTML = `<img src="../static/images/${res.data.teacher[0].picture}"width="40px" height="40px" alt="Course" >`;
 
@@ -725,176 +725,176 @@
                 }
             }
             let count =0;
-            for (let indexNumber of mySet ) {
-                const recommendCourse = dataJson.data[indexNumber];
-                if (count<3) {
-                    var outerDiv = document.createElement("div");
-                    outerDiv.classList.add("singel-makelike", "mt-20");
-
-                    var imageDiv = document.createElement("div");
-                    imageDiv.classList.add("image");
-                    var image = document.createElement("img");
-                    let picture = '../static/category/'+recommendCourse.category.name+'/'+recommendCourse.name+'/image/'+recommendCourse.image;
-
-                    image.src= picture;
-                    image.width=140;
-                    image.height=140;
-
-                    image.setAttribute("alt", "Image");
-                    imageDiv.appendChild(image);
-                    outerDiv.appendChild(imageDiv);
-
-                    var contDiv = document.createElement("div");
-                    contDiv.classList.add("cont");
-                    var link = document.createElement("a");
-                    link.setAttribute("href", "courses-singel.html?courseId="+recommendCourse.id);
-                    var heading = document.createElement("h4");
-                    heading.textContent = recommendCourse.name;
-                    link.appendChild(heading);
-                    contDiv.appendChild(link);
-
-                    var list = document.createElement("ul");
-                    var listItem1 = document.createElement("li");
-                    var link2 = document.createElement("a");
-                    var icon = document.createElement("i");
-                    icon.classList.add("fa", "fa-user");
-                    link2.appendChild(icon);
-                    const numberStudent = recommendCourse.teacher.length-1;
-                    link2.appendChild(document.createTextNode(""+numberStudent));
-                    listItem1.appendChild(link2);
-                    list.appendChild(listItem1);
-
-                    var listItem2 = document.createElement("li");
-                    if (recommendCourse.price !==null){
-                        listItem2.textContent = "$ "+recommendCourse.price;
-                    }else {
-                        listItem2.textContent = "free";
-                    }
-                    list.appendChild(listItem2);
-
-                    contDiv.appendChild(list);
-                    outerDiv.appendChild(contDiv);
-                    makeLikes.appendChild(outerDiv);
-
-                }else if (count>2 && count<5){
-                    console.log('count = '+count)
-                    const col = document.createElement('div');
-                    col.classList.add('col-md-6');
-
-                    const singelCourse = document.createElement('div');
-                    singelCourse.classList.add('singel-course', 'mt-30');
-
-                    const thum = document.createElement('div');
-                    thum.classList.add('thum');
-
-                    const image = document.createElement('div');
-                    image.classList.add('image');
-                    const img = document.createElement('img');
-
-                    img.src = '../static/category/'+recommendCourse.category.name+'/'+recommendCourse.name+'/image/'+recommendCourse.image;
-                    img.alt = 'course-Avatar';
-                    img.height=277;
-                    img.width=370;
-                    image.appendChild(img);
-
-                    const price = document.createElement('div');
-                    price.classList.add('price');
-                    const span = document.createElement('span');
-                    if (recommendCourse.price===null){
-                        span.textContent= 'Free';
-                    }else{
-                        span.textContent = '$'+recommendCourse.price;
-                    }
-                    price.appendChild(span);
-
-                    thum.appendChild(image);
-                    thum.appendChild(price);
-
-                    const cont = document.createElement('div');
-                    cont.classList.add('cont');
-
-                    // const ul = document.createElement('ul');
-                    //
-                    // for (let i = 0; i < 5; i++) {
-                    //     const li = document.createElement('li');
-                    //     const iElement = document.createElement('i');
-                    //     iElement.classList.add('fa', 'fa-star');
-                    //     li.appendChild(iElement);
-                    //     ul.appendChild(li);
-                    // }
-                    // const reviewsCount = document.createElement('span');
-                    // reviewsCount.textContent = `(20  Reviews)`;
-
-                    const titleLink = document.createElement('a');
-                    // titleLink.href = course.link;
-                    titleLink.href = 'courses-singel.html?courseId='+recommendCourse.id;
-                    const title = document.createElement('h4');
-                    title.textContent = recommendCourse.name;
-                    titleLink.appendChild(title);
-
-                    const courseTeacher = document.createElement('div');
-                    courseTeacher.classList.add('course-teacher');
-
-                    const teacherThum = document.createElement('div');
-                    teacherThum.classList.add('thum');
-                    const teacherImg = document.createElement('img');
-                    teacherImg.src = '../static/images/'+recommendCourse.teacher[0].picture;
-                    teacherImg.alt = 'avatar';
-                    teacherThum.appendChild(teacherImg);
-
-                    const teacherName = document.createElement('div');
-                    teacherName.classList.add('name');
-                    const teacherNameLink = document.createElement('a');
-                    const teacherNameH6 = document.createElement('h6');
-                    teacherNameH6.textContent = recommendCourse.teacher[0].name;
-                    teacherNameLink.appendChild(teacherNameH6);
-                    teacherName.appendChild(teacherNameLink);
-
-                    const admin = document.createElement('div');
-                    admin.classList.add('admin');
-                    const adminUl = document.createElement('ul');
-
-                    const studentsCountLi = document.createElement('li');
-                    const studentsCountLink = document.createElement('a');
-                    const studentsCountIcon = document.createElement('i');
-                    studentsCountIcon.classList.add('fa', 'fa-user');
-                    const studentsCountSpan = document.createElement('span');
-                    // studentsCountSpan.textContent = course.users;
-                    studentsCountSpan.textContent = ""+(recommendCourse.teacher.length-1);
-                    studentsCountLink.appendChild(studentsCountIcon);
-                    studentsCountLink.appendChild(studentsCountSpan);
-                    studentsCountLi.appendChild(studentsCountLink);
-
-                    const likesCountLi = document.createElement('li');
-                    const likesCountLink = document.createElement('a');
-                    const likesCountIcon = document.createElement('i');
-                    likesCountIcon.classList.add('fa', 'fa-heart');
-                    const likesCountSpan = document.createElement('span');
-                    likesCountSpan.textContent = recommendCourse.likes;
-                    likesCountLink.appendChild(likesCountIcon);
-                    likesCountLink.appendChild(likesCountSpan);
-                    likesCountLi.appendChild(likesCountLink);
-                    adminUl.appendChild(studentsCountLi);
-                    adminUl.appendChild(likesCountLi);
-                    admin.appendChild(adminUl);
-
-                    courseTeacher.appendChild(teacherThum);
-                    courseTeacher.appendChild(teacherName);
-                    courseTeacher.appendChild(admin);
-
-                    // cont.appendChild(ul);
-                    // cont.appendChild(reviewsCount);
-                    cont.appendChild(titleLink);
-                    cont.appendChild(courseTeacher);
-
-                    singelCourse.appendChild(thum);
-                    singelCourse.appendChild(cont);
-
-                    col.appendChild(singelCourse);
-                    courses.appendChild(col);
-                }
-                ++count;
-            }
+            // for (let indexNumber of mySet ) {
+            //     const recommendCourse = dataJson.data[indexNumber];
+            //     if (count<3) {
+            //         var outerDiv = document.createElement("div");
+            //         outerDiv.classList.add("singel-makelike", "mt-20");
+            //
+            //         var imageDiv = document.createElement("div");
+            //         imageDiv.classList.add("image");
+            //         var image = document.createElement("img");
+            //         let picture = '../static/images/'+recommendCourse.image;
+            //
+            //         image.src= picture;
+            //         image.width=140;
+            //         image.height=140;
+            //
+            //         image.setAttribute("alt", "Image");
+            //         imageDiv.appendChild(image);
+            //         outerDiv.appendChild(imageDiv);
+            //
+            //         var contDiv = document.createElement("div");
+            //         contDiv.classList.add("cont");
+            //         var link = document.createElement("a");
+            //         link.setAttribute("href", "courses-singel.html?courseId="+recommendCourse.id);
+            //         var heading = document.createElement("h4");
+            //         heading.textContent = recommendCourse.name;
+            //         link.appendChild(heading);
+            //         contDiv.appendChild(link);
+            //
+            //         var list = document.createElement("ul");
+            //         var listItem1 = document.createElement("li");
+            //         var link2 = document.createElement("a");
+            //         var icon = document.createElement("i");
+            //         icon.classList.add("fa", "fa-user");
+            //         link2.appendChild(icon);
+            //         const numberStudent = recommendCourse.teacher.length-1;
+            //         link2.appendChild(document.createTextNode(""+numberStudent));
+            //         listItem1.appendChild(link2);
+            //         list.appendChild(listItem1);
+            //
+            //         var listItem2 = document.createElement("li");
+            //         if (recommendCourse.price !==null){
+            //             listItem2.textContent = "$ "+recommendCourse.price;
+            //         }else {
+            //             listItem2.textContent = "free";
+            //         }
+            //         list.appendChild(listItem2);
+            //
+            //         contDiv.appendChild(list);
+            //         outerDiv.appendChild(contDiv);
+            //         makeLikes.appendChild(outerDiv);
+            //
+            //     }else if (count>2 && count<5){
+            //         console.log('count = '+count)
+            //         const col = document.createElement('div');
+            //         col.classList.add('col-md-6');
+            //
+            //         const singelCourse = document.createElement('div');
+            //         singelCourse.classList.add('singel-course', 'mt-30');
+            //
+            //         const thum = document.createElement('div');
+            //         thum.classList.add('thum');
+            //
+            //         const image = document.createElement('div');
+            //         image.classList.add('image');
+            //         const img = document.createElement('img');
+            //
+            //         img.src = '../static/images/'+recommendCourse.image;
+            //         img.alt = 'course-Avatar';
+            //         img.height=277;
+            //         img.width=370;
+            //         image.appendChild(img);
+            //
+            //         const price = document.createElement('div');
+            //         price.classList.add('price');
+            //         const span = document.createElement('span');
+            //         if (recommendCourse.price===null){
+            //             span.textContent= 'Free';
+            //         }else{
+            //             span.textContent = '$'+recommendCourse.price;
+            //         }
+            //         price.appendChild(span);
+            //
+            //         thum.appendChild(image);
+            //         thum.appendChild(price);
+            //
+            //         const cont = document.createElement('div');
+            //         cont.classList.add('cont');
+            //
+            //         // const ul = document.createElement('ul');
+            //         //
+            //         // for (let i = 0; i < 5; i++) {
+            //         //     const li = document.createElement('li');
+            //         //     const iElement = document.createElement('i');
+            //         //     iElement.classList.add('fa', 'fa-star');
+            //         //     li.appendChild(iElement);
+            //         //     ul.appendChild(li);
+            //         // }
+            //         // const reviewsCount = document.createElement('span');
+            //         // reviewsCount.textContent = `(20  Reviews)`;
+            //
+            //         const titleLink = document.createElement('a');
+            //         // titleLink.href = course.link;
+            //         titleLink.href = 'courses-singel.html?courseId='+recommendCourse.id;
+            //         const title = document.createElement('h4');
+            //         title.textContent = recommendCourse.name;
+            //         titleLink.appendChild(title);
+            //
+            //         const courseTeacher = document.createElement('div');
+            //         courseTeacher.classList.add('course-teacher');
+            //
+            //         const teacherThum = document.createElement('div');
+            //         teacherThum.classList.add('thum');
+            //         const teacherImg = document.createElement('img');
+            //         teacherImg.src = '../static/images/'+recommendCourse.teacher[0].picture;
+            //         teacherImg.alt = 'avatar';
+            //         teacherThum.appendChild(teacherImg);
+            //
+            //         const teacherName = document.createElement('div');
+            //         teacherName.classList.add('name');
+            //         const teacherNameLink = document.createElement('a');
+            //         const teacherNameH6 = document.createElement('h6');
+            //         teacherNameH6.textContent = recommendCourse.teacher[0].name;
+            //         teacherNameLink.appendChild(teacherNameH6);
+            //         teacherName.appendChild(teacherNameLink);
+            //
+            //         const admin = document.createElement('div');
+            //         admin.classList.add('admin');
+            //         const adminUl = document.createElement('ul');
+            //
+            //         const studentsCountLi = document.createElement('li');
+            //         const studentsCountLink = document.createElement('a');
+            //         const studentsCountIcon = document.createElement('i');
+            //         studentsCountIcon.classList.add('fa', 'fa-user');
+            //         const studentsCountSpan = document.createElement('span');
+            //         // studentsCountSpan.textContent = course.users;
+            //         studentsCountSpan.textContent = ""+(recommendCourse.teacher.length-1);
+            //         studentsCountLink.appendChild(studentsCountIcon);
+            //         studentsCountLink.appendChild(studentsCountSpan);
+            //         studentsCountLi.appendChild(studentsCountLink);
+            //
+            //         const likesCountLi = document.createElement('li');
+            //         const likesCountLink = document.createElement('a');
+            //         const likesCountIcon = document.createElement('i');
+            //         likesCountIcon.classList.add('fa', 'fa-heart');
+            //         const likesCountSpan = document.createElement('span');
+            //         likesCountSpan.textContent = recommendCourse.likes;
+            //         likesCountLink.appendChild(likesCountIcon);
+            //         likesCountLink.appendChild(likesCountSpan);
+            //         likesCountLi.appendChild(likesCountLink);
+            //         adminUl.appendChild(studentsCountLi);
+            //         adminUl.appendChild(likesCountLi);
+            //         admin.appendChild(adminUl);
+            //
+            //         courseTeacher.appendChild(teacherThum);
+            //         courseTeacher.appendChild(teacherName);
+            //         courseTeacher.appendChild(admin);
+            //
+            //         // cont.appendChild(ul);
+            //         // cont.appendChild(reviewsCount);
+            //         cont.appendChild(titleLink);
+            //         cont.appendChild(courseTeacher);
+            //
+            //         singelCourse.appendChild(thum);
+            //         singelCourse.appendChild(cont);
+            //
+            //         col.appendChild(singelCourse);
+            //         courses.appendChild(col);
+            //     }
+            //     ++count;
+            // }
         })
     .catch((err)=>{
         console.log(err)
@@ -923,6 +923,7 @@
         })
             .then(response => response.json())
             .then(data => console.log(data))
+            .catch(error => console.error(error));
         document.getElementById("inputId1").value = "";
         document.getElementById("inputId2").value = "";
         document.getElementById("commentId").value = "";

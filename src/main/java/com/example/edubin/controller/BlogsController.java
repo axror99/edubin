@@ -17,7 +17,6 @@ import java.util.List;
 public class BlogsController {
 
     private final BlogService blogService;
-
     @PostMapping("/add/{id}")// category id
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<Void> addBlog(@PathVariable("id") int id, @ModelAttribute BlogRequest blogRequest){
@@ -31,7 +30,6 @@ public class BlogsController {
         blogService.updateBlog(id, blogRequest);
         return new ApiResponse<>("blog was updated successfully in database");
     }
-
     @GetMapping("/list/{id}")// category id
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<List<BlogEntity>> getListByCategory(@PathVariable("id") int id){
@@ -58,6 +56,7 @@ public class BlogsController {
 
     @GetMapping("/popular")// blog id
     private ApiResponse<List<BlogEntity>> getPopularBlogs(){
-        return new ApiResponse<>(" popular blogs was token successfully in database", blogService.findPopularBlogs());
+        List<BlogEntity> popularBlogs = blogService.findPopularBlogs();
+        return new ApiResponse<>(" popular blogs was token successfully in database", popularBlogs);
     }
 }
