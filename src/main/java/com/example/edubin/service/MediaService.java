@@ -26,8 +26,10 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class MediaService {
     private final MediaRepository mediaRepository;
-    private String pathForImage = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
-    private String pathCategory = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\";
+    private String pathForImage = "src\\main\\resources\\static\\images\\";
+//    private String pathForImage = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
+//    private String pathCategory = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\";
+    private String pathCategory = "src\\main\\resources\\static\\";
 
 
     @SneakyThrows

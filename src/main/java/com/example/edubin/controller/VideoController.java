@@ -19,7 +19,7 @@ public class VideoController {
 
     @GetMapping(
             value = "/{video}",
-            produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE}
+            produces = {MediaType.IMAGE_PNG_VALUE , MediaType.IMAGE_JPEG_VALUE}
     )
     public ResponseEntity<?> getImage(
             @PathVariable("video") String video
