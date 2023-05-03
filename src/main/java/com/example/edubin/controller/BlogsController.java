@@ -59,4 +59,5 @@ public class BlogsController {
         List<BlogEntity> popularBlogs = blogService.findPopularBlogs();
         return new ApiResponse<>(" popular blogs was token successfully in database", popularBlogs);
     }
+
 }
