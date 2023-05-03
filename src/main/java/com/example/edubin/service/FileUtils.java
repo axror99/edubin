@@ -16,6 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileUtils {
     private static final String FILE_PATH = "src\\main\\resources\\static\\images\\";
+    private static final String FILE_VIDEO = "src\\main\\resources\\static\\video\\";
     public static boolean saveImage(MultipartFile image, UUID imageUUID,String imgContentType) {
         File file = new File(FILE_PATH + imageUUID + imgContentType);
         if (!file.exists()) {
@@ -35,6 +36,14 @@ public class FileUtils {
     }
     public static byte[] getImageBytes(String image) {
         Path path = Paths.get(FILE_PATH, image);
+        try {
+            return Files.readAllBytes(path);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+    public static byte[] getVideoBytes(String image) {
+        Path path = Paths.get(FILE_VIDEO, image);
         try {
             return Files.readAllBytes(path);
         } catch (IOException e) {

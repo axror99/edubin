@@ -15,7 +15,4 @@ public class EdubinApplication {
         SpringApplication.run(EdubinApplication.class, args);
     }
 
-
-//    file:///D:/EduBin/edubin/src/main/resources/templates/teachers-singel.html?teacherId=2
-//    file:///D:/EduBin/edubin/src/main/resources/templates/teacher-singel.html?teacherID=14
 }
