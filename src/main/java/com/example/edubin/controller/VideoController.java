@@ -29,4 +29,19 @@ public class VideoController {
         ByteArrayResource resource = new ByteArrayResource(imageBytes);
         return ResponseEntity.ok().contentLength(imageBytes.length).body(resource);
     }
+//    @GetMapping("/{attachmentContentId}")
+//    private ResponseEntity getFile(@PathVariable String attachmentContentId) {
+//        AttachmentContent attachmentContent = attachmentContentRepository.findById(Long.parseLong(attachmentContentId)).orElseThrow();
+//        Attachment attachment = attachmentContent.getAttachment();
+//        try {
+//            ByteArrayResource resource = new ByteArrayResource(attachmentContent.getData());
+//            return ResponseEntity.ok()
+//                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + attachment.getName())
+//                    .contentType(MediaType.valueOf(attachment.getContentType()))
+//                    .contentLength(attachmentContent.getData().length)
+//                    .body(resource);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }

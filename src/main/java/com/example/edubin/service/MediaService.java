@@ -29,7 +29,7 @@ public class MediaService {
     private String pathForImage = "src/main/resources/static/assets/images/";
 //    private String pathForImage = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
 //    private String pathCategory = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\";
-    private String pathCategory = "src/main/resources/assets/static/";
+    private String pathCategory = "src/main/resources/static/assets/";
 
 
     @SneakyThrows
