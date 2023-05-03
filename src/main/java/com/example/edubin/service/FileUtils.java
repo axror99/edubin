@@ -15,7 +15,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class FileUtils {
-    private static final String FILE_PATH = "src\\main\\resources\\static\\images\\";
+    private static final String FILE_PATH = "resources\\static\\images\\";
     private static final String FILE_VIDEO = "src\\main\\resources\\static\\video\\";
     public static boolean saveImage(MultipartFile image, UUID imageUUID,String imgContentType) {
         File file = new File(FILE_PATH + imageUUID + imgContentType);
