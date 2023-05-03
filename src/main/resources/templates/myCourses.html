@@ -75,15 +75,13 @@
                 <div class="col-lg-6">
                     <div class="header-contact text-lg-left text-center">
                         <ul>
-                            <li><img src="images/all-icon/map.png" alt="icon"><span>3-home, Beruniy street, Tashkent</span></li>
-                            <li><img src="images/all-icon/email.png" alt="icon"><span>ahror060799@gmail.com</span></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="header-opening-time text-lg-right text-center">
-                        <p>Opening Hours : Monday to Saturay - 8 Am to 5 Pm</p>
-                    </div>
                 </div>
             </div> <!-- row -->
         </div> <!-- container -->
@@ -103,11 +101,12 @@
                     <div class="support-button float-right d-none d-md-block">
                         <div class="support float-left">
                             <div class="icon">
-                                <img src="images/all-icon/support.png" alt="icon">
+                                <img src="images/all-icon/man.png" alt="icon">
                             </div>
                             <div class="cont">
-                                <p>Need Help? call us free</p>
-                                <span>+998 99) 845 47 46</span>
+                                <p>name :<span id="name">G@gmail.com</span></p>
+                                <p>username :<span id="username">A</span></p>
+                                <p>email :<span id="email">G@gmail.com</span></p>
                             </div>
                         </div>
                         <div class="button float-left">
@@ -142,7 +141,7 @@
                                     <a href="about.html">About us</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a  class="active" href="courses.html">Courses</a>
+                                    <a  href="courses.html">Courses</a>
 
                                 </li>
                                 <li class="nav-item">
@@ -172,10 +171,12 @@
                 <div class="col-lg-2 col-md-2 col-sm-3 col-4">
                     <div class="right-icon text-right">
                         <ul>
-                            <li><a href="#" id="search"><i class="fa fa-search"></i></a></li>
                             <li><a href="#"><i class="fa fa-shopping-bag"></i><span>0</span></a></li>
+                            <button type="submit" style="color: #ffc600;
+                            border-color: #07294d;
+                             background-color: #07294d;"
+                                     onclick="logOut()">Log out</button>
                         </ul>
-                        <button onclick="logOut()">Log out</button>
                     </div> <!-- right icon -->
                 </div>
             </div> <!-- row -->
@@ -444,6 +445,9 @@
             })
             .then((dataJson) => {
                 console.log(dataJson);
+                document.getElementById('username').innerText=dataJson.data.username;
+                document.getElementById('email').innerText=dataJson.data.email;
+                document.getElementById('name').innerText=dataJson.data.name;
                 const coursesGridRow =document.getElementById("course-foreach");
 
                 // <img src="images/course/cu-1.jpg" alt="Course">
@@ -464,7 +468,7 @@
 
                     // img.src = '../static/images/'+course.image;
                     // <img src="../static/images/${res.data.teacher.picture}"
-                    img.src = '../static/category/'+course.category.name+'/'+course.name+'/image/'+course.image;
+                    img.src = '../static/images/'+course.image;
                     img.alt = 'course-Avatar';
                     image.appendChild(img);
 
@@ -529,7 +533,7 @@
                     studentsCountIcon.classList.add('fa', 'fa-user');
                     const studentsCountSpan = document.createElement('span');
                     // studentsCountSpan.textContent = course.users;
-                    studentsCountSpan.textContent = 5;
+                    studentsCountSpan.textContent = course.teacher.length-1;
                     studentsCountLink.appendChild(studentsCountIcon);
                     studentsCountLink.appendChild(studentsCountSpan);
                     studentsCountLi.appendChild(studentsCountLink);

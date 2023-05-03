@@ -591,7 +591,7 @@
         document.getElementById("courseStudent").innerHTML = res.data.teacher.length - 1;
         document.getElementById("courseLecture").innerHTML = res.data.contents.length;
         let pic = document.getElementById("coursePicture");
-        pic.innerHTML = `<img src="../static/category/${res.data.category.name}/${res.data.name}/image/${res.data.image}" width="670px" height="450px" alt="Course" >`;
+        pic.innerHTML = `<img src="../static/images/${res.data.image}" width="670px" height="450px" alt="Course" >`;
         let teachPic = document.getElementById("teacherPic");
         teachPic.innerHTML = `<img src="../static/images/${res.data.teacher[0].picture}"width="40px" height="40px" alt="Course" >`;
 
@@ -620,7 +620,7 @@
                 socialIcons += `<li><a href="${socialLinks[i].link}"><i class="fa fa-${socialLinks[i].name}"></i></a></li>`;
             }
         }
-        ;
+
 
         temp2.innerHTML = `
     <a id="teacherID" href="teachers-singel.html?teacherId=${res.data.teacher[0].id}"><h5>${res.data.teacher[0].name}</h5></a>
@@ -640,7 +640,7 @@
                       <div class="singel-reviews">
                         <div class="reviews-author">
                           <div class="author-thum">
-<!--                            <img src="../static/images/${array[key1]}" alt="Reviews">-->
+                           <img src="images/unknown.png" width="35px" height="35px" alt="Reviews">
                           </div>
                           <div class="author-name">
                             <h6>${array[key1].personName}</h6>
@@ -725,6 +725,7 @@
                 }
             }
             let count =0;
+            console.log(mySet)
             for (let indexNumber of mySet ) {
                 const recommendCourse = dataJson.data[indexNumber];
                 if (count<3) {
@@ -734,7 +735,7 @@
                     var imageDiv = document.createElement("div");
                     imageDiv.classList.add("image");
                     var image = document.createElement("img");
-                    let picture = '../static/category/'+recommendCourse.category.name+'/'+recommendCourse.name+'/image/'+recommendCourse.image;
+                    let picture = '../static/images/'+recommendCourse.image;
 
                     image.src= picture;
                     image.width=140;
@@ -791,7 +792,7 @@
                     image.classList.add('image');
                     const img = document.createElement('img');
 
-                    img.src = '../static/category/'+recommendCourse.category.name+'/'+recommendCourse.name+'/image/'+recommendCourse.image;
+                    img.src = '../static/images/'+recommendCourse.image;
                     img.alt = 'course-Avatar';
                     img.height=277;
                     img.width=370;
@@ -923,9 +924,11 @@
         })
             .then(response => response.json())
             .then(data => console.log(data))
+            .catch(error => console.error(error));
         document.getElementById("inputId1").value = "";
         document.getElementById("inputId2").value = "";
         document.getElementById("commentId").value = "";
+        location.reload();
     }
 </script>
 

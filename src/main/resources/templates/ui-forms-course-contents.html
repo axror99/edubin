@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords"
+          content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="img-admin/icons/icon-48x48.png"/>
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/ui-forms.html"/>
+
+    <title>Contents</title>
+
+    <link href="css-admin/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+    <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+            <a class="sidebar-brand" href="sideBar.html">
+                <span class="align-middle">AdminKit</span>
+            </a>
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-header">
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="crud-category.html">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Categories</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="crud-courses.html">
+                        <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Courses</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="crud-events.html">
+                        <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Event</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="sideBar.html">
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="pages-profile.html">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="pages-sign-in.html">
+                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="pages-sign-up.html">
+                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
+                    </a>
+                </li>
+
+
+
+                <li class="sidebar-header">
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="ui-buttons.html">
+                        <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
+                    </a>
+                </li>
+
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="ui-cards.html">
+                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="ui-typography.html">
+                        <i class="align-middle" data-feather="align-left"></i> <span
+                            class="align-middle">Typography</span>
+                    </a>
+                </li>
+
+
+
+                <li class="sidebar-header">
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="charts-chartjs.html">
+                        <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="maps-google.html">
+                        <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-cta">
+                <div class="sidebar-cta-content">
+                    <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
+                    <div class="mb-3 text-sm">
+                        Are you looking for more components? Check out our premium version.
+                    </div>
+                    <div class="d-grid">
+                        <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <a class="sidebar-toggle js-sidebar-toggle">
+                <i class="hamburger align-self-center"></i>
+            </a>
+        </nav>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+
+                <div class="mb-3">
+                    <h1 class="h3 d-inline align-middle">Example Course</h1>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+
+                        <div class="card" id="currentCourse">
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div id="foreach-content">
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <input id="contentId" type="text" class="form-control" placeholder="ID :" value="0">
+                                <button class="btn btn-danger" onclick="deleteContent()">Delete Content</button>
+<!--                                <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">Delete Content</a>-->
+                            </div>
+                            <div class="card-header">
+                                <h5>Input New content or Previous content</h5>
+                            </div>
+                            <div class="card-body">
+                                <input id="contentTitle" type="text" class="form-control" placeholder="Title">
+                            </div>
+                            <div class="card-body">
+                                <input id="contentDefinition" type="text" class="form-control" placeholder="Definition">
+                            </div>
+                            <div class="card-body">
+                                <p>video</p>
+                                <input type="file" id="myVideo" name="myVideo">
+                            </div>
+                            <div class="card-body">
+                                <p>file</p>
+                                <input type="file" id="myFile" name="myfile">
+                            </div>
+                            <br>
+                            <div class="card-body">
+                                <button class="btn btn-success" onclick="updateCourse()">Save Content</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+</div>
+<div id="deleteEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Employee</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete these Records?</p>
+                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <button class="btn btn-danger" onclick="deleteContent()">Delete Content</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="js-admin/app.js"></script>
+
+</body>
+<script>
+    let ulrParam = new URLSearchParams(window.location.search);
+    let courseID = ulrParam.get("courseId");
+    console.log(courseID);
+
+    fetch('http://localhost:8080/api/course/get/'+courseID)
+        .then(data=>data.json())
+        .then((dataJson)=>{
+            console.log(dataJson);
+
+            let currentCourse = document.getElementById('currentCourse');
+            const img = document.createElement("img");
+            img.classList.add("card-img-top");
+            img.src = '../static/images/'+dataJson.data.image;
+            img.alt = "Unsplash";
+            img.height=200;
+            img.width=200;
+
+            const header = document.createElement("div");
+            header.classList.add("card-header");
+
+            const title = document.createElement("h5");
+            title.classList.add("card-title", "mb-0");
+            title.textContent = "Current Course's Picture";
+
+            header.appendChild(title);
+
+            const body = document.createElement("div");
+            body.classList.add("card-body");
+
+            const courseName = document.createElement("p");
+            let str1= dataJson.data.name.substring(0,70);
+            courseName.textContent = "Course Name : "+str1;
+
+            const price = document.createElement("p");
+            price.textContent = "Price : $"+dataJson.data.price;
+
+            const category = document.createElement("p");
+            category.textContent = "Category : "+dataJson.data.category.name;
+
+            const teacher = document.createElement("p");
+            teacher.textContent = "Teacher : "+dataJson.data.teacher[0].name +" ( username = "+dataJson.data.teacher[0].username+" )";
+
+            const courseSummery = document.createElement("p");
+            let str2= dataJson.data.courseSummery.substring(0,70);
+            courseSummery.textContent = "Course Summery : "+str2;
+
+            const requirements = document.createElement("p");
+            let str3= dataJson.data.requirements.substring(0,70);
+            requirements.textContent = "Requrements : "+str3;
+
+            const headline = document.createElement("p");
+            let str4= dataJson.data.headline.substring(0,70);
+            headline.textContent = "Headline in website top : "+str4;
+
+            const definition = document.createElement("p");
+            let str5= dataJson.data.definition.substring(0,70);
+            definition.textContent = "Definition in contents top : "+str5;
+
+            body.appendChild(courseName);
+            body.appendChild(price);
+            body.appendChild(category);
+            body.appendChild(teacher);
+            body.appendChild(courseSummery);
+            body.appendChild(requirements);
+            body.appendChild(headline);
+            body.appendChild(definition);
+
+            currentCourse.appendChild(img);
+            currentCourse.appendChild(header);
+            currentCourse.appendChild(body);
+
+            let contentList = document.getElementById('foreach-content');
+            for (key in dataJson.data.contents){
+                let content =dataJson.data.contents[key];
+
+                const cardDiv = document.createElement("div");
+                cardDiv.setAttribute("class", "card");
+                const cardHeaderDiv = document.createElement("div");
+                cardHeaderDiv.setAttribute("class", "card-header");
+                const titleH5 = document.createElement("h5");
+                const titleText = document.createTextNode(content.id +" . "+content.title);
+                titleH5.appendChild(titleText);
+                cardHeaderDiv.appendChild(titleH5);
+                cardDiv.appendChild(cardHeaderDiv);
+                contentList.appendChild(cardDiv);
+            }
+
+        })
+        .catch(err=>console.log(err));
+
+</script>
+<script>
+    function updateCourse(){
+        const formData = new FormData();
+        formData.append("title", document.getElementById("contentTitle").value);
+
+        formData.append("definition", document.getElementById("contentDefinition").value);
+        let video= document.getElementById("myVideo").files[0];
+        if (video !== undefined){
+            formData.append("video",video);
+        }
+        let docFile= document.getElementById("myFile").files[0];
+        if (docFile !== undefined){
+            formData.append("task",docFile);
+        }
+
+        let contentId = document.getElementById('contentId').value;
+        let token = localStorage.getItem('access_token');
+        console.log(contentId)
+        console.log(courseID)
+        if (contentId==="0"){
+            fetch('http://localhost:8080/api/content/add/'+courseID,{
+                method: "POST",
+                body: formData,
+                headers: {
+                    'authorization': token
+                }
+            })
+                .then((dataJson)=>{
+                    console.log(dataJson);
+                    if (dataJson.status===200){
+                        location.reload()
+                    }
+                })
+                .catch(err=>console.log(err))
+
+        }else {
+            fetch('http://localhost:8080/api/content/update/'+contentId,{
+                method: "PUT",
+                body: formData,
+                headers: {
+                    'authorization': token
+                }
+            })
+                .then((dataJson)=>{
+                    console.log(dataJson);
+                })
+                .catch(err=>console.log(err))
+            location.reload()
+        }
+    }
+
+    function deleteContent(){
+        const result = window.confirm("Are you sure you want to delete this ?");
+        if (result) {
+            myFunction();
+        } else {
+            console.log("Action cancelled.");
+        }
+    }
+    function myFunction(){
+        let token = localStorage.getItem('access_token');
+        let contentId = document.getElementById('contentId').value;
+        fetch('http://localhost:8080/api/content/delete/'+contentId,{
+            method:"DELETE",
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token
+            }
+        })
+            .then(data=>data.json())
+            .then((data)=>{console.log(data)})
+            .catch(err=>console.log(err))
+        location.reload()
+    }
+</script>
+
+</html>

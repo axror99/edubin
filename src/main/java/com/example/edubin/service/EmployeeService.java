@@ -49,6 +49,24 @@ public class EmployeeService {
            userRepository.save(user);
         }
     }
+    public void addEmployee(AdminUpdateEmployee adminUpdateEmployee){
+        String imageRandomName = mediaService.saveMultiPartFile(adminUpdateEmployee.getPicture());
+        UserEntity user = UserEntity.builder()
+                .username(adminUpdateEmployee.getUsername())
+                .password(adminUpdateEmployee.getPassword())
+                .name(adminUpdateEmployee.getName())
+                .email(adminUpdateEmployee.getEmail())
+                .birthDay(adminUpdateEmployee.getBirthday())
+                .roles(adminUpdateEmployee.getRoles())
+                .permission(adminUpdateEmployee.getPermissionList())
+                .picture(imageRandomName)
+                .profession(adminUpdateEmployee.getProfession())
+                .about(adminUpdateEmployee.getAbout())
+                .achievement(adminUpdateEmployee.getAchievement())
+                .myObjective(adminUpdateEmployee.getMyObjective())
+                .build();
+        hireEmployee(user);
+    }
 
     public void delete(int id) {
         System.out.println("as");
@@ -78,19 +96,41 @@ public class EmployeeService {
         if (adminUpdateEmployee.getBirthday()!=null){
             user.setBirthDay(adminUpdateEmployee.getBirthday());
         }
-        if (adminUpdateEmployee.getRoles()!=null){
+        if (adminUpdateEmployee.getRoles().size()!=0){
             user.setRoles(adminUpdateEmployee.getRoles());
         }
-        if(adminUpdateEmployee.getPermissionList()!=null){
+        if(adminUpdateEmployee.getPermissionList().size()!=0){
             user.setPermission(adminUpdateEmployee.getPermissionList());
+        }
+        if (adminUpdateEmployee.getPicture() != null) {
+            String image = "\\images\\" + adminUpdateEmployee.getPicture();
+            mediaService.deleteExistFile(image);
+            String randomName = mediaService.saveMultiPartFile(adminUpdateEmployee.getPicture());
+            user.setPicture(randomName);
+        }
+        if (adminUpdateEmployee.getProfession()!=null && !adminUpdateEmployee.getProfession().equals("")){
+            user.setProfession(adminUpdateEmployee.getProfession());
+        }
+        if (adminUpdateEmployee.getAbout()!=null && !adminUpdateEmployee.getAbout().equals("")){
+            user.setAbout(adminUpdateEmployee.getAbout());
+        }
+        if (adminUpdateEmployee.getAchievement()!=null && !adminUpdateEmployee.getAchievement().equals("")){
+            user.setAchievement(adminUpdateEmployee.getAchievement());
+        }
+        if (adminUpdateEmployee.getMyObjective()!=null && !adminUpdateEmployee.getMyObjective().equals("")){
+            user.setMyObjective(adminUpdateEmployee.getMyObjective());
         }
         UserEntity savedUser = userRepository.save(user);
         return jwtService.generateToken(savedUser);
     }
 
     public List<UserEntity> getAllEmployees() {
-        return  Stream.of(getAdminList(),getTeacherList())
-                .flatMap(Collection::stream).toList();
+        List<UserEntity> userRepositoryAll = userRepository.findAll();
+        return userRepositoryAll.stream()
+                .filter(user -> !user.getRoles().contains("USER")).toList();
+
+//        return  Stream.of(getAdminList(),getTeacherList())
+//                .flatMap(Collection::stream).toList();
     }
     public List<UserEntity> getTeacherList(){
         return  userRepository.findByRolesContains(Role.TEACHER.name())
@@ -152,7 +192,7 @@ public class EmployeeService {
     }
 
     private SocialMediaEntity updateSocialMedia(SocialMediaEntity socialMediaEntity,EmployeeUpdateHimself updateHimself){
-        if (!updateHimself.getGoogle().equals("") && updateHimself.getGoogle()!=null){
+        if (updateHimself.getGoogle()!=null && !updateHimself.getGoogle().equals("")) {
             socialMediaEntity.setGoogle(updateHimself.getGoogle());
         }
         if (updateHimself.getFacebook()!=null && !updateHimself.getFacebook().equals("")){

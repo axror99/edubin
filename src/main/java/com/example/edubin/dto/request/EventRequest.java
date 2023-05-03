@@ -23,4 +23,5 @@ public class EventRequest {
     private String about;
     private String headline;
     private String address;
+    private Integer seats;
 }

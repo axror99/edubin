@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +32,7 @@ public class CourseService {
     public void addCourse(CourseRequest course) {
         CategoryEntity category = categoryService.findCategory(course.getCategory_di());
         UserEntity teacher = userService.findUser(course.getTeacher_id());
-        String imageRandomName = mediaService.saveMultiPartFile(course.getImage(), course.getName(), category.getName());
+        String imageRandomName = mediaService.saveMultiPartFile(course.getImage());
         CourseEntity courseEntity = CourseEntity.builder()
                 .name(course.getName())
                 .courseSummery(course.getCourseSummery())
@@ -64,9 +65,9 @@ public class CourseService {
                 MessageFormat.format("id = {0} course was not found in database", id)
         ));
         if (courseRequest.getImage() != null) {
-            String image = course.getCategory().getName() + "\\" + course.getName() + "\\image\\" + course.getImage();
+            String image = "\\images\\" + course.getImage();
             mediaService.deleteExistFile(image);
-            String randomName = mediaService.saveMultiPartFile(courseRequest.getImage(), course.getName(), course.getCategory().getName());
+            String randomName = mediaService.saveMultiPartFile(courseRequest.getImage());
             course.setImage(randomName);
         }
         if (!courseRequest.getCourseSummery().equals("") && courseRequest.getCourseSummery() != null) {
@@ -79,12 +80,22 @@ public class CourseService {
             CategoryEntity category = categoryService.findCategory(courseRequest.getCategory_di());
             course.setCategory(category);
         }
+
         if (courseRequest.getTeacher_id() != 0) {
             UserEntity teacher = userService.findUser(courseRequest.getTeacher_id());
-            course.setTeacher(List.of(teacher));
+            List<UserEntity> teacherList = course.getTeacher();
+            Optional<UserEntity> deletedTeacher = teacherList.stream()
+                    .filter(user -> user.getRoles().contains("TEACHER"))
+                    .findFirst();
+            teacherList.remove(deletedTeacher.get());
+            teacherList.add(teacher);
+            course.setTeacher(teacherList);
         }
         if (!courseRequest.getName().equals("") && courseRequest.getName() != null) {
             course.setName(courseRequest.getName());
+        }
+        if(courseRequest.getPrice()!=null){
+            course.setPrice(courseRequest.getPrice());
         }
         courseRepository.save(course);
     }
@@ -94,7 +105,7 @@ public class CourseService {
                 MessageFormat.format("id = {0} course is not in database", id)
         ));
         courseRepository.delete(courseEntity);
-        mediaService.deleteFolder(courseEntity.getCategory().getName() + "\\" + courseEntity.getName());
+        mediaService.deleteExistImage(courseEntity.getImage());
     }
 
     public List<CourseEntity> getCourseList() {
@@ -111,6 +122,8 @@ public class CourseService {
         myItems.setBirthday(user.getBirthDay());
         myItems.setPicture(user.getPicture());
         myItems.setName(user.getName());
+        myItems.setEmail(user.getEmail());
+        myItems.setUsername(username);
         return myItems;
     }
 

@@ -22,13 +22,13 @@ public class ContentController {
       contentService.saveContent(content,id);
       return new ApiResponse<>("content was saved successfully");
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{id}") //content id
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<Void> updateContent(@PathVariable("id") int id,@ModelAttribute ContentRequest contentRequest){
         contentService.updateContent(id,contentRequest);
         return new ApiResponse<>("content was updated successfully");
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")// content id
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<Void> deleteContent(@PathVariable("id") int id){
         contentService.deleteContent(id);

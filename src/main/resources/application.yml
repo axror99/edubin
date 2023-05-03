@@ -11,9 +11,9 @@ spring:
     show-sql: true
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/mydb
-    username: myuser
-    password: mypassword
+    url: jdbc:postgresql://localhost:5432/edubin
+    username: postgres
+    password: admin
 
 server:
   tomcat:

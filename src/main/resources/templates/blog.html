@@ -461,7 +461,12 @@
                 thumDiv.setAttribute('class', 'thum');
 
                 const imgTag = document.createElement('img');
-                let str2 = '../static/images/' + oneBlog.picture;
+                // let toImage = convertByteArrayToImage(oneBlog.videoBytes);
+                // console.log(toImage);
+
+                let str2 = 'http://localhost:8080/api/image/' + oneBlog.picture;
+                let str3 = 'http://localhost:8080/api/image/' + oneBlog.picture;
+
                 imgTag.setAttribute('src', str2);
                 imgTag.setAttribute('width', "92px");
                 imgTag.setAttribute('height', "92px");
@@ -508,11 +513,11 @@
 
             let foreach = document.getElementById('for-each');
             const blogList = dataJson.data;
-            console.log('blogList = ' + blogList)
+            // console.log('blogList = ' + blogList)
             for (let i = 0; i < blogList.length; i++) {
                 const blog = blogList[i];
-                console.log('blog = ' + blog)
-                console.log(blog.picture);
+                // console.log('blog = ' + blog)
+                // console.log(blog.picture);
                 // Create the elements
                 // create the main div
                 const div = document.createElement("div");
@@ -601,7 +606,16 @@
             }
         })
 
+    function convertByteArrayToImage(byteArray) {
+        let blob = new Blob([byteArray], {type: 'image/jpeg'}); // replace 'image/jpeg' with your image type
+        let url1 = URL.createObjectURL(blob);
+        // let img1 = document.createElement('img');
+        // img1.src = url1;
+        // return img1;
+        return url1;
+    }
 </script>
+
 
 <!--====== jquery js ======-->
 <script src="js/vendor/modernizr-3.6.0.min.js"></script>

@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CategoryRequest {
     @NotBlank
-    private String name;
+    private String name1;
 }

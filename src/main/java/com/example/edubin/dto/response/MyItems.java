@@ -11,6 +11,8 @@ import java.util.List;
 public class MyItems {
     private List<CourseEntity> courses;
     private String name;
+    private String username;
+    private String email;
     private LocalDate birthday;
     private List<MerchandiseEntity> merchandises;
     private String picture;

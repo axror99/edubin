@@ -38,17 +38,8 @@ public class EmployeeController {
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
 //    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
-    private ApiResponse<Void> addEmployee(@RequestBody AdminUpdateEmployee adminUpdateEmployee) {
-        UserEntity user = UserEntity.builder()
-                .username(adminUpdateEmployee.getUsername())
-                .password(adminUpdateEmployee.getPassword())
-                .name(adminUpdateEmployee.getName())
-                .email(adminUpdateEmployee.getEmail())
-                .birthDay(adminUpdateEmployee.getBirthday())
-                .roles(adminUpdateEmployee.getRoles())
-                .permission(adminUpdateEmployee.getPermissionList())
-                .build();
-        employeeService.hireEmployee(user);
+    private ApiResponse<Void> addEmployee(@ModelAttribute AdminUpdateEmployee adminUpdateEmployee) {
+        employeeService.addEmployee(adminUpdateEmployee);
         return new ApiResponse<>("employee was  added successfully in database");
     }
 
@@ -62,7 +53,7 @@ public class EmployeeController {
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
 //    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('UPDATE')) or (hasRole('SUPER_ADMIN'))")
-    private ApiResponse<String> updateEmployee(@PathVariable("id") int id, @RequestBody AdminUpdateEmployee adminUpdateEmployee) {
+    private ApiResponse<String> updateEmployee(@PathVariable("id") int id, @ModelAttribute AdminUpdateEmployee adminUpdateEmployee) {
         String token = employeeService.updateEmployee(id, adminUpdateEmployee);
         return new ApiResponse<>("updated successfully", token);
     }

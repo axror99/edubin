@@ -45,7 +45,21 @@
 
     <!--====== Responsive css ======-->
     <link rel="stylesheet" href="css/responsive.css">
-
+<style>
+    .yellow-button {
+        background-color: #ffc600;;
+        color: black;
+        font-size: 1rem;
+        height: 55px;
+        width: 380px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-transform: uppercase;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    }
+</style>
 
 </head>
 
@@ -71,10 +85,11 @@
                                 <input type="text" placeholder="Your Password" id="password">
                             </div>
                             <div class="singel-form">
-                                <button class="main-btn" type="button" onclick="sendLogin()">Sign up</button>
+                                <button class="main-btn" type="button" onclick="sendLogin()">Sign in</button>
                             </div>
                             <div>
-                                <a href="register.html" style="position: center">Register</a>
+                                <br>
+                                <a href="register.html"><button class="yellow-button" href="register.html" type="button">Register</button></a>
                             </div>
                         </form>
                     </div>
@@ -100,37 +115,35 @@
     let status;
 
     function sendLogin() {
-        fetch('http://localhost:8080/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: document.getElementById("username").value,
-                password: document.getElementById("password").value,
-            })
-        })
-            .then(response => {
-                status = response.status;
-                return response.json();
-            })
-            .then(data => {
-                if (status === 200){
-                    console.log(status);
-                    console.log(data.message);
-                    console.log(data);
-                    localStorage.setItem('access_token', 'Bearer '+data.data);
-                    // localStorage.setItem('id', data.message);
-                    // window.location.replace('myCourses.html?userId='+data.message);
-                    window.location.replace('myCourses.html');
-                }else {
-                    document.getElementById("username").value="";
-                    document.getElementById("password").value="";
-                    alert('Sizning login muffaqiyatli amalga oshirilmadi !!!')
-
-                }
-
+                    let status1;
+                    fetch('http://localhost:8080/api/auth/login',{
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: document.getElementById("username").value,
+                            password: document.getElementById("password").value,
+                        })
+                    })
+                        .then(response => {
+                            status1 = response.status;
+                            return response.json();
+                        })
+                        .then((dataJson)=>{
+                            if (status1===200){
+                                console.log(dataJson)
+                                console.log(dataJson.data)
+                                localStorage.setItem('access_token', 'Bearer '+dataJson.data);
+                                window.location.replace('myCourses.html');
+                            } else {
+                                document.getElementById("username").value = "";
+                                document.getElementById("password").value = "";
+                                alert('login fail !!!')
+                            }
+                        })
+                        .catch(err=>console.log(err))
                 // console.log('accessToken' in data.data); // should output true if the property exists
                 // console.log('refreshToken' in data.data);
                 // console.log(JSON.stringify(data))
@@ -139,9 +152,6 @@
                 // Store the new access token
 
                 // Optionally, store the new refresh token
-
-            })
-            .catch(error => console.error(error));
     }
 
 </script>

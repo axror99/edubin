@@ -23,7 +23,7 @@ public class CategoriesController {
     @ResponseStatus(HttpStatus.OK)
 //    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<Void> addCategory(@RequestBody CategoryRequest category) {
-        CategoryEntity categoryEntity = new CategoryEntity(category.getName());
+        CategoryEntity categoryEntity = new CategoryEntity(category.getName1());
         categoryService.addCategory(categoryEntity);
         return new ApiResponse<>("category was saved successfully");
     }
@@ -39,7 +39,7 @@ public class CategoriesController {
     @PutMapping("/update/{name}")
     @ResponseStatus(HttpStatus.OK)
     // @PreAuthorize("(hasRole('ADMIN') and hasAuthority('UPDATE')) or (hasRole('SUPER_ADMIN'))")
-    private ApiResponse<Void> updateCategory(@PathVariable("name") String name, CategoryRequest category) {
+    private ApiResponse<Void> updateCategory(@PathVariable("name") String name, @RequestBody CategoryRequest category) {
         categoryService.updateCategory(category, name);
         return new ApiResponse<>("category was updated successfully");
     }

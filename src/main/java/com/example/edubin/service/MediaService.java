@@ -27,20 +27,17 @@ import java.util.concurrent.TimeUnit;
 public class MediaService {
     private final MediaRepository mediaRepository;
     private String pathForImage = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
-//    private String pathForApplication = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\application\\";
-//    private String pathForVideo = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\video\\";
-//    private String pathForAudio = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\audio\\";
-    private String pathCategory = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\category\\";
+    private String pathCategory = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\";
 
 
     @SneakyThrows
-    public String saveMultiPartFile(MultipartFile file, String courseName, String categoryName) {
+    public String saveMultiPartFile(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
         String contentType = file.getContentType();
         String randomName = generateRandomName(originalFilename);
 
         if (contentType!=null && !contentType.equals("")) {
-            writeImageToFile(file, randomName, categoryName, courseName);
+            writeImageToFile(file, randomName);
         } else {
             throw new IOException("File not saved in File !!!");
         }
@@ -53,30 +50,20 @@ public class MediaService {
         return UUID.randomUUID() + "." + split[split.length - 1];
     }
 
-    private void writeImageToFile(MultipartFile file, String randomName, String categoryName, String courseName) {
-        File videoFolder = new File(pathCategory + categoryName + "\\" + courseName+"\\"+"video");
-        File applicationFolder = new File(pathCategory + categoryName + "\\" + courseName+"\\"+"application");
-        File imageFolder = new File(pathCategory + categoryName + "\\" + courseName+"\\"+"image");
-        if (!videoFolder.exists() && !applicationFolder.exists() && !imageFolder.exists()) {
-            videoFolder.mkdirs();
-            applicationFolder.mkdirs();
-            imageFolder.mkdirs();
-            internalWrite(file,Paths.get(imageFolder.getAbsolutePath()+"\\"+randomName));
-        } else {
+    private void writeImageToFile(MultipartFile file, String randomName) {
             String contentType = getContentType(file);
             if (contentType.startsWith("video")){
-                Path download_Path = Paths.get(pathCategory +"\\"+categoryName+"\\"+courseName+"\\"+"video"+"\\"+randomName);
+                Path download_Path = Paths.get(pathCategory +"\\"+"video"+"\\"+randomName);
                 internalWrite(file,download_Path);
             }
             if (contentType.startsWith("application")){
-                Path download_Path = Paths.get(pathCategory +"\\"+categoryName+"\\"+courseName+"\\"+"application"+"\\"+randomName);
+                Path download_Path = Paths.get(pathCategory +"\\"+"application"+"\\"+randomName);
                 internalWrite(file,download_Path);
             }
             if (contentType.startsWith("image")){
-                Path download_Path = Paths.get(pathCategory +"\\"+categoryName+"\\"+courseName+"\\"+"image"+"\\"+randomName);
+                Path download_Path = Paths.get(pathCategory +"\\"+"images"+"\\"+randomName);
                 internalWrite(file,download_Path);
             }
-        }
     }
     public void internalWrite(MultipartFile file,Path download_Path){
         try {
@@ -86,7 +73,7 @@ public class MediaService {
         }
     }
 
-    private byte[] getBytes(MultipartFile file) {
+    public byte[] getBytes(MultipartFile file) {
         try {
             return file.getBytes();
         } catch (IOException e) {
@@ -140,20 +127,20 @@ public class MediaService {
         saveMedia(oldMedia);
     }
 
-    public void createFolder(String folderName) {
-        try {
-            Files.createDirectories(Paths.get(pathCategory + folderName));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public void createFolder(String folderName) {
+//        try {
+//            Files.createDirectories(Paths.get(pathCategory + folderName));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-    public void deleteFolder(String name) {
-        try {
-            FileUtils.deleteDirectory(new File(pathCategory+name));
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    }
+//    public void deleteFolder(String name) {
+//        try {
+//            FileUtils.deleteDirectory(new File(pathCategory+name));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
