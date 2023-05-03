@@ -65,6 +65,7 @@ public class WebSecurity {
                 .requestMatchers("/api/employee/update/himself/**").permitAll()
                 .requestMatchers("/api/email/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/product/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

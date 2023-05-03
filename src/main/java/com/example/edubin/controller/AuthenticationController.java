@@ -11,7 +11,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -32,8 +35,14 @@ public class AuthenticationController {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<String> login(@RequestBody UserLogin userLogin) {
-
         String  token = userService.login(userLogin);
         return new ApiResponse<>("login was passed successfully",token);
+    }
+
+    @PostMapping("/login/super")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    private ApiResponse<String> loginForSuperAdmin(@RequestBody UserLogin userLogin) {
+        String  token = userService.loginSuperAdmin(userLogin);
+       return new ApiResponse<>("login was passed successfully", Objects.requireNonNullElse(token, "****"));
     }
 }

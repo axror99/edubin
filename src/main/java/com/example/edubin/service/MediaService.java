@@ -27,9 +27,6 @@ import java.util.concurrent.TimeUnit;
 public class MediaService {
     private final MediaRepository mediaRepository;
     private String pathForImage = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
-//    private String pathForApplication = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\application\\";
-//    private String pathForVideo = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\video\\";
-//    private String pathForAudio = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\audio\\";
     private String pathCategory = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\";
 
 

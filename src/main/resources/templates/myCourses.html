@@ -171,10 +171,12 @@
                 <div class="col-lg-2 col-md-2 col-sm-3 col-4">
                     <div class="right-icon text-right">
                         <ul>
-
                             <li><a href="#"><i class="fa fa-shopping-bag"></i><span>0</span></a></li>
+                            <button type="submit" style="color: #ffc600;
+                            border-color: #07294d;
+                             background-color: #07294d;"
+                                     onclick="logOut()">Log out</button>
                         </ul>
-                        <button onclick="logOut()">Log out</button>
                     </div> <!-- right icon -->
                 </div>
             </div> <!-- row -->
@@ -466,7 +468,7 @@
 
                     // img.src = '../static/images/'+course.image;
                     // <img src="../static/images/${res.data.teacher.picture}"
-                    img.src = '../static/category/'+course.category.name+'/'+course.name+'/image/'+course.image;
+                    img.src = '../static/images/'+course.image;
                     img.alt = 'course-Avatar';
                     image.appendChild(img);
 
@@ -531,7 +533,7 @@
                     studentsCountIcon.classList.add('fa', 'fa-user');
                     const studentsCountSpan = document.createElement('span');
                     // studentsCountSpan.textContent = course.users;
-                    studentsCountSpan.textContent = 5;
+                    studentsCountSpan.textContent = course.teacher.length-1;
                     studentsCountLink.appendChild(studentsCountIcon);
                     studentsCountLink.appendChild(studentsCountSpan);
                     studentsCountLi.appendChild(studentsCountLink);

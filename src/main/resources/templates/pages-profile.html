@@ -444,6 +444,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
+                                <label>Picture</label>
+                                <input type="file" id="myFile" name="myfile">
                                 <label>Name</label>
                                 <input id="name" type="text" class="form-control" required>
                                 <label>username</label>
@@ -452,6 +454,14 @@
                                 <input id="password" type="text" class="form-control" required>
                                 <label>email</label>
                                 <input id="email" type="email" class="form-control" required>
+                                <label>profession</label>
+                                <input id="profession" type="email" class="form-control" required>
+                                <label>about</label>
+                                <input id="about" type="email" class="form-control" required>
+                                <label>achievement</label>
+                                <input id="achievement" type="email" class="form-control" required>
+                                <label>myObjective</label>
+                                <input id="myObjective" type="email" class="form-control" required>
                                 <label>birthday</label>
                                 <input id="birthday" type="text" class="form-control" required placeholder="2023-06-23">
                                 <div class="form-group">
@@ -495,6 +505,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
+                                <label>Picture</label>
+                                <input type="file" id="myFile1" name="myfile">
                                 <label>Name</label>
                                 <input id="name1" type="text" class="form-control">
                                 <label>username</label>
@@ -503,6 +515,14 @@
                                 <input id="password1" type="text" class="form-control" >
                                 <label>email</label>
                                 <input id="email1" type="email" class="form-control" >
+                                <label>profession</label>
+                                <input id="profession1" type="email" class="form-control">
+                                <label>about</label>
+                                <input id="about1" type="email" class="form-control">
+                                <label>achievement</label>
+                                <input id="achievement1" type="email" class="form-control" >
+                                <label>myObjective</label>
+                                <input id="myObjective1" type="email" class="form-control">
                                 <label>birthday</label>
                                 <input id="birthday1" type="text" class="form-control"  placeholder="2023-06-23">
                                 <div class="form-group">
@@ -673,25 +693,37 @@
             }
         }
         let token = localStorage.getItem('access_token');
-
+        const formData = new FormData();
+        formData.append("name", document.getElementById("name").value);
+        formData.append("username", document.getElementById("username").value);
+        formData.append("password", document.getElementById("password").value);
+        formData.append("email", document.getElementById("email").value);
+        formData.append("birthday", document.getElementById("birthday").value);
+        formData.append("picture", document.getElementById("myFile").files[0]);
+        formData.append("profession", document.getElementById("profession").value);
+        formData.append("about", document.getElementById("about").value);
+        formData.append("achievement", document.getElementById("achievement").value);
+        formData.append("myObjective", document.getElementById("myObjective").value);
+        formData.append("roles", selectedValues2);
+        formData.append("permissionList", selectedValues);
+        // body: JSON.stringify({
+        //     name: document.getElementById("name").value,
+        //     username: document.getElementById("username").value,
+        //     password: document.getElementById("password").value,
+        //     email: document.getElementById("email").value,
+        //     birthday: document.getElementById("birthday").value,
+        //     roles: selectedValues2,
+        //     permissionList: selectedValues,
+        //     picture:document.getElementById("myFile").files[0]
+        // })
         fetch('http://localhost:8080/api/employee/add',{
                 method:"POST",
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
                     'authorization': token
                 },
-                body: JSON.stringify({
-                    name: document.getElementById("name").value,
-                    username: document.getElementById("username").value,
-                    password: document.getElementById("password").value,
-                    email: document.getElementById("email").value,
-                    birthday: document.getElementById("birthday").value,
-                    roles: selectedValues2,
-                    permissionList: selectedValues,
-                })
+            body: formData
+
             })
-                .then(data=>data.json())
                 .then((dataJson)=>{
                     console.log(dataJson.data)
                     console.log(dataJson.status)
@@ -721,24 +753,26 @@
                 }
             }
             let token = localStorage.getItem('access_token');
+            const formData = new FormData();
+            formData.append("name", document.getElementById("name1").value);
+            formData.append("username", document.getElementById("username1").value);
+            formData.append("password", document.getElementById("password1").value);
+            formData.append("email", document.getElementById("email1").value);
+            formData.append("birthday", document.getElementById("birthday1").value);
+            formData.append("picture", document.getElementById("myFile1").files[0]);
+            formData.append("profession", document.getElementById("profession1").value);
+            formData.append("about", document.getElementById("about").value);
+            formData.append("achievement", document.getElementById("achievement").value);
+            formData.append("myObjective", document.getElementById("myObjective").value);
+            formData.append("roles", selectedValues2);
+            formData.append("permissionList", selectedValues);
             fetch('http://localhost:8080/api/employee/update/' + employeeId, {
                 method: "PUT",
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
                     'authorization': token
                 },
-                body: JSON.stringify({
-                    name: document.getElementById("name1").value,
-                    username: document.getElementById("username1").value,
-                    password: document.getElementById("password1").value,
-                    email: document.getElementById("email1").value,
-                    birthday: document.getElementById("birthday1").value,
-                    roles: selectedValues2,
-                    permissionList: selectedValues,
-                })
+                body: formData
             })
-                .then(data => data.json())
                 .then((dataJson) => {
                     console.log(dataJson.data)
                 })
@@ -758,6 +792,10 @@
                 .then(data => data.json())
                 .then((dataJson) => {
                     console.log(dataJson.data)
+                    if (dataJson.status===403 || dataJson.status===401){
+                        alert("token time is expired")
+                        window.location.replace('login.html');
+                    }
                 })
                 .catch(err => console.log(err))
         }

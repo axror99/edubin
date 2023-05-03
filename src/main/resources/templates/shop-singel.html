@@ -521,6 +521,7 @@
             console.log(dataJson.data);
             document.getElementById("hiddenVar").setAttribute("merchandiseId", dataJson.data.id);
             document.getElementById('definition').innerHTML = dataJson.data.definition;
+            document.getElementById("hiddenPrice").setAttribute("myCourseId", dataJson.data.price);
             document.getElementById('headline').innerHTML = ` <h3 >${dataJson.data.headline} </h3>`;
             let price = document.getElementById('price');
             price.innerHTML = `<span><h4>$ ${dataJson.data.price}</h4></span>`;
@@ -609,7 +610,7 @@
                       <div class="singel-reviews">
                         <div class="reviews-author">
                           <div class="author-thum">
-<!--                            <img src="../static/images/${array[key1]}" alt="Reviews">-->
+                            <img src="images/unknown.png" width="35px" height="35px" alt="Reviews">
                           </div>
                           <div class="author-name">
                             <h6>${array[key1].personName}</h6>
@@ -697,6 +698,7 @@
         document.getElementById("inputId1").value = "";
         document.getElementById("inputId2").value = "";
         document.getElementById("commentId").value = "";
+        location.reload();
     }
 </script>
 <script>

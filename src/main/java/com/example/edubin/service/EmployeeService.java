@@ -49,6 +49,24 @@ public class EmployeeService {
            userRepository.save(user);
         }
     }
+    public void addEmployee(AdminUpdateEmployee adminUpdateEmployee){
+        String imageRandomName = mediaService.saveMultiPartFile(adminUpdateEmployee.getPicture());
+        UserEntity user = UserEntity.builder()
+                .username(adminUpdateEmployee.getUsername())
+                .password(adminUpdateEmployee.getPassword())
+                .name(adminUpdateEmployee.getName())
+                .email(adminUpdateEmployee.getEmail())
+                .birthDay(adminUpdateEmployee.getBirthday())
+                .roles(adminUpdateEmployee.getRoles())
+                .permission(adminUpdateEmployee.getPermissionList())
+                .picture(imageRandomName)
+                .profession(adminUpdateEmployee.getProfession())
+                .about(adminUpdateEmployee.getAbout())
+                .achievement(adminUpdateEmployee.getAchievement())
+                .myObjective(adminUpdateEmployee.getMyObjective())
+                .build();
+        hireEmployee(user);
+    }
 
     public void delete(int id) {
         System.out.println("as");
@@ -83,6 +101,24 @@ public class EmployeeService {
         }
         if(adminUpdateEmployee.getPermissionList().size()!=0){
             user.setPermission(adminUpdateEmployee.getPermissionList());
+        }
+        if (adminUpdateEmployee.getPicture() != null) {
+            String image = "\\images\\" + adminUpdateEmployee.getPicture();
+            mediaService.deleteExistFile(image);
+            String randomName = mediaService.saveMultiPartFile(adminUpdateEmployee.getPicture());
+            user.setPicture(randomName);
+        }
+        if (adminUpdateEmployee.getProfession()!=null && !adminUpdateEmployee.getProfession().equals("")){
+            user.setProfession(adminUpdateEmployee.getProfession());
+        }
+        if (adminUpdateEmployee.getAbout()!=null && !adminUpdateEmployee.getAbout().equals("")){
+            user.setAbout(adminUpdateEmployee.getAbout());
+        }
+        if (adminUpdateEmployee.getAchievement()!=null && !adminUpdateEmployee.getAchievement().equals("")){
+            user.setAchievement(adminUpdateEmployee.getAchievement());
+        }
+        if (adminUpdateEmployee.getMyObjective()!=null && !adminUpdateEmployee.getMyObjective().equals("")){
+            user.setMyObjective(adminUpdateEmployee.getMyObjective());
         }
         UserEntity savedUser = userRepository.save(user);
         return jwtService.generateToken(savedUser);
@@ -156,7 +192,7 @@ public class EmployeeService {
     }
 
     private SocialMediaEntity updateSocialMedia(SocialMediaEntity socialMediaEntity,EmployeeUpdateHimself updateHimself){
-        if (!updateHimself.getGoogle().equals("") && updateHimself.getGoogle()!=null){
+        if (updateHimself.getGoogle()!=null && !updateHimself.getGoogle().equals("")) {
             socialMediaEntity.setGoogle(updateHimself.getGoogle());
         }
         if (updateHimself.getFacebook()!=null && !updateHimself.getFacebook().equals("")){

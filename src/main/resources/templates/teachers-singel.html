@@ -585,6 +585,7 @@
         document.getElementById("inputId1").value = "";
         document.getElementById("inputId2").value = "";
         document.getElementById("commentId").value = "";
+        location.reload();
     }
 </script>
 <script>
@@ -694,7 +695,7 @@
                 studentsCountIcon.classList.add('fa', 'fa-user');
                 const studentsCountSpan = document.createElement('span');
                 // studentsCountSpan.textContent = course.users;
-                studentsCountSpan.textContent = 5;
+                studentsCountSpan.textContent = course.teacher.length - 1;
                 studentsCountLink.appendChild(studentsCountIcon);
                 studentsCountLink.appendChild(studentsCountSpan);
                 studentsCountLi.appendChild(studentsCountLink);
@@ -750,17 +751,32 @@
             let socialIcon = "";
 
             let teacherSocialMedia = dataJson.data.socialMedia;
-            if (teacherSocialMedia.facebook.includes('facebook')) {
-                socialIcon += `<li><a href="`+teacherSocialMedia.facebook+`"><i class="fa fa-facebook-square"></i></a></li>`;
-            }
-            if (teacherSocialMedia.twitter.includes('twitter')) {
-                socialIcon += ` <li><a href="`+teacherSocialMedia.twitter+`"><i class="fa fa-twitter-square"></i></a></li>`;
-            }
-            if (teacherSocialMedia.google.includes('google')) {
-                socialIcon += ` <li><a href="`+teacherSocialMedia.google+`"><i class="fa fa-google-plus-square"></i></a></li>`;
-            }
-            if (teacherSocialMedia.linkedIn.includes('linkedIn')) {
-                socialIcon += ` <li><a href="`+teacherSocialMedia.linkedIn+`"><i class="fa fa-linkedin-square"></i></a></li>`;
+            console.log("keldi")
+            console.log(teacherSocialMedia)
+            // if (teacherSocialMedia.facebook.includes('facebook')) {
+            //     socialIcon += `<li><a href="`+teacherSocialMedia.facebook+`"><i class="fa fa-facebook-square"></i></a></li>`;
+            // }
+            // if (teacherSocialMedia.twitter.includes('twitter')) {
+            //     socialIcon += ` <li><a href="`+teacherSocialMedia.twitter+`"><i class="fa fa-twitter-square"></i></a></li>`;
+            // }
+            // if (teacherSocialMedia.google.includes('google')) {
+            //     socialIcon += ` <li><a href="`+teacherSocialMedia.google+`"><i class="fa fa-google-plus-square"></i></a></li>`;
+            // }
+            // if (teacherSocialMedia.linkedIn.includes('linkedIn')) {
+            //     socialIcon += ` <li><a href="`+teacherSocialMedia.linkedIn+`"><i class="fa fa-linkedin-square"></i></a></li>`;
+            // }
+            let socialLinks = [
+                {name: "facebook", link:  teacherSocialMedia.facebook},
+                {name: "twitter", link: teacherSocialMedia && teacherSocialMedia.twitter},
+                {name: "google", link:  teacherSocialMedia.google},
+                {name: "instagram", link: teacherSocialMedia && teacherSocialMedia.instagram}
+            ];
+
+            let socialIcons = "";
+            for (let i = 0; i < socialLinks.length; i++) {
+                if (socialLinks[i].link !== null) {
+                    socialIcons += `<li><a href="${socialLinks[i].link}"><i class="fa fa-${socialLinks[i].name}"></i></a></li>`;
+                }
             }
             socialMedias.innerHTML = `<ul class="social">${socialIcon}</ul>`;
 
