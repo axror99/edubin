@@ -103,7 +103,7 @@ public class EmployeeService {
             user.setPermission(adminUpdateEmployee.getPermissionList());
         }
         if (adminUpdateEmployee.getPicture() != null) {
-            String image = "\\images\\" + adminUpdateEmployee.getPicture();
+            String image = "images/" + adminUpdateEmployee.getPicture();
             mediaService.deleteExistFile(image);
             String randomName = mediaService.saveMultiPartFile(adminUpdateEmployee.getPicture());
             user.setPicture(randomName);
