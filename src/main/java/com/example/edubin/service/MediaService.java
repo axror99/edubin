@@ -26,10 +26,10 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class MediaService {
     private final MediaRepository mediaRepository;
-    private String pathForImage = "src\\main\\resources\\static\\images\\";
+    private String pathForImage = "src/main/resources/static/assets/images/";
 //    private String pathForImage = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
 //    private String pathCategory = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\";
-    private String pathCategory = "src\\main\\resources\\static\\";
+    private String pathCategory = "src/main/resources/assets/static/";
 
 
     @SneakyThrows
@@ -55,15 +55,15 @@ public class MediaService {
     private void writeImageToFile(MultipartFile file, String randomName) {
             String contentType = getContentType(file);
             if (contentType.startsWith("video")){
-                Path download_Path = Paths.get(pathCategory +"\\"+"video"+"\\"+randomName);
+                Path download_Path = Paths.get(pathCategory +"/"+"video"+"/"+randomName);
                 internalWrite(file,download_Path);
             }
             if (contentType.startsWith("application")){
-                Path download_Path = Paths.get(pathCategory +"\\"+"application"+"\\"+randomName);
+                Path download_Path = Paths.get(pathCategory +"/"+"application"+"/"+randomName);
                 internalWrite(file,download_Path);
             }
             if (contentType.startsWith("image")){
-                Path download_Path = Paths.get(pathCategory +"\\"+"images"+"\\"+randomName);
+                Path download_Path = Paths.get(pathCategory +"/"+"images"+"/"+randomName);
                 internalWrite(file,download_Path);
             }
     }
