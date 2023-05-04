@@ -25,7 +25,7 @@ public class BlogService {
     private final BlogRepository blogRepository;
     private final CategoryService categoryService;
     private final MediaService mediaService;
-    private  String PATH_IMAGE="D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
+    private  String PATH_IMAGE="D:/EduBin/edubin/src/main/resources/static/assets/images/";
 
     public void addBlog(int id, BlogRequest blogRequest) {
         CategoryEntity category = categoryService.findCategory(id);

@@ -3,6 +3,7 @@ package com.example.edubin.service;
 import com.example.edubin.config.JwtService;
 import com.example.edubin.dto.request.AdminUpdateEmployee;
 import com.example.edubin.dto.request.EmployeeUpdateHimself;
+import com.example.edubin.enitity.CourseEntity;
 import com.example.edubin.enitity.SocialMediaEntity;
 import com.example.edubin.enitity.UserEntity;
 import com.example.edubin.enitity.role.Role;
@@ -36,6 +37,7 @@ public class EmployeeService {
     private final SocialMediaRepository socialMediaRepository;
     private final MediaService mediaService;
     private final JwtService jwtService;
+    private final CourseService courseService;
 
     public void hireEmployee(UserEntity user) {
         boolean existedEmail = userRepository.existsByEmail(user.getEmail());
@@ -81,6 +83,11 @@ public class EmployeeService {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(
                 MessageFormat.format("id={0} user was not found in database", id)
         ));
+        List<CourseEntity> courseEntityList = courseService.getCourseByTeacherId(id);
+        for (CourseEntity course : courseEntityList){
+            course.getTeacher().remove(user);
+        }
+        courseService.saveCourseWithoutTeacher(courseEntityList);
         userRepository.delete(user);
     }
 
@@ -152,15 +159,9 @@ public class EmployeeService {
     public void updateEmployeeHimself(int id, EmployeeUpdateHimself updateHimself) {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(
                 MessageFormat.format("id={0} is not in database", id)));
-        Optional<SocialMediaEntity> socialMedia = socialMediaRepository.findByUserId(id);
-        if (socialMedia.isPresent()){
-            SocialMediaEntity socialMediaEntity = updateSocialMedia(socialMedia.get(), updateHimself);
-            socialMediaRepository.save(socialMediaEntity);
-        }else {
-            SocialMediaEntity newSocialMedia = updateSocialMedia(new SocialMediaEntity(), updateHimself);
-            newSocialMedia.setUser(user);
-            socialMediaRepository.save(newSocialMedia);
-        }
+            SocialMediaEntity socialMediaEntity = updateSocialMedia(user.getSocialMedia(), updateHimself);
+            user.setSocialMedia(socialMediaEntity);
+
         if (updateHimself.getPicture()!=null){
             if (user.getPicture()!=null && !user.getPicture().equals("")){
                 mediaService.deleteExistImage(user.getPicture());

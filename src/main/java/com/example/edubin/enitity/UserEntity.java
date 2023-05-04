@@ -52,15 +52,15 @@ public class UserEntity implements UserDetails {
     @ManyToMany( cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<MerchandiseEntity> merchandiseList;
     @JsonManagedReference
-    @OneToMany(mappedBy = "teacher",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "teacher",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<CommentEntity> comments;
 
     @NotBlank
     @Column(unique = true)
     private String email;
 
-    @JsonManagedReference
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
+//    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL)
     private SocialMediaEntity socialMedia;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;

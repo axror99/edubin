@@ -93,7 +93,7 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.OK)
 //    @PreAuthorize(Teacher('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<UserEntity>> getTeachersPageableList(@PathVariable("id") int id) {
-        List<UserEntity> allTeachers = employeeService.getTeachersPageableList(id,5);
+        List<UserEntity> allTeachers = employeeService.getTeachersPageableList(id,8);
         return new ApiResponse<>("all Teachers were token successfully ", allTeachers);
     }
 

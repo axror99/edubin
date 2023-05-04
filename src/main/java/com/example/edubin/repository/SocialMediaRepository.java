@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface SocialMediaRepository extends JpaRepository<SocialMediaEntity,Integer> {
-    Optional<SocialMediaEntity> findByUserId(int id);
 }

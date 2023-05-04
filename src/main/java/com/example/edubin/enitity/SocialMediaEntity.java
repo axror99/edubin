@@ -24,7 +24,7 @@ public class SocialMediaEntity {
     private String linkedIn;
     private String facebook;
     private String twitter;
-    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY)
-    private UserEntity user;
+//    @JsonBackReference
+//    @OneToOne(fetch = FetchType.LAZY)
+//    private UserEntity user;
 }

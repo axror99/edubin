@@ -39,7 +39,7 @@ public class BlogsController {
     @GetMapping("/list/page/{id}/{page}")// category id
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<List<BlogEntity>> getPageableListByCategory(@PathVariable("id") int id,@PathVariable("page") int page){
-        return new ApiResponse<>("blogs List was token successfully in database",blogService.getPageableListByCategory(id,page,3));
+        return new ApiResponse<>("blogs List was token successfully in database",blogService.getPageableListByCategory(id,page,4));
     }
 
     @DeleteMapping("/delete/{id}")// blog id

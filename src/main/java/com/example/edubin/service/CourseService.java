@@ -87,7 +87,9 @@ public class CourseService {
             Optional<UserEntity> deletedTeacher = teacherList.stream()
                     .filter(user -> user.getRoles().contains("TEACHER"))
                     .findFirst();
-            teacherList.remove(deletedTeacher.get());
+            if (deletedTeacher.isPresent()){
+                teacherList.remove(deletedTeacher.get());
+            }
             teacherList.add(teacher);
             course.setTeacher(teacherList);
         }
@@ -135,6 +137,10 @@ public class CourseService {
     public List<CourseEntity> getCourseByTeacherId(int id) {
         UserEntity user = userService.findUser(id);
         return courseRepository.findByTeacherIn(List.of(user));
+    }
+
+    public void saveCourseWithoutTeacher(List<CourseEntity> list){
+        courseRepository.saveAll(list);
     }
 
     public List<CourseEntity> getRecommendCourseList() {
