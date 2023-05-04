@@ -51,6 +51,13 @@ public class EmployeeService {
     }
     public void addEmployee(AdminUpdateEmployee adminUpdateEmployee){
         String imageRandomName = mediaService.saveMultiPartFile(adminUpdateEmployee.getPicture());
+        SocialMediaEntity socialMedia = new SocialMediaEntity();
+        socialMedia.setFacebook("Facebook");
+        socialMedia.setGoogle("Google");
+        socialMedia.setInstagram("Instagram");
+        socialMedia.setTwitter("Twitter");
+        socialMedia.setLinkedIn("LinkedIn");
+        socialMedia.setTelegram("Telegram");
         UserEntity user = UserEntity.builder()
                 .username(adminUpdateEmployee.getUsername())
                 .password(adminUpdateEmployee.getPassword())
@@ -64,6 +71,7 @@ public class EmployeeService {
                 .about(adminUpdateEmployee.getAbout())
                 .achievement(adminUpdateEmployee.getAchievement())
                 .myObjective(adminUpdateEmployee.getMyObjective())
+                .socialMedia(socialMedia)
                 .build();
         hireEmployee(user);
     }
