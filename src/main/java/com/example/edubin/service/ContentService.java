@@ -46,12 +46,12 @@ public class ContentService {
             content.setTitle(contentRequest.getTitle());
         }
         if (contentRequest.getVideo()!=null){
-            mediaService.deleteExistFile("\\video\\"+content.getVideoName());
+            mediaService.deleteExistFile("video/"+content.getVideoName());
             String newVideoName = mediaService.saveMultiPartFile(contentRequest.getVideo());
             content.setVideoName(newVideoName);
         }
         if (contentRequest.getTask()!=null){
-            mediaService.deleteExistFile("\\application\\"+content.getTaskName());
+            mediaService.deleteExistFile("application/"+content.getTaskName());
             String newFileName = mediaService.saveMultiPartFile(contentRequest.getTask());
             content.setTaskName(newFileName);
         }
@@ -63,8 +63,8 @@ public class ContentService {
         ContentEntity contentEntity = contentRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} content was not found in database", id)
         ));
-        mediaService.deleteExistFile("\\application\\"+ contentEntity.getTaskName());
-        mediaService.deleteExistFile("\\video\\"+ contentEntity.getVideoName());
+        mediaService.deleteExistFile("application/"+ contentEntity.getTaskName());
+        mediaService.deleteExistFile("video/"+ contentEntity.getVideoName());
         contentRepository.delete(contentEntity);
     }
 
