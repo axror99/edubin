@@ -126,6 +126,7 @@ public class CourseService {
         myItems.setName(user.getName());
         myItems.setEmail(user.getEmail());
         myItems.setUsername(username);
+        myItems.setRoles(user.getRoles());
         return myItems;
     }
 

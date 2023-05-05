@@ -16,4 +16,5 @@ public class MyItems {
     private LocalDate birthday;
     private List<MerchandiseEntity> merchandises;
     private String picture;
+    private List<String> roles;
 }
