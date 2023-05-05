@@ -35,7 +35,8 @@ public class WebSecurity {
         http.cors().configurationSource(request -> {
                     CorsConfiguration configuration = new CorsConfiguration();
 //                    configuration.setAllowedOriginPatterns(List.of("*"));
-                    configuration.setAllowedOriginPatterns(List.of("https://myedubin.netlify.app/"));
+//                    configuration.setAllowedOriginPatterns(List.of("https://myedubin.netlify.app/"));
+                    configuration.setAllowedOriginPatterns(List.of("https://edubin-axror.herokuapp.com/apps"));
                     configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS", "PUT", "DELETE", "PATCH"));
                     configuration.setAllowedHeaders(List.of("*"));
                     configuration.setAllowCredentials(true);
