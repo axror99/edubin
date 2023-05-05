@@ -167,7 +167,7 @@ public class EmployeeService {
                 mediaService.deleteExistImage(user.getPicture());
             }
             String newPictureName= mediaService.generateRandomName(Objects.requireNonNull(updateHimself.getPicture().getOriginalFilename()));
-            mediaService.internalWrite(updateHimself.getPicture(), Paths.get("D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\"+newPictureName));
+            mediaService.internalWrite(updateHimself.getPicture(), Paths.get("src/main/resources/static/assets/images/"+newPictureName));
             user.setPicture(newPictureName);
         }
         if (updateHimself.getAbout()!=null && !updateHimself.getAbout().equals("") ){

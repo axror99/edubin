@@ -21,7 +21,7 @@ public class MerchandiseService {
     private final MerchandiseRepository merchandiseRepository;
     private final MediaService mediaService;
 
-    private String PATH_IMAGE = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
+    private String PATH_IMAGE = "src/main/resources/static/assets/images/";
 
     public void addMerchandise(MerchandiseRequest merchandise) {
         String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(merchandise.getPicture().getOriginalFilename()));

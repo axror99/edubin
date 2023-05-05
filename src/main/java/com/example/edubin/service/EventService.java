@@ -22,7 +22,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final MediaService mediaService;
     private final UserService userService;
-    private  String PATH_IMAGE="D:/EduBin/edubin/src/main/resources/static/assets/images/";
+    private  String PATH_IMAGE="src/main/resources/static/assets/images/";
 
     public void addEvent(EventRequest eventRequest) {
         String pictureName = mediaService.generateRandomName(Objects.requireNonNull(eventRequest.getPicture().getOriginalFilename()));
