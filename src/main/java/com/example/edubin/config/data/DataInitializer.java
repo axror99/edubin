@@ -29,6 +29,7 @@ public class DataInitializer implements CommandLineRunner {
             user.setEmail("superAdmin@gmail.com");
             user.setPassword(passwordEncoder.encode("superAdmin"));
             user.setBirthDay(LocalDate.of(1999,6,7));
+            user.setRegisteredDate(LocalDate.of(2023,3,16));
             user.setUsername("superAdmin");
             user.setRoles(Collections.singletonList(Role.SUPER_ADMIN.name()));
             user.setPermission(Arrays.asList(
