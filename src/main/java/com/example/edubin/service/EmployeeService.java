@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
 import java.text.MessageFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -34,7 +35,6 @@ import java.util.stream.Stream;
 public class EmployeeService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final SocialMediaRepository socialMediaRepository;
     private final MediaService mediaService;
     private final JwtService jwtService;
     private final CourseService courseService;
@@ -71,6 +71,7 @@ public class EmployeeService {
                 .picture(imageRandomName)
                 .profession(adminUpdateEmployee.getProfession())
                 .about(adminUpdateEmployee.getAbout())
+                .registeredDate(LocalDate.now())
                 .achievement(adminUpdateEmployee.getAchievement())
                 .myObjective(adminUpdateEmployee.getMyObjective())
                 .socialMedia(socialMedia)
@@ -79,7 +80,6 @@ public class EmployeeService {
     }
 
     public void delete(int id) {
-        System.out.println("as");
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(
                 MessageFormat.format("id={0} user was not found in database", id)
         ));

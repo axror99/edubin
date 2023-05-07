@@ -37,7 +37,8 @@ public class UserEntity implements UserDetails {
     @JsonIgnore
     @NotBlank
     private String password;
-
+    @JsonIgnore
+    private LocalDate registeredDate;
     private String name;
     private LocalDate birthDay;
     private String picture;
@@ -74,6 +75,7 @@ public class UserEntity implements UserDetails {
                 .email(userRegister.getEmail())
                 .password(userRegister.getPassword())
                 .username(userRegister.getUsername())
+                .registeredDate(LocalDate.now())
                 .roles(List.of("USER"))
                 .build();
     }

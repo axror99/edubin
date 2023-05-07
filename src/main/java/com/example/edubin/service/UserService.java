@@ -3,8 +3,10 @@ package com.example.edubin.service;
 import com.example.edubin.config.JwtService;
 import com.example.edubin.dto.request.UserLogin;
 import com.example.edubin.dto.request.UserRegister;
+import com.example.edubin.dto.response.PersonInfo;
 import com.example.edubin.enitity.UserEntity;
 import com.example.edubin.exception.UserAlreadyExistException;
+import com.example.edubin.repository.CourseRepository;
 import com.example.edubin.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +30,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final CourseRepository courseRepository;
 
     public String registerUser(UserRegister userRegister) {
         Optional<UserDetails> userByUsername = userRepository.findByUsername(userRegister.getUsername());
@@ -87,5 +91,27 @@ public class UserService {
                 MessageFormat.format("username {0} not found in database", username)
         ));
         return user;
+    }
+
+    public PersonInfo getMe(String token) {
+        PersonInfo personInfo = new PersonInfo();
+        String username = jwtService.extractUsername(token.substring(7));
+        UserEntity user =findUserByUsername(username);
+        personInfo.setName(user.getName());
+        personInfo.setUsername(user.getUsername());
+        personInfo.setEmail(user.getEmail());
+        personInfo.setPicture(user.getPicture());
+        if (user.getProfession()!=null && !user.getProfession().equals("")){
+            personInfo.setProfession(user.getProfession());
+        }else {
+            personInfo.setProfession("USER");
+        }
+        personInfo.setRegisteredDate(user.getRegisteredDate());
+        personInfo.setSocialMedia(user.getSocialMedia());
+        personInfo.setCountCourse(courseRepository.findByTeacherIn(List.of(user)).size());
+        personInfo.setCountBook(user.getMerchandiseList().size());
+        personInfo.setBirthday(user.getBirthDay());
+        personInfo.setId(user.getId());
+        return personInfo;
     }
 }

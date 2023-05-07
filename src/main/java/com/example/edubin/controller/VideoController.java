@@ -1,34 +1,23 @@
 package com.example.edubin.controller;
 
-import com.example.edubin.service.FileUtils;
-import com.example.edubin.service.MediaService;
+import com.example.edubin.service.StreamingServer;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.Resource;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/video")
+@RequestMapping("/api/")
 @RequiredArgsConstructor
 public class VideoController {
 
-
-    @GetMapping(
-            value = "/{video}",
-            produces = {MediaType.IMAGE_PNG_VALUE , MediaType.IMAGE_JPEG_VALUE}
-    )
-    public ResponseEntity<?> getImage(
-            @PathVariable("video") String video
-    ) {
-        byte[] imageBytes = FileUtils.getVideoBytes(video);
-        assert imageBytes != null;
-        ByteArrayResource resource = new ByteArrayResource(imageBytes);
-        return ResponseEntity.ok().contentLength(imageBytes.length).body(resource);
+    private final StreamingServer streamingServer;
+    @GetMapping(value = "/video/{title}" , produces = "video/mp4")
+    public Mono<Resource> getVideos(@PathVariable String title, @RequestHeader("Range") String range){
+        System.out.println("range in bytes() : "+range);
+        return streamingServer.getVideo(title);
     }
+
 //    @GetMapping("/{attachmentContentId}")
 //    private ResponseEntity getFile(@PathVariable String attachmentContentId) {
 //        AttachmentContent attachmentContent = attachmentContentRepository.findById(Long.parseLong(attachmentContentId)).orElseThrow();

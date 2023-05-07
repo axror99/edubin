@@ -27,6 +27,5 @@ public class HomeController {
     @GetMapping("/{token}")
     private ApiResponse<MyItems> getStudentsCourse(@PathVariable String token) {
         return new ApiResponse<>("client's course",courseService.getStudentCourses(token));
-
     }
 }
