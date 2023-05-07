@@ -69,7 +69,7 @@ public class WebSecurity {
                 .requestMatchers("/api/product/**").permitAll()
                 .requestMatchers("/api/video/**").permitAll()
                 .requestMatchers("/api/image/**").permitAll()
-//                .requestMatchers("/home/me/**").permitAll()
+                .requestMatchers("/home/me/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
