@@ -30,6 +30,7 @@ public class MediaService {
 //    private String pathForImage = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
 //    private String pathCategory = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\";
     private String pathCategory = "src/main/resources/static/assets/";
+    private String pathForVideo = "src/main/resources/static/assets/video/";
 
 
     @SneakyThrows
@@ -55,7 +56,7 @@ public class MediaService {
     private void writeImageToFile(MultipartFile file, String randomName) {
             String contentType = getContentType(file);
             if (contentType.startsWith("video")){
-                Path download_Path = Paths.get(pathCategory +"video"+"/"+randomName);
+                Path download_Path = Paths.get(pathForVideo+randomName);
                 internalWrite(file,download_Path);
             }
             if (contentType.startsWith("application")){
