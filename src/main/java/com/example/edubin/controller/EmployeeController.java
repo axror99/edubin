@@ -24,16 +24,7 @@ import java.util.List;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-//    private final UserService employeeService;
 
-
-//    public EmployeeController(
-//            EmployeeService employeeService,
-//            GenerateToken generateToken
-//    ) {
-//        this.employeeService = employeeService;
-//        this.generateToken = generateToken;
-//    }
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)

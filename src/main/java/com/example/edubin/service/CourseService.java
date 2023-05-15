@@ -99,6 +99,12 @@ public class CourseService {
         if(courseRequest.getPrice()!=null){
             course.setPrice(courseRequest.getPrice());
         }
+        if (!courseRequest.getDefinition().equals("") && courseRequest.getDefinition()!=null){
+            course.setDefinition(courseRequest.getDefinition());
+        }
+        if (!courseRequest.getHeadline().equals("") && courseRequest.getHeadline()!=null){
+            course.setHeadline(courseRequest.getHeadline());
+        }
         courseRepository.save(course);
     }
 
