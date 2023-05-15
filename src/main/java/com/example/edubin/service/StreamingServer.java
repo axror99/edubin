@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class StreamingServer {
 
-    private static final String FORMAT="classpath:static/assets/video/%s.mp4";
+    private static final String FORMAT="classpath:static/assets/video/%s";
 
     private final ResourceLoader resourceLoader;
 
