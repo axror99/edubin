@@ -60,13 +60,13 @@ public class MediaService {
                 internalWrite(file,download_Path);
             }
             if (contentType.startsWith("application")){
-                Path download_Path = Paths.get(pathCategory+"application"+"/"+randomName);
-                internalWrite(file,download_Path);
+            Path download_Path = Paths.get(pathCategory+"application"+"/"+randomName);
+            internalWrite(file,download_Path);
             }
             if (contentType.startsWith("image")){
-                Path download_Path = Paths.get(pathCategory +"images"+"/"+randomName);
-                internalWrite(file,download_Path);
-            }
+            Path download_Path = Paths.get(pathCategory +"images"+"/"+randomName);
+            internalWrite(file,download_Path);
+        }
     }
     public void internalWrite(MultipartFile file,Path download_Path){
         try {
