@@ -76,4 +76,26 @@ public class MerchandiseService {
         }
         return randomProduct;
     }
+
+    public void updateMerchandise(int id, MerchandiseRequest merchandiseRequest) {
+        MerchandiseEntity merchandiseEntity = merchandiseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+                MessageFormat.format("id = {0} merchandise was not found in database", id)
+        ));
+        if (merchandiseRequest.getPicture()!=null){
+            mediaService.deleteExistImage(merchandiseEntity.getPicture());
+            String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(merchandiseRequest.getPicture().getOriginalFilename()));
+            mediaService.internalWrite(merchandiseRequest.getPicture(), Paths.get(PATH_IMAGE + newPictureName));
+            merchandiseEntity.setPicture(newPictureName);
+        }
+        if (merchandiseRequest.getDefinition()!=null && !merchandiseRequest.getDefinition().equals("")){
+            merchandiseEntity.setDefinition(merchandiseRequest.getDefinition());
+        }
+        if (merchandiseRequest.getPrice()!=null){
+            merchandiseEntity.setPrice(merchandiseRequest.getPrice());
+        }
+        if (merchandiseRequest.getHeadline()!=null && !merchandiseRequest.getHeadline().equals("")){
+            merchandiseEntity.setHeadline(merchandiseRequest.getHeadline());
+        }
+        merchandiseRepository.save(merchandiseEntity);
+    }
 }

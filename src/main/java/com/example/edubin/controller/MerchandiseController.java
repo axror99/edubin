@@ -30,6 +30,11 @@ public class MerchandiseController {
         merchandiseService.deleteMerchandise(id);
         return new ApiResponse<>("Merchandise was deleted successfully in database");
     }
+    @PutMapping("/update/{id}")
+    private ApiResponse<Void> updateMerchandise(@PathVariable("id") int id,MerchandiseRequest merchandiseRequest){
+        merchandiseService.updateMerchandise(id,merchandiseRequest);
+        return new ApiResponse<>("Merchandise was updated successfully in database");
+    }
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
