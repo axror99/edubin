@@ -60,7 +60,7 @@ public class WebSecurity {
 //                .requestMatchers("/api/event/**").permitAll()
                 .requestMatchers("/api/event/list").permitAll()
                 .requestMatchers("/api/event/get/**").permitAll()
-//                .requestMatchers("/api/blog/**").permitAll()
+                .requestMatchers("/api/blog/**").permitAll()
                 .requestMatchers("/api/blog/list/**").permitAll()
                 .requestMatchers("/api/blog/list/page/**").permitAll()
                 .requestMatchers("/api/blog/one/**").permitAll()

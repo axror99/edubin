@@ -25,7 +25,8 @@ public class BlogService {
     private final BlogRepository blogRepository;
     private final CategoryService categoryService;
     private final MediaService mediaService;
-    private  String PATH_IMAGE="src/main/resources/static/assets/images/";
+//    private  String PATH_IMAGE="src/main/resources/static/assets/images/";
+    private final String PATH_IMAGE="src/foto/";
 
     public void addBlog(int id, BlogRequest blogRequest) {
         CategoryEntity category = categoryService.findCategory(id);

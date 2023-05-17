@@ -21,7 +21,7 @@ public class MerchandiseService {
     private final MerchandiseRepository merchandiseRepository;
     private final MediaService mediaService;
 
-    private String PATH_IMAGE = "src/main/resources/static/assets/images/";
+    private String PATH_IMAGE = "src/foto/";
 
     public void addMerchandise(MerchandiseRequest merchandise) {
         String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(merchandise.getPicture().getOriginalFilename()));

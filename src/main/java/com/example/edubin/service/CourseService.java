@@ -65,8 +65,8 @@ public class CourseService {
                 MessageFormat.format("id = {0} course was not found in database", id)
         ));
         if (courseRequest.getImage() != null) {
-            String image = "\\images\\" + course.getImage();
-            mediaService.deleteExistFile(image);
+            String image = course.getImage();
+            mediaService.deleteExistImage(image);
             String randomName = mediaService.saveMultiPartFile(courseRequest.getImage());
             course.setImage(randomName);
         }
