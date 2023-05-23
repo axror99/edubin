@@ -21,7 +21,7 @@ import java.util.Objects;
 public class EventService {
     private final EventRepository eventRepository;
     private final MediaService mediaService;
-    private final UserService userService;
+
     private final String PATH_IMAGE="src/foto/";
 
     public void addEvent(EventRequest eventRequest) {

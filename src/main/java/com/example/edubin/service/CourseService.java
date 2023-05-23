@@ -150,7 +150,7 @@ public class CourseService {
         courseRepository.saveAll(list);
     }
 
-    public List<CourseEntity> getRecommendCourseList() {
-        return null;
-    }
+//    public List<CourseEntity> getRecommendCourseList() {
+//        return null;
+//    }
 }

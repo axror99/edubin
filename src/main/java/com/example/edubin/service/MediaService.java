@@ -26,10 +26,9 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class MediaService {
     private final MediaRepository mediaRepository;
-    private String pathForImage = "src/foto/";
-//    private String pathForImage = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\images\\";
-//    private String pathCategory = "D:\\EduBin\\edubin\\src\\main\\resources\\static\\";
-    private String pathCategory = "src/main/resources/static/assets/";
+    private final String pathForImage = "src/foto/";
+
+    private final String pathCategory = "src/main/resources/static/assets/";
     private String pathForVideo = "src/main/resources/static/assets/video/";
 
 
@@ -129,21 +128,4 @@ public class MediaService {
         oldMedia.setVideoBytes(getBytes(contentRequest.getVideo()));
         saveMedia(oldMedia);
     }
-
-//    public void createFolder(String folderName) {
-//        try {
-//            Files.createDirectories(Paths.get(pathCategory + folderName));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-//    public void deleteFolder(String name) {
-//        try {
-//            FileUtils.deleteDirectory(new File(pathCategory+name));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            throw new RuntimeException(e);
-//        }
-//    }
 }

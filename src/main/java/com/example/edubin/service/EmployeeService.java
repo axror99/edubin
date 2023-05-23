@@ -2,6 +2,7 @@ package com.example.edubin.service;
 
 import com.example.edubin.config.JwtService;
 import com.example.edubin.dto.request.AdminUpdateEmployee;
+import com.example.edubin.dto.request.Employee;
 import com.example.edubin.dto.request.EmployeeUpdateHimself;
 import com.example.edubin.enitity.CourseEntity;
 import com.example.edubin.enitity.SocialMediaEntity;
@@ -96,18 +97,6 @@ public class EmployeeService {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(
                 MessageFormat.format("id={0} is not in database", id))
         );
-        if (adminUpdateEmployee.getName()!=null && !adminUpdateEmployee.getName().equals("")){
-            user.setName(adminUpdateEmployee.getName());
-        }
-        if (adminUpdateEmployee.getUsername()!=null && !adminUpdateEmployee.getUsername().equals("")){
-            user.setUsername(adminUpdateEmployee.getUsername());
-        }
-        if (adminUpdateEmployee.getPassword()!=null && !adminUpdateEmployee.getPassword().equals("")){
-            user.setPassword(passwordEncoder.encode(adminUpdateEmployee.getPassword()));
-        }
-        if (adminUpdateEmployee.getEmail()!=null && !adminUpdateEmployee.getEmail().equals("")){
-            user.setEmail(adminUpdateEmployee.getEmail());
-        }
         if (adminUpdateEmployee.getBirthday()!=null){
             user.setBirthDay(adminUpdateEmployee.getBirthday());
         }
@@ -117,36 +106,48 @@ public class EmployeeService {
         if(adminUpdateEmployee.getPermissionList().size()!=0){
             user.setPermission(adminUpdateEmployee.getPermissionList());
         }
-        if (adminUpdateEmployee.getPicture() != null) {
-
-            String image = adminUpdateEmployee.getPicture().getOriginalFilename();
-            mediaService.deleteExistImage(image);
-            String randomName = mediaService.saveMultiPartFile(adminUpdateEmployee.getPicture());
-            user.setPicture(randomName);
-        }
-        if (adminUpdateEmployee.getProfession()!=null && !adminUpdateEmployee.getProfession().equals("")){
-            user.setProfession(adminUpdateEmployee.getProfession());
-        }
-        if (adminUpdateEmployee.getAbout()!=null && !adminUpdateEmployee.getAbout().equals("")){
-            user.setAbout(adminUpdateEmployee.getAbout());
-        }
-        if (adminUpdateEmployee.getAchievement()!=null && !adminUpdateEmployee.getAchievement().equals("")){
-            user.setAchievement(adminUpdateEmployee.getAchievement());
-        }
-        if (adminUpdateEmployee.getMyObjective()!=null && !adminUpdateEmployee.getMyObjective().equals("")){
-            user.setMyObjective(adminUpdateEmployee.getMyObjective());
-        }
+        updateEmployeesPersonalInfo(user,adminUpdateEmployee);
         UserEntity savedUser = userRepository.save(user);
         return jwtService.generateToken(savedUser);
+    }
+    public void updateEmployeesPersonalInfo(UserEntity user, Employee employee){
+        if (employee.getName()!=null && !employee.getName().equals("")){
+            user.setName(employee.getName());
+        }
+        if (employee.getUsername()!=null && !employee.getUsername().equals("")){
+            user.setUsername(employee.getUsername());
+        }
+        if (employee.getPassword()!=null && !employee.getPassword().equals("")){
+            user.setPassword(passwordEncoder.encode(employee.getPassword()));
+        }
+        if (employee.getEmail()!=null && !employee.getEmail().equals("")){
+            user.setEmail(employee.getEmail());
+        }
+        if (employee.getPicture() != null) {
+
+            String image = employee.getPicture().getOriginalFilename();
+            mediaService.deleteExistImage(image);
+            String randomName = mediaService.saveMultiPartFile(employee.getPicture());
+            user.setPicture(randomName);
+        }
+        if (employee.getProfession()!=null && !employee.getProfession().equals("")){
+            user.setProfession(employee.getProfession());
+        }
+        if (employee.getAbout()!=null && !employee.getAbout().equals("")){
+            user.setAbout(employee.getAbout());
+        }
+        if (employee.getAchievement()!=null && !employee.getAchievement().equals("")){
+            user.setAchievement(employee.getAchievement());
+        }
+        if (employee.getMyObjective()!=null && !employee.getMyObjective().equals("")){
+            user.setMyObjective(employee.getMyObjective());
+        }
     }
 
     public List<UserEntity> getAllEmployees() {
         List<UserEntity> userRepositoryAll = userRepository.findAll();
         return userRepositoryAll.stream()
                 .filter(user -> !user.getRoles().contains("USER")).toList();
-
-//        return  Stream.of(getAdminList(),getTeacherList())
-//                .flatMap(Collection::stream).toList();
     }
     public List<UserEntity> getTeacherList(){
         return  userRepository.findByRolesContains(Role.TEACHER.name())
@@ -162,42 +163,10 @@ public class EmployeeService {
                 MessageFormat.format("id={0} is not in database", id)));
             SocialMediaEntity socialMediaEntity = updateSocialMedia(user.getSocialMedia(), updateHimself);
             user.setSocialMedia(socialMediaEntity);
-
-        if (updateHimself.getPicture()!=null){
-            if (user.getPicture()!=null && !user.getPicture().equals("")){
-                mediaService.deleteExistImage(user.getPicture());
-            }
-            String newPictureName= mediaService.generateRandomName(Objects.requireNonNull(updateHimself.getPicture().getOriginalFilename()));
-            mediaService.internalWrite(updateHimself.getPicture(), Paths.get("src/foto/"+newPictureName));
-            user.setPicture(newPictureName);
-        }
-        if (updateHimself.getAbout()!=null && !updateHimself.getAbout().equals("") ){
-            user.setAbout(updateHimself.getAbout());
-        }
-        if (updateHimself.getAchievement()!=null && !updateHimself.getAchievement().equals("") ){
-            user.setAchievement(updateHimself.getAchievement());
-        }
-        if (updateHimself.getMyObjective()!=null && !updateHimself.getMyObjective().equals("")){
-            user.setMyObjective(updateHimself.getMyObjective());
-        }
-        if (updateHimself.getEmail()!=null && !updateHimself.getEmail().equals("")){
-            user.setEmail(updateHimself.getEmail());
-        }
-        if (updateHimself.getName()!=null && !updateHimself.getName().equals("")){
-            user.setName(updateHimself.getName());
-        }
-        if (updateHimself.getProfession()!=null && !updateHimself.getProfession().equals("")){
-            user.setProfession(updateHimself.getProfession());
-        }
         if (updateHimself.getBirthDay()!=null){
             user.setBirthDay(updateHimself.getBirthDay());
         }
-        if (updateHimself.getPassword()!=null && !updateHimself.getPassword().equals("")){
-            user.setPassword(passwordEncoder.encode(updateHimself.getPassword()));
-        }
-        if (updateHimself.getUsername()!=null && !updateHimself.getUsername().equals("")){
-            user.setUsername(updateHimself.getUsername());
-        }
+        updateEmployeesPersonalInfo(user,updateHimself);
         userRepository.save(user);
     }
 

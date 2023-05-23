@@ -24,7 +24,6 @@ public class CourseController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<TokenDTO> addCourse(@ModelAttribute CourseRequest course) {
         courseService.addCourse(course);
         return new ApiResponse<>("course was saved successfully in database");
@@ -64,11 +63,11 @@ public class CourseController {
         return new ApiResponse<>("courseList is here", courseService.getCourseList());
     }
 
-    @GetMapping("/recommend/list")
-    @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<CourseEntity>> getRecommendCourseList() {
-        return new ApiResponse<>("courseList is here", courseService.getRecommendCourseList());
-    }
+//    @GetMapping("/recommend/list")
+//    @ResponseStatus(HttpStatus.OK)
+//    private ApiResponse<List<CourseEntity>> getRecommendCourseList() {
+//        return new ApiResponse<>("courseList is here", courseService.getRecommendCourseList());
+//    }
 
     @GetMapping("/list/page/{start}")
     @ResponseStatus(HttpStatus.OK)

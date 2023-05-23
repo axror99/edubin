@@ -19,18 +19,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeUpdateHimself {
+public class EmployeeUpdateHimself extends Employee{
 
-    private String username;
-    private String password;
-    private String name;
     private LocalDate birthDay;
-    private MultipartFile picture;
-    private String profession;
-    private String about;
-    private String achievement;
-    private String myObjective;
-    private String email;
     private String telegram;
     private String instagram;
     private String google;

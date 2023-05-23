@@ -21,7 +21,6 @@ public class CategoriesController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<Void> addCategory(@RequestBody CategoryRequest category) {
         CategoryEntity categoryEntity = new CategoryEntity(category.getName1());
         categoryService.addCategory(categoryEntity);
@@ -30,7 +29,6 @@ public class CategoriesController {
 
     @DeleteMapping("/delete/{name}")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('DELETE')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<Void> deleteCategory(@PathVariable("name") String name) {
         categoryService.deleteCategory(name);
         return new ApiResponse<>("category was deleted successfully");
@@ -38,7 +36,6 @@ public class CategoriesController {
 
     @PutMapping("/update/{name}")
     @ResponseStatus(HttpStatus.OK)
-    // @PreAuthorize("(hasRole('ADMIN') and hasAuthority('UPDATE')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<Void> updateCategory(@PathVariable("name") String name, @RequestBody CategoryRequest category) {
         categoryService.updateCategory(category, name);
         return new ApiResponse<>("category was updated successfully");
@@ -46,7 +43,6 @@ public class CategoriesController {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('GET')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<CategoryEntity>> getAllCategoryList() {
         List<CategoryEntity> allCategoryList = categoryService.getAllCategoryList();
         return new ApiResponse<>("here are your all categories list", allCategoryList);

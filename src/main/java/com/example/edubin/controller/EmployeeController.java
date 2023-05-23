@@ -28,14 +28,12 @@ public class EmployeeController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('ADD')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<Void> addEmployee(@ModelAttribute AdminUpdateEmployee adminUpdateEmployee) {
         employeeService.addEmployee(adminUpdateEmployee);
         return new ApiResponse<>("employee was  added successfully in database");
     }
 
     @DeleteMapping("/delete/{id}")
-//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('DELETE')) or (hasRole('SUPER_ADMIN'))")
     private ResponseEntity<?> deleteEmployee(@PathVariable("id") int id) {
         employeeService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -43,7 +41,6 @@ public class EmployeeController {
 
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('UPDATE')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<String> updateEmployee(@PathVariable("id") int id, @ModelAttribute AdminUpdateEmployee adminUpdateEmployee) {
         String token = employeeService.updateEmployee(id, adminUpdateEmployee);
         return new ApiResponse<>("updated successfully", token);
@@ -58,7 +55,6 @@ public class EmployeeController {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<UserEntity>> getAllEmployeeList() {
         List<UserEntity> allEmployees = employeeService.getAllEmployees();
         return new ApiResponse<>("all Employees were token successfully ", allEmployees);
@@ -66,7 +62,6 @@ public class EmployeeController {
 
     @GetMapping("/listAdmin")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("(hasRole('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<UserEntity>> getAllAdminList() {
         List<UserEntity> allAdmins = employeeService.getAdminList();
         return new ApiResponse<>("all Admins were token successfully ", allAdmins);
@@ -74,7 +69,6 @@ public class EmployeeController {
 
     @GetMapping("/listTeacher")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize(Teacher('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<UserEntity>> getAllTeacherList() {
         List<UserEntity> allTeachers = employeeService.getTeacherList();
         return new ApiResponse<>("all Teachers were token successfully ", allTeachers);
@@ -82,7 +76,6 @@ public class EmployeeController {
 
     @GetMapping("/listTeacher/page/{id}")
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize(Teacher('ADMIN') and hasAuthority('READ')) or (hasRole('SUPER_ADMIN'))")
     private ApiResponse<List<UserEntity>> getTeachersPageableList(@PathVariable("id") int id) {
         List<UserEntity> allTeachers = employeeService.getTeachersPageableList(id,8);
         return new ApiResponse<>("all Teachers were token successfully ", allTeachers);

@@ -20,7 +20,7 @@ public class ContactController {
         contactService.saveSMS(contactEntity);
     }
 
-    @GetMapping("/sms1")
+    @GetMapping("/AllSms")
     public List<ContactEntity> getContactList(){
         return contactService.getList();
     }

@@ -17,23 +17,6 @@ import java.util.UUID;
 public class FileUtils {
     private static final String FILE_PATH = "src/foto/";
 
-    public static boolean saveImage(MultipartFile image, UUID imageUUID,String imgContentType) {
-        File file = new File(FILE_PATH + imageUUID + imgContentType);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                return false;
-            }
-        }
-
-        try (FileOutputStream fos = new FileOutputStream(file)){
-            fos.write(image.getBytes());
-        } catch (IOException e) {
-            return false;
-        }
-        return true;
-    }
     public static byte[] getImageBytes(String image) {
         Path path = Paths.get(FILE_PATH, image);
         try {
@@ -42,10 +25,4 @@ public class FileUtils {
             return null;
         }
     }
-
-
-//    public static void deleteImage(TourEntity tourEntity) {
-//        File file = new File(FILE_PATH + tourEntity.getImgUUID() + tourEntity.getImgContentType());
-//        file.delete();
-//    }
 }

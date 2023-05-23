@@ -25,7 +25,6 @@ public class BlogService {
     private final BlogRepository blogRepository;
     private final CategoryService categoryService;
     private final MediaService mediaService;
-//    private  String PATH_IMAGE="src/main/resources/static/assets/images/";
     private final String PATH_IMAGE="src/foto/";
 
     public void addBlog(int id, BlogRequest blogRequest) {
@@ -106,7 +105,6 @@ public class BlogService {
     public List<BlogEntity> getPageableListByCategory(int id,int page1, int size) {
         Pageable page = PageRequest.of(page1-1,size, Sort.by("id"));
         return blogRepository.findByCategoryEntity_Id(id,page).getContent();
-//         return blogRepository.findAll(page).getContent();
     }
 
     public List<BlogEntity> findPopularBlogs() {
