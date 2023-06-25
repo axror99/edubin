@@ -3,8 +3,12 @@ package com.example.edubin.service;
 import com.example.edubin.dto.request.ContentRequest;
 import com.example.edubin.enitity.ContentEntity;
 import com.example.edubin.enitity.MediaContentEntity;
+import com.example.edubin.enitity.MyMedia;
+import com.example.edubin.exception.GetBytesException;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.MediaRepository;
+import com.example.edubin.repository.MyMediaRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
@@ -19,18 +23,55 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.MessageFormat;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
 public class MediaService {
     private final MediaRepository mediaRepository;
+    private final MyMediaRepository myMediaRepository;
     private final String pathForImage = "src/foto/";
+    private ScheduledExecutorService taskScheduler;
 
     private final String pathCategory = "src/main/resources/static/assets/";
     private String pathForVideo = "src/main/resources/static/assets/video/";
 
+    public String savePicture(MultipartFile picture, String randomName) {
+
+        String originalFileName = picture.getOriginalFilename();
+        long size = picture.getSize();
+        String contentType = picture.getContentType();
+        byte[] bytes;
+        try {
+            bytes = picture.getBytes();
+        } catch (IOException e) {
+            throw new GetBytesException(e);
+        }
+        MyMedia media = new MyMedia();
+        media.setName(randomName);
+        media.setSize(size);
+        media.setBytes(bytes);
+        media.setFileOriginalName(originalFileName);
+        media.setContentType(contentType);
+        myMediaRepository.save(media);
+        return randomName;
+    }
+
+//    public void updatePictureWithNewWay(MultipartFile picture, String name){
+//        Optional<MyMedia> myMedia = myMediaRepository.findByName(name);
+//        if (myMedia.isPresent()){
+//            MyMedia media = myMedia.get();
+//            media.setBytes(getBytes(picture));
+//            media.setSize(picture.getSize());
+//            media.setContentType(picture.getContentType());
+//            media.setFileOriginalName(picture.getOriginalFilename());
+//            media.setName(name);
+//            myMediaRepository.save(media);
+//        }
+//    }
 
     @SneakyThrows
     public String saveMultiPartFile(MultipartFile file) {

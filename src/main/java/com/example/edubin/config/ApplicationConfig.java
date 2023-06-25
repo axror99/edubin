@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig  {
@@ -40,5 +43,10 @@ public class ApplicationConfig  {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean(destroyMethod = "shutdown")
+    public ScheduledExecutorService taskScheduler() {
+        return Executors.newScheduledThreadPool(1);
     }
 }

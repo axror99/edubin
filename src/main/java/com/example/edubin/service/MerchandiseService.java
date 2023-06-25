@@ -32,6 +32,7 @@ public class MerchandiseService {
                 .definition(merchandise.getDefinition())
                 .headline(merchandise.getHeadline())
                 .build();
+        mediaService.savePicture(merchandise.getPicture(), newPictureName);
         merchandiseRepository.save(merchandiseEntity);
     }
 
@@ -84,6 +85,7 @@ public class MerchandiseService {
         if (merchandiseRequest.getPicture()!=null){
             mediaService.deleteExistImage(merchandiseEntity.getPicture());
             String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(merchandiseRequest.getPicture().getOriginalFilename()));
+            mediaService.savePicture(merchandiseRequest.getPicture(), newPictureName);
             mediaService.internalWrite(merchandiseRequest.getPicture(), Paths.get(PATH_IMAGE + newPictureName));
             merchandiseEntity.setPicture(newPictureName);
         }

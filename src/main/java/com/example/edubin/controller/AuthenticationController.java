@@ -34,15 +34,8 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<String> login(@RequestBody UserLogin userLogin) {
+    public ApiResponse<String> login(@RequestBody UserLogin userLogin) {
         String  token = userService.login(userLogin);
         return new ApiResponse<>("login was passed successfully",token);
-    }
-
-    @PostMapping("/login/super")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    private ApiResponse<String> loginForSuperAdmin(@RequestBody UserLogin userLogin) {
-        String  token = userService.loginSuperAdmin(userLogin);
-       return new ApiResponse<>("login was passed successfully", Objects.requireNonNullElse(token, "****"));
     }
 }

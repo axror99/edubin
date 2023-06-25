@@ -70,4 +70,9 @@ public class CommonExceptionHandler {
         return new ApiResponse<>(e.getMessage());
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+    ApiResponse<Void> getNullPointer(Exception e){
+        return new ApiResponse<>(e.getMessage());
+    }
 }

@@ -128,6 +128,7 @@ public class EmployeeService {
             String image = employee.getPicture().getOriginalFilename();
             mediaService.deleteExistImage(image);
             String randomName = mediaService.saveMultiPartFile(employee.getPicture());
+            mediaService.savePicture(employee.getPicture(),randomName);
             user.setPicture(randomName);
         }
         if (employee.getProfession()!=null && !employee.getProfession().equals("")){

@@ -55,22 +55,7 @@ public class UserService {
         return jwtService.generateToken(user);
     }
 
-    public String loginSuperAdmin(UserLogin userLogin) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        userLogin.getUsername(),
-                        userLogin.getPassword()
-                )
-        );
-        var user = userRepository.findByUsername(userLogin.getUsername()).orElseThrow();
-        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-        for (GrantedAuthority authority : authorities) {
-            if (authority.getAuthority().equals("ROLE_SUPER_ADMIN")){
-                return jwtService.generateToken(user);
-            }
-        }
-        return null;
-    }
+
 
 
     public UserEntity findUser(int user_id) {

@@ -44,6 +44,7 @@ public class CourseService {
                 .price(course.getPrice())
                 .image(imageRandomName)
                 .build();
+        mediaService.savePicture(course.getImage(),imageRandomName);
         // mediaService.createFolder(category.getName()+"\\"+course.getName());
         courseRepository.save(courseEntity);
     }
@@ -68,6 +69,7 @@ public class CourseService {
             String image = course.getImage();
             mediaService.deleteExistImage(image);
             String randomName = mediaService.saveMultiPartFile(courseRequest.getImage());
+            mediaService.savePicture(courseRequest.getImage(), randomName);
             course.setImage(randomName);
         }
         if (!courseRequest.getCourseSummery().equals("") && courseRequest.getCourseSummery() != null) {
