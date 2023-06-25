@@ -38,6 +38,7 @@ public class BlogService {
                 .picture(newPictureName)
                 .categoryEntity(category)
                 .build();
+        mediaService.savePicture(blogRequest.getPicture(), newPictureName);
         mediaService.internalWrite(blogRequest.getPicture(), Paths.get(PATH_IMAGE+newPictureName));
         blogRepository.save(blog);
     }
@@ -49,6 +50,7 @@ public class BlogService {
         if (blogRequest.getPicture()!=null) {
             mediaService.deleteExistImage(blog.getPicture());
             String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(blogRequest.getPicture().getOriginalFilename()));
+            mediaService.savePicture(blogRequest.getPicture(), newPictureName);
             mediaService.internalWrite(blogRequest.getPicture(),Paths.get(PATH_IMAGE+newPictureName));
             blog.setPicture(newPictureName);
         }

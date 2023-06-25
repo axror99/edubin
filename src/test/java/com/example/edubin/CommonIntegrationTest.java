@@ -2,26 +2,32 @@
 //
 //import com.example.edubin.controller.AuthenticationController;
 //import com.example.edubin.controller.EmployeeController;
+//import com.example.edubin.repository.BlogRepository;
+//import com.example.edubin.repository.CategoryRepository;
 //import com.example.edubin.repository.UserRepository;
-//import com.example.edubin.service.EmployeeService;
-//import org.junit.jupiter.api.AfterEach;
+//import lombok.extern.slf4j.Slf4j;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 //import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.test.context.DynamicPropertyRegistry;
 //import org.springframework.test.context.DynamicPropertySource;
 //import org.testcontainers.containers.PostgreSQLContainer;
-//import org.testcontainers.lifecycle.Startables;
 //import org.testcontainers.junit.jupiter.Testcontainers;
 //import org.testcontainers.utility.DockerImageName;
 //
+//@Slf4j
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //@AutoConfigureMockMvc
 //@Testcontainers
-//public class CommonIntegrationTest {
+//public abstract class CommonIntegrationTest {
 //
 //    @Autowired
 //    protected UserRepository userRepository;
+//    @Autowired
+//    protected CategoryRepository categoryRepository;
+//
+//    @Autowired
+//    protected BlogRepository blogRepository;
 //
 //    @Autowired
 //    protected AuthenticationController authenticationController;
@@ -36,6 +42,13 @@
 //
 //    @Autowired
 //    protected TestDataHelperBlog testDataHelperBlog;
+//
+//    @Autowired
+//    protected TestDataHelperCategory testDataHelperCategory;
+//
+//
+//
+//
 //
 ////    @AfterEach
 ////    void testDataCleanUp() {
@@ -55,6 +68,7 @@
 //        postgres.withReuse(true);
 ////        Startables.deepStart(postgres).join();
 //    }
+//
 //
 //    @DynamicPropertySource
 //    static void setUpPostgresConnectionProperties(DynamicPropertyRegistry registry) {
