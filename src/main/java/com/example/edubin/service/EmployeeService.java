@@ -43,7 +43,8 @@ public class EmployeeService {
         }
     }
     public void addEmployee(AdminUpdateEmployee adminUpdateEmployee){
-        String imageRandomName = mediaService.saveMultiPartFile(adminUpdateEmployee.getPicture());
+        String imageRandomName = mediaService.generateRandomName(Objects.requireNonNull(adminUpdateEmployee.getPicture().getOriginalFilename()));
+        mediaService.savePicture(adminUpdateEmployee.getPicture(),imageRandomName);
         SocialMediaEntity1 socialMedia = new SocialMediaEntity1();
         socialMedia.setFacebook("Facebook");
         socialMedia.setGoogle("Google");
@@ -158,6 +159,8 @@ public class EmployeeService {
             user.setBirthDay(updateHimself.getBirthDay());
         }
         updateEmployeesPersonalInfo(user,updateHimself);
+        String newName = mediaService.generateRandomName(Objects.requireNonNull(updateHimself.getPicture().getOriginalFilename()));
+        mediaService.savePicture(updateHimself.getPicture(), newName);
         userRepository.save(user);
     }
 
