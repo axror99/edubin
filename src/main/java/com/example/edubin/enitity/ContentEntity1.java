@@ -4,15 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class ContentEntity extends BaseEntity{
+public class ContentEntity1 extends BaseEntity{
 
     private String title;
     @Column(columnDefinition="TEXT")
@@ -22,9 +20,9 @@ public class ContentEntity extends BaseEntity{
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    private CourseEntity course;
+    private CourseEntity1 course;
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.REMOVE,mappedBy ="content")
-    private MediaContentEntity mediaContent;
+    private MediaContentEntity1 mediaContent;
 }

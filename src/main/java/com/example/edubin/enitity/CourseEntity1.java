@@ -1,7 +1,5 @@
 package com.example.edubin.enitity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,24 +12,24 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class CourseEntity extends BaseEntity{
+public class CourseEntity1 extends BaseEntity{
 
     private String name;
 
     @JsonManagedReference
     @ManyToOne
-    private CategoryEntity category;
+    private CategoryEntity1 category;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
-    private List<ContentEntity> contents;
+    private List<ContentEntity1> contents;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private List<UserEntity> teacher;
+    private List<UserEntity1> teacher;
 
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "course")
-    private List<CommentEntity> comments;
+    private List<CommentEntity1> comments;
 
     private String image;
     private Double price;

@@ -1,9 +1,7 @@
 package com.example.edubin.controller;
 
-import com.example.edubin.enitity.MyMedia;
+import com.example.edubin.enitity.MyMedia1;
 import com.example.edubin.repository.MyMediaRepository;
-import com.example.edubin.service.FileUtils;
-import com.example.edubin.service.MediaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
@@ -30,7 +28,7 @@ public class ImageController {
             @PathVariable("image") String image
     ) {
 
-        Optional<MyMedia> media = myMediaRepository.findByName(image);
+        Optional<MyMedia1> media = myMediaRepository.findByName(image);
 
         byte[] imageBytes = media.get().getBytes();
 //        byte[] imageBytes = FileUtils.getImageBytes(image);

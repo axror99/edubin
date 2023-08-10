@@ -2,7 +2,7 @@ package com.example.edubin.controller;
 
 import com.example.edubin.dto.request.ContentRequest;
 import com.example.edubin.dto.response.ApiResponse;
-import com.example.edubin.enitity.ContentEntity;
+import com.example.edubin.enitity.ContentEntity1;
 import com.example.edubin.service.ContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,7 +36,7 @@ public class ContentController {
     }
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<ContentEntity>> getContentList(){
+    private ApiResponse<List<ContentEntity1>> getContentList(){
         return new ApiResponse<>("ContentList is here",contentService.getContentList());
     }
 }

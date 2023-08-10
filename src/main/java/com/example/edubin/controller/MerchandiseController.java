@@ -2,7 +2,7 @@ package com.example.edubin.controller;
 
 import com.example.edubin.dto.request.MerchandiseRequest;
 import com.example.edubin.dto.response.ApiResponse;
-import com.example.edubin.enitity.MerchandiseEntity;
+import com.example.edubin.enitity.MerchandiseEntity1;
 import com.example.edubin.service.MerchandiseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,24 +38,24 @@ public class MerchandiseController {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<MerchandiseEntity>> getListOfMerchandise(){
+    private ApiResponse<List<MerchandiseEntity1>> getListOfMerchandise(){
         return new ApiResponse<>("Merchandise was taken successfully in database",merchandiseService.getListMerchandise());
     }
 
     @GetMapping("/list/page/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<MerchandiseEntity>> getPageableListOfMerchandise(@PathVariable("id") int id){
+    private ApiResponse<List<MerchandiseEntity1>> getPageableListOfMerchandise(@PathVariable("id") int id){
         return new ApiResponse<>("pageable Merchandise was taken successfully in database",merchandiseService.getPageableListOfMerchandise(id,7));
     }
     @GetMapping("/list/recommend")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<MerchandiseEntity>> getRecommendListOfMerchandise(){
+    private ApiResponse<List<MerchandiseEntity1>> getRecommendListOfMerchandise(){
         return new ApiResponse<>("pageable Merchandise was taken successfully in database",merchandiseService.getRecommendListOfMerchandise());
     }
 
     @GetMapping("/product/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<MerchandiseEntity> getOneProduct(@PathVariable("id") int id){
+    private ApiResponse<MerchandiseEntity1> getOneProduct(@PathVariable("id") int id){
         return new ApiResponse<>("one Merchandise was taken successfully in database",merchandiseService.getOneProduct(id));
     }
 }

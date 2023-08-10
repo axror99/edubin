@@ -2,12 +2,11 @@ package com.example.edubin.controller;
 
 import com.example.edubin.dto.request.CategoryRequest;
 import com.example.edubin.dto.response.ApiResponse;
-import com.example.edubin.enitity.CategoryEntity;
-import com.example.edubin.enitity.CourseEntity;
+import com.example.edubin.enitity.CategoryEntity1;
+import com.example.edubin.enitity.CourseEntity1;
 import com.example.edubin.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +21,8 @@ public class CategoriesController {
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
     private ApiResponse<Void> addCategory(@RequestBody CategoryRequest category) {
-        CategoryEntity categoryEntity = new CategoryEntity(category.getName1());
-        categoryService.addCategory(categoryEntity);
+        CategoryEntity1 categoryEntity1 = new CategoryEntity1(category.getName1());
+        categoryService.addCategory(categoryEntity1);
         return new ApiResponse<>("category was saved successfully");
     }
 
@@ -43,13 +42,13 @@ public class CategoriesController {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<CategoryEntity>> getAllCategoryList() {
-        List<CategoryEntity> allCategoryList = categoryService.getAllCategoryList();
+    private ApiResponse<List<CategoryEntity1>> getAllCategoryList() {
+        List<CategoryEntity1> allCategoryList = categoryService.getAllCategoryList();
         return new ApiResponse<>("here are your all categories list", allCategoryList);
     }
 
     @GetMapping("/get/{id}")
-    private ApiResponse<List<CourseEntity>> getCategoryById(@PathVariable("id") int id) {
+    private ApiResponse<List<CourseEntity1>> getCategoryById(@PathVariable("id") int id) {
         return new ApiResponse<>("id="+id+" category was taken successfully in database",categoryService.getCategoryById(id));
     }
 }

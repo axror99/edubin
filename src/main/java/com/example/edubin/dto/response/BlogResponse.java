@@ -1,6 +1,6 @@
 package com.example.edubin.dto.response;
 
-import com.example.edubin.enitity.CommentEntity;
+import com.example.edubin.enitity.CommentEntity1;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +18,5 @@ public class BlogResponse {
     private String personName;
     private String headline;
     private String categoryName;
-    private List<CommentEntity> comments;
+    private List<CommentEntity1> comments;
 }

@@ -1,7 +1,7 @@
 package com.example.edubin.controller;
 
 import com.example.edubin.dto.request.ContactRequest;
-import com.example.edubin.enitity.ContactEntity;
+import com.example.edubin.enitity.ContactEntity1;
 import com.example.edubin.service.ContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class ContactController {
     }
 
     @GetMapping("/AllSms")
-    public List<ContactEntity> getContactList(){
+    public List<ContactEntity1> getContactList(){
         return contactService.getList();
     }
 

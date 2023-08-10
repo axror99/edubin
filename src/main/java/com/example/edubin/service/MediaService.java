@@ -1,18 +1,15 @@
 package com.example.edubin.service;
 
 import com.example.edubin.dto.request.ContentRequest;
-import com.example.edubin.enitity.ContentEntity;
-import com.example.edubin.enitity.MediaContentEntity;
-import com.example.edubin.enitity.MyMedia;
+import com.example.edubin.enitity.ContentEntity1;
+import com.example.edubin.enitity.MediaContentEntity1;
+import com.example.edubin.enitity.MyMedia1;
 import com.example.edubin.exception.GetBytesException;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.MediaRepository;
 import com.example.edubin.repository.MyMediaRepository;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,12 +18,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.text.MessageFormat;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +44,7 @@ public class MediaService {
         } catch (IOException e) {
             throw new GetBytesException(e);
         }
-        MyMedia media = new MyMedia();
+        MyMedia1 media = new MyMedia1();
         media.setName(randomName);
         media.setSize(size);
         media.setBytes(bytes);
@@ -128,8 +122,8 @@ public class MediaService {
         return file.getContentType();
     }
 
-    public void createMediaAndSave(ContentEntity savedContent, ContentRequest contentRequest) {
-        MediaContentEntity mediaContent = MediaContentEntity.builder()
+    public void createMediaAndSave(ContentEntity1 savedContent, ContentRequest contentRequest) {
+        MediaContentEntity1 mediaContent = MediaContentEntity1.builder()
                 .content(savedContent)
                 .videoBytes(getBytes(contentRequest.getVideo()))
                 .fileBytes(getBytes(contentRequest.getTask()))
@@ -137,7 +131,7 @@ public class MediaService {
         saveMedia(mediaContent);
     }
 
-    private void saveMedia(MediaContentEntity mediaContent) {
+    private void saveMedia(MediaContentEntity1 mediaContent) {
         mediaRepository.save(mediaContent);
     }
 
@@ -158,13 +152,13 @@ public class MediaService {
         }
     }
 
-    public MediaContentEntity findMediaById(int id) {
+    public MediaContentEntity1 findMediaById(int id) {
         return mediaRepository.findByContent_Id(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} content_id was not found in database", id)
         ));
     }
 
-    public void updateMedia(MediaContentEntity oldMedia, ContentRequest contentRequest) {
+    public void updateMedia(MediaContentEntity1 oldMedia, ContentRequest contentRequest) {
         oldMedia.setFileBytes(getBytes(contentRequest.getTask()));
         oldMedia.setVideoBytes(getBytes(contentRequest.getVideo()));
         saveMedia(oldMedia);

@@ -1,9 +1,8 @@
 package com.example.edubin.controller;
 
 import com.example.edubin.dto.request.EventRequest;
-import com.example.edubin.dto.request.OrderEvent;
 import com.example.edubin.dto.response.ApiResponse;
-import com.example.edubin.enitity.EventEntity;
+import com.example.edubin.enitity.EventEntity1;
 import com.example.edubin.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,14 +39,14 @@ public class EventsController {
 
     @GetMapping("/get/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<EventEntity> getEventById(@PathVariable("id") int id){
-        EventEntity eventById = eventService.getEventById(id);
+    private ApiResponse<EventEntity1> getEventById(@PathVariable("id") int id){
+        EventEntity1 eventById = eventService.getEventById(id);
         return new ApiResponse<>("event was token successfully in database",eventById);
     }
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<EventEntity>> getListOfEvent(){
+    private ApiResponse<List<EventEntity1>> getListOfEvent(){
        return new ApiResponse<>("event List was token successfully in database",eventService.getList());
     }
 

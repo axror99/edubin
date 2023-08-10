@@ -4,17 +4,11 @@ package com.example.edubin.controller;
 import com.example.edubin.dto.request.UserLogin;
 import com.example.edubin.dto.request.UserRegister;
 import com.example.edubin.dto.response.ApiResponse;
-import com.example.edubin.dto.response.TokenDTO;
-import com.example.edubin.enitity.UserEntity;
 import com.example.edubin.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Objects;
 
 import static org.springframework.http.ResponseEntity.ok;
 

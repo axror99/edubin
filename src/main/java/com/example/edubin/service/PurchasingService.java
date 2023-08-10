@@ -1,10 +1,10 @@
 package com.example.edubin.service;
 
 import com.example.edubin.dto.request.PurchaseRequest;
-import com.example.edubin.enitity.CourseEntity;
-import com.example.edubin.enitity.FinanceEntity;
-import com.example.edubin.enitity.MerchandiseEntity;
-import com.example.edubin.enitity.UserEntity;
+import com.example.edubin.enitity.CourseEntity1;
+import com.example.edubin.enitity.FinanceEntity1;
+import com.example.edubin.enitity.MerchandiseEntity1;
+import com.example.edubin.enitity.UserEntity1;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.CourseRepository;
 import com.example.edubin.repository.FinanceRepository;
@@ -32,20 +32,20 @@ public class PurchasingService {
 
     @Transactional(rollbackOn = {UsernameNotFoundException.class, RecordNotFoundException.class})
     public int purchase(int id, PurchaseRequest purchase) {
-        CourseEntity course = courseRepository.findById(id).orElseThrow(()-> new RecordNotFoundException(
+        CourseEntity1 course = courseRepository.findById(id).orElseThrow(()-> new RecordNotFoundException(
                 MessageFormat.format("course = {0} was not found in database",id)
         ));
-        UserEntity user = userService.findUserEmail(purchase.getEmail());
-        FinanceEntity financeEntity =new FinanceEntity();
-        financeEntity.setCard(purchase.getCard());
-        financeEntity.setExpiredDate(purchase.getExpiredDate());
-        financeEntity.setUser(user);
-        financeEntity.setCourse(course);
-        financeEntity.setPrice(course.getPrice());
-        financeEntity.setTransactionDate(LocalDate.now());
-        financeEntity.setTransactionTime(LocalTime.now());
-        financeRepository.save(financeEntity);
-        List<UserEntity> clients = course.getTeacher();
+        UserEntity1 user = userService.findUserEmail(purchase.getEmail());
+        FinanceEntity1 financeEntity1 =new FinanceEntity1();
+        financeEntity1.setCard(purchase.getCard());
+        financeEntity1.setExpiredDate(purchase.getExpiredDate());
+        financeEntity1.setUser(user);
+        financeEntity1.setCourse(course);
+        financeEntity1.setPrice(course.getPrice());
+        financeEntity1.setTransactionDate(LocalDate.now());
+        financeEntity1.setTransactionTime(LocalTime.now());
+        financeRepository.save(financeEntity1);
+        List<UserEntity1> clients = course.getTeacher();
         clients.add(user);
         course.setTeacher(clients);
         courseRepository.save(course);
@@ -53,20 +53,20 @@ public class PurchasingService {
     }
     @Transactional(rollbackOn = {UsernameNotFoundException.class, RecordNotFoundException.class})
     public int purchaseBook(int id, PurchaseRequest purchase) {
-        MerchandiseEntity merchandise = merchandiseRepository.findById(id).orElseThrow(()-> new RecordNotFoundException(
+        MerchandiseEntity1 merchandise = merchandiseRepository.findById(id).orElseThrow(()-> new RecordNotFoundException(
                 MessageFormat.format("id = {0} product was not found in database", id)
         ));
-        UserEntity user = userService.findUserEmail(purchase.getEmail());
-        FinanceEntity financeEntity =new FinanceEntity();
-        financeEntity.setCard(purchase.getCard());
-        financeEntity.setExpiredDate(purchase.getExpiredDate());
-        financeEntity.setUser(user);
-        financeEntity.setMerchandise(merchandise);
-        financeEntity.setPrice(merchandise.getPrice()*purchase.getCount());
-        financeEntity.setTransactionDate(LocalDate.now());
-        financeEntity.setTransactionTime(LocalTime.now());
-        financeRepository.save(financeEntity);
-        List<MerchandiseEntity> merchandiseList = user.getMerchandiseList();
+        UserEntity1 user = userService.findUserEmail(purchase.getEmail());
+        FinanceEntity1 financeEntity1 =new FinanceEntity1();
+        financeEntity1.setCard(purchase.getCard());
+        financeEntity1.setExpiredDate(purchase.getExpiredDate());
+        financeEntity1.setUser(user);
+        financeEntity1.setMerchandise(merchandise);
+        financeEntity1.setPrice(merchandise.getPrice()*purchase.getCount());
+        financeEntity1.setTransactionDate(LocalDate.now());
+        financeEntity1.setTransactionTime(LocalTime.now());
+        financeRepository.save(financeEntity1);
+        List<MerchandiseEntity1> merchandiseList = user.getMerchandiseList();
         merchandiseList.add(merchandise);
         user.setMerchandiseList(merchandiseList);
         userRepository.save(user);

@@ -17,26 +17,26 @@ public class CommentService {
     private final MerchandiseService merchandiseService;
 
     public void addCommentToTeacher(int id, CommentRequest commentRequest) {
-        UserEntity teacher = userService.findUser(id);
-        CommentEntity comment=new CommentEntity();
+        UserEntity1 teacher = userService.findUser(id);
+        CommentEntity1 comment=new CommentEntity1();
         comment.setTeacher(teacher);
         saveAnyTypeComment(commentRequest,comment);
     }
 
     public void addCommentToCourse(int id, CommentRequest commentRequest) {
-        CourseEntity course = courseService.findCourse(id);
-        CommentEntity comment=new CommentEntity();
+        CourseEntity1 course = courseService.findCourse(id);
+        CommentEntity1 comment=new CommentEntity1();
         comment.setCourse(course);
         saveAnyTypeComment(commentRequest,comment);
     }
 
     public void addCommentToBlog(int id, CommentRequest commentRequest) {
-        BlogEntity blog = blogService.findBlogById(id);
-        CommentEntity comment=new CommentEntity();
+        BlogEntity1 blog = blogService.findBlogById(id);
+        CommentEntity1 comment=new CommentEntity1();
         comment.setBlog(blog);
         saveAnyTypeComment(commentRequest,comment);
     }
-    private void saveAnyTypeComment(CommentRequest commentRequest,CommentEntity comment){
+    private void saveAnyTypeComment(CommentRequest commentRequest, CommentEntity1 comment){
         comment.setDate(commentRequest.getDate());
         comment.setText(commentRequest.getText());
         comment.setPersonName(commentRequest.getFirstName()+" "+commentRequest.getLastName());
@@ -44,8 +44,8 @@ public class CommentService {
     }
 
     public void addCommentToMerchandise(int id, CommentRequest commentRequest) {
-        MerchandiseEntity product = merchandiseService.getOneProduct(id);
-        CommentEntity comment = new CommentEntity();
+        MerchandiseEntity1 product = merchandiseService.getOneProduct(id);
+        CommentEntity1 comment = new CommentEntity1();
         comment.setMerchandise(product);
         saveAnyTypeComment(commentRequest, comment);
     }

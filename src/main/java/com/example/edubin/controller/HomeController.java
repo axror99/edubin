@@ -2,14 +2,10 @@ package com.example.edubin.controller;
 
 import com.example.edubin.dto.response.ApiResponse;
 import com.example.edubin.dto.response.MyItems;
-import com.example.edubin.enitity.CourseEntity;
 import com.example.edubin.service.CourseService;
-import com.example.edubin.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/home/course/")

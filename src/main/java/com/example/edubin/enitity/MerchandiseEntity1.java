@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class MerchandiseEntity extends BaseEntity {
+public class MerchandiseEntity1 extends BaseEntity {
 
     private String headline;
     private Double price;
@@ -26,5 +26,5 @@ public class MerchandiseEntity extends BaseEntity {
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "merchandise")
-    private List<CommentEntity> comments;
+    private List<CommentEntity1> comments;
 }

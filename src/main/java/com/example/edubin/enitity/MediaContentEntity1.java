@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
-public class MediaContentEntity {
+public class MediaContentEntity1 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,5 +18,5 @@ public class MediaContentEntity {
     private byte[] fileBytes;
 
     @OneToOne
-    private ContentEntity content;
+    private ContentEntity1 content;
 }

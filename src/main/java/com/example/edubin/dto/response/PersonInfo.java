@@ -1,6 +1,6 @@
 package com.example.edubin.dto.response;
 
-import com.example.edubin.enitity.SocialMediaEntity;
+import com.example.edubin.enitity.SocialMediaEntity1;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -16,7 +16,7 @@ public class PersonInfo {
     private String profession;
     private LocalDate birthday;
     private LocalDate registeredDate;
-    private SocialMediaEntity socialMedia;
+    private SocialMediaEntity1 socialMedia;
     private int countCourse;
     private int countBook;
 }

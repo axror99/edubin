@@ -7,15 +7,13 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class CommentEntity extends BaseEntity{
+public class CommentEntity1 extends BaseEntity{
 
     private String personName;
     private String date;
@@ -24,17 +22,17 @@ public class CommentEntity extends BaseEntity{
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity teacher;
+    private UserEntity1 teacher;
 
     @JsonBackReference
     @ManyToOne
-    private CourseEntity course;
+    private CourseEntity1 course;
 
     @JsonBackReference
     @ManyToOne
-    private MerchandiseEntity merchandise;
+    private MerchandiseEntity1 merchandise;
 
     @JsonBackReference
     @ManyToOne
-    private BlogEntity blog;
+    private BlogEntity1 blog;
 }

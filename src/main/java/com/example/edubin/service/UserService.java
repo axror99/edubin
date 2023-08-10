@@ -4,21 +4,19 @@ import com.example.edubin.config.JwtService;
 import com.example.edubin.dto.request.UserLogin;
 import com.example.edubin.dto.request.UserRegister;
 import com.example.edubin.dto.response.PersonInfo;
-import com.example.edubin.enitity.UserEntity;
+import com.example.edubin.enitity.UserEntity1;
 import com.example.edubin.exception.UserAlreadyExistException;
 import com.example.edubin.repository.CourseRepository;
 import com.example.edubin.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,10 +35,10 @@ public class UserService {
         if (userByUsername.isPresent()) {
             throw new UserAlreadyExistException(MessageFormat.format("username = {0} already exist in database", userRegister.getUsername()));
         }
-        UserEntity userEntity = UserEntity.from(userRegister);
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        userRepository.save(userEntity);
-        return jwtService.generateToken(userEntity);
+        UserEntity1 userEntity1 = UserEntity1.from(userRegister);
+        userEntity1.setPassword(passwordEncoder.encode(userEntity1.getPassword()));
+        userRepository.save(userEntity1);
+        return jwtService.generateToken(userEntity1);
     }
 
     public String login(UserLogin userLogin) {
@@ -58,21 +56,21 @@ public class UserService {
 
 
 
-    public UserEntity findUser(int user_id) {
+    public UserEntity1 findUser(int user_id) {
         return userRepository.findById(user_id).orElseThrow(() -> new UsernameNotFoundException(
                 MessageFormat.format("id = {0} user is not in database ", user_id)
         ));
     }
 
-    public UserEntity findUserEmail(String email) {
+    public UserEntity1 findUserEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(
                 MessageFormat.format("email = {0} was not found in database", email)
         ));
     }
 
 
-    public UserEntity findUserByUsername(String username) {
-        UserEntity user = userRepository.getIdByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
+    public UserEntity1 findUserByUsername(String username) {
+        UserEntity1 user = userRepository.getIdByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
                 MessageFormat.format("username {0} not found in database", username)
         ));
         return user;
@@ -81,7 +79,7 @@ public class UserService {
     public PersonInfo getMe(String token) {
         PersonInfo personInfo = new PersonInfo();
         String username = jwtService.extractUsername(token.substring(7));
-        UserEntity user =findUserByUsername(username);
+        UserEntity1 user =findUserByUsername(username);
         personInfo.setName(user.getName());
         personInfo.setUsername(user.getUsername());
         personInfo.setEmail(user.getEmail());

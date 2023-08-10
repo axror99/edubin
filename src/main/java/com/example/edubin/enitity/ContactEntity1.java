@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
-public class ContactEntity {
+public class ContactEntity1 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

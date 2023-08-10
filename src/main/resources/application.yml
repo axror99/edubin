@@ -14,6 +14,9 @@ spring:
     url: jdbc:postgresql://ec2-34-236-100-103.compute-1.amazonaws.com:5432/dbhd86bgfjlndh
     username: vahvkwcnxcjlgi
     password: 5ccc3acf747abde8de2f3e29ed894f705456522bc8461fb00394dd34d1b2990b
+#    url: jdbc:postgresql://localhost:5432/edubin
+#    username: postgres
+#    password: admin
 
 server:
   tomcat:

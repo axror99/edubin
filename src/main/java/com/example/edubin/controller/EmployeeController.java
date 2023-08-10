@@ -3,17 +3,11 @@ package com.example.edubin.controller;
 import com.example.edubin.dto.request.AdminUpdateEmployee;
 import com.example.edubin.dto.request.EmployeeUpdateHimself;
 import com.example.edubin.dto.response.ApiResponse;
-import com.example.edubin.dto.response.TokenDTO;
-import com.example.edubin.enitity.UserEntity;
+import com.example.edubin.enitity.UserEntity1;
 import com.example.edubin.service.EmployeeService;
-import com.example.edubin.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,35 +49,35 @@ public class EmployeeController {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<UserEntity>> getAllEmployeeList() {
-        List<UserEntity> allEmployees = employeeService.getAllEmployees();
+    private ApiResponse<List<UserEntity1>> getAllEmployeeList() {
+        List<UserEntity1> allEmployees = employeeService.getAllEmployees();
         return new ApiResponse<>("all Employees were token successfully ", allEmployees);
     }
 
     @GetMapping("/listAdmin")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<UserEntity>> getAllAdminList() {
-        List<UserEntity> allAdmins = employeeService.getAdminList();
+    private ApiResponse<List<UserEntity1>> getAllAdminList() {
+        List<UserEntity1> allAdmins = employeeService.getAdminList();
         return new ApiResponse<>("all Admins were token successfully ", allAdmins);
     }
 
     @GetMapping("/listTeacher")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<UserEntity>> getAllTeacherList() {
-        List<UserEntity> allTeachers = employeeService.getTeacherList();
+    private ApiResponse<List<UserEntity1>> getAllTeacherList() {
+        List<UserEntity1> allTeachers = employeeService.getTeacherList();
         return new ApiResponse<>("all Teachers were token successfully ", allTeachers);
     }
 
     @GetMapping("/listTeacher/page/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<UserEntity>> getTeachersPageableList(@PathVariable("id") int id) {
-        List<UserEntity> allTeachers = employeeService.getTeachersPageableList(id,8);
+    private ApiResponse<List<UserEntity1>> getTeachersPageableList(@PathVariable("id") int id) {
+        List<UserEntity1> allTeachers = employeeService.getTeachersPageableList(id,8);
         return new ApiResponse<>("all Teachers were token successfully ", allTeachers);
     }
 
     @GetMapping("teacher/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<UserEntity> getTeacherById(@PathVariable("id") int id) {
+    private ApiResponse<UserEntity1> getTeacherById(@PathVariable("id") int id) {
         return new ApiResponse<>("teacher was token successfully", employeeService.findById(id));
     }
 }

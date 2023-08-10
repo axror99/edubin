@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
-public class MyMedia {
+public class MyMedia1 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

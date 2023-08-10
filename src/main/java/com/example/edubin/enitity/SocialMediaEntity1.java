@@ -1,6 +1,5 @@
 package com.example.edubin.enitity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class SocialMediaEntity {
+public class SocialMediaEntity1 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

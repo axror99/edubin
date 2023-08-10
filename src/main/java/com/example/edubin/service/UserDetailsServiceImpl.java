@@ -1,6 +1,6 @@
 package com.example.edubin.service;
 
-import com.example.edubin.enitity.UserEntity;
+import com.example.edubin.enitity.UserEntity1;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
@@ -16,7 +16,7 @@ public class UserDetailsServiceImpl implements AuditorAware<String> {
     @Override
     public Optional<String> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated() || !((authentication.getPrincipal()) instanceof UserEntity principal))
+        if (authentication == null || !authentication.isAuthenticated() || !((authentication.getPrincipal()) instanceof UserEntity1 principal))
         {
             return Optional.empty();
         }

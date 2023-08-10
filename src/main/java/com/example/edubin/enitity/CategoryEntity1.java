@@ -13,14 +13,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Objects;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class CategoryEntity extends BaseEntity {
+public class CategoryEntity1 extends BaseEntity {
 
     @NotBlank
     @Column(unique = true)
@@ -28,13 +27,13 @@ public class CategoryEntity extends BaseEntity {
 
     @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
-    private List<CourseEntity> course;
+    private List<CourseEntity1> course;
 
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "categoryEntity")
-    private List<BlogEntity> blogEntity;
+    private List<BlogEntity1> blogEntity1;
 
-    public CategoryEntity(String name) {
+    public CategoryEntity1(String name) {
         this.name=name;
     }
 }

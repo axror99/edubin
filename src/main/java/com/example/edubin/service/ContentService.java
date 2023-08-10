@@ -1,9 +1,9 @@
 package com.example.edubin.service;
 
 import com.example.edubin.dto.request.ContentRequest;
-import com.example.edubin.enitity.ContentEntity;
-import com.example.edubin.enitity.CourseEntity;
-import com.example.edubin.enitity.MediaContentEntity;
+import com.example.edubin.enitity.ContentEntity1;
+import com.example.edubin.enitity.CourseEntity1;
+import com.example.edubin.enitity.MediaContentEntity1;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.ContentRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,22 +21,22 @@ public class ContentService {
     private final MediaService mediaService;
 
     public void saveContent(ContentRequest content,int id) {
-        CourseEntity course = courseService.findCourse(id);
+        CourseEntity1 course = courseService.findCourse(id);
         String videoName = mediaService.saveMultiPartFile(content.getVideo());
         String taskName = mediaService.saveMultiPartFile(content.getTask());
-        ContentEntity contentEntity=ContentEntity.builder()
+        ContentEntity1 contentEntity1 = ContentEntity1.builder()
                 .title(content.getTitle())
                 .definition(content.getDefinition())
                 .course(course)
                 .videoName(videoName)
                 .taskName(taskName)
                 .build();
-        ContentEntity savedContent = contentRepository.save(contentEntity);
+        ContentEntity1 savedContent = contentRepository.save(contentEntity1);
         mediaService.createMediaAndSave(savedContent,content);
     }
 
     public void updateContent(int id, ContentRequest contentRequest) {
-        ContentEntity content = contentRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+        ContentEntity1 content = contentRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} was Not in database ", id)
         ));
         if (!contentRequest.getDefinition().equals("") && contentRequest.getDefinition()!=null){
@@ -55,20 +55,20 @@ public class ContentService {
             String newFileName = mediaService.saveMultiPartFile(contentRequest.getTask());
             content.setTaskName(newFileName);
         }
-        MediaContentEntity oldMedia = mediaService.findMediaById(content.getId());
+        MediaContentEntity1 oldMedia = mediaService.findMediaById(content.getId());
         mediaService.updateMedia(oldMedia,contentRequest);
     }
 
     public void deleteContent(int id) {
-        ContentEntity contentEntity = contentRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+        ContentEntity1 contentEntity1 = contentRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} content was not found in database", id)
         ));
-        mediaService.deleteExistFile("application/"+ contentEntity.getTaskName());
-        mediaService.deleteExistFile("video/"+ contentEntity.getVideoName());
-        contentRepository.delete(contentEntity);
+        mediaService.deleteExistFile("application/"+ contentEntity1.getTaskName());
+        mediaService.deleteExistFile("video/"+ contentEntity1.getVideoName());
+        contentRepository.delete(contentEntity1);
     }
 
-    public List<ContentEntity> getContentList() {
+    public List<ContentEntity1> getContentList() {
         return contentRepository.findAll();
     }
 }

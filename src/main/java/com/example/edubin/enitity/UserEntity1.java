@@ -1,12 +1,10 @@
 package com.example.edubin.enitity;
 
 import com.example.edubin.dto.request.UserRegister;
-import com.example.edubin.enitity.role.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +14,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -24,7 +21,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 @Entity
-public class UserEntity implements UserDetails {
+public class UserEntity1 implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,10 +48,10 @@ public class UserEntity implements UserDetails {
     private String myObjective;
 
     @ManyToMany( cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    private List<MerchandiseEntity> merchandiseList;
+    private List<MerchandiseEntity1> merchandiseList;
     @JsonManagedReference
     @OneToMany(mappedBy = "teacher",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
-    private List<CommentEntity> comments;
+    private List<CommentEntity1> comments;
 
     @NotBlank
     @Column(unique = true)
@@ -62,15 +59,15 @@ public class UserEntity implements UserDetails {
 
 //    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
-    private SocialMediaEntity socialMedia;
+    private SocialMediaEntity1 socialMedia;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> permission;
 
     @JsonIgnore
-    public static UserEntity from(UserRegister userRegister){
-        return UserEntity.builder()
+    public static UserEntity1 from(UserRegister userRegister){
+        return UserEntity1.builder()
                 .name(userRegister.getName())
                 .email(userRegister.getEmail())
                 .password(userRegister.getPassword())

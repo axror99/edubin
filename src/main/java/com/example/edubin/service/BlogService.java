@@ -2,8 +2,8 @@ package com.example.edubin.service;
 
 import com.example.edubin.dto.request.BlogRequest;
 import com.example.edubin.dto.response.BlogResponse;
-import com.example.edubin.enitity.BlogEntity;
-import com.example.edubin.enitity.CategoryEntity;
+import com.example.edubin.enitity.BlogEntity1;
+import com.example.edubin.enitity.CategoryEntity1;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.BlogRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +28,9 @@ public class BlogService {
     private final String PATH_IMAGE="src/foto/";
 
     public void addBlog(int id, BlogRequest blogRequest) {
-        CategoryEntity category = categoryService.findCategory(id);
+        CategoryEntity1 category = categoryService.findCategory(id);
         String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(blogRequest.getPicture().getOriginalFilename()));
-        BlogEntity blog =BlogEntity.builder()
+        BlogEntity1 blog = BlogEntity1.builder()
                 .text(blogRequest.getText())
                 .date(LocalDate.now())
                 .headline(blogRequest.getHeadline())
@@ -44,14 +44,14 @@ public class BlogService {
     }
 
     public void updateBlog(int id, BlogRequest blogRequest) {
-        BlogEntity blog = blogRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+        BlogEntity1 blog = blogRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0}  was not found in database", id)
         ));
         if (blogRequest.getPicture()!=null) {
             mediaService.deleteExistImage(blog.getPicture());
             String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(blogRequest.getPicture().getOriginalFilename()));
             mediaService.savePicture(blogRequest.getPicture(), newPictureName);
-            mediaService.internalWrite(blogRequest.getPicture(),Paths.get(PATH_IMAGE+newPictureName));
+//            mediaService.internalWrite(blogRequest.getPicture(),Paths.get(PATH_IMAGE+newPictureName));
             blog.setPicture(newPictureName);
         }
         if (blogRequest.getText()!=null && !blogRequest.getText().equals("")){
@@ -64,34 +64,34 @@ public class BlogService {
             blog.setHeadline(blogRequest.getHeadline());
         }
         if (blogRequest.getCategory_di()!=null){
-            CategoryEntity category = categoryService.findCategory(blogRequest.getCategory_di());
+            CategoryEntity1 category = categoryService.findCategory(blogRequest.getCategory_di());
             blog.setCategoryEntity(category);
         }
         blog.setDate(LocalDate.now());
         blogRepository.save(blog);
     }
 
-    public List<BlogEntity> getListByCategory(int id) {
+    public List<BlogEntity1> getListByCategory(int id) {
         return blogRepository.findByCategoryEntity_Id(id).orElseThrow(()-> new RecordNotFoundException(
                 MessageFormat.format("id = {0} blogs were not found in database",id)
         ));
     }
 
     public void deleteBlog(int id) {
-        BlogEntity blog = blogRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+        BlogEntity1 blog = blogRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} blog was not found in database", id)
         ));
         mediaService.deleteExistImage(blog.getPicture());
         blogRepository.delete(blog);
     }
 
-    public BlogEntity findBlogById(int id) {
+    public BlogEntity1 findBlogById(int id) {
         return blogRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} blog was not found in database", id)
         ));
     }
     public BlogResponse findResponseBlogById(int id) {
-        BlogEntity blog = findBlogById(id);
+        BlogEntity1 blog = findBlogById(id);
         BlogResponse blogResponse =new BlogResponse();
         blogResponse.setId(blog.getId());
         blogResponse.setText(blog.getText());
@@ -104,12 +104,12 @@ public class BlogService {
         return blogResponse;
     }
 
-    public List<BlogEntity> getPageableListByCategory(int id,int page1, int size) {
+    public List<BlogEntity1> getPageableListByCategory(int id, int page1, int size) {
         Pageable page = PageRequest.of(page1-1,size, Sort.by("id"));
         return blogRepository.findByCategoryEntity_Id(id,page).getContent();
     }
 
-    public List<BlogEntity> findPopularBlogs() {
+    public List<BlogEntity1> findPopularBlogs() {
         return blogRepository.findAll();
     }
 }

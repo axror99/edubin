@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Builder
 @Entity
-public class EventEntity extends BaseEntity{
+public class EventEntity1 extends BaseEntity{
 
     private String picture;
     private LocalDate date;

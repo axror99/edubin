@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class BlogEntity extends BaseEntity{
+public class BlogEntity1 extends BaseEntity{
 
     @Column(columnDefinition="TEXT")
     private String text;
@@ -24,9 +24,9 @@ public class BlogEntity extends BaseEntity{
     private String headline;
     @JsonBackReference
     @ManyToOne
-    private CategoryEntity categoryEntity;
+    private CategoryEntity1 categoryEntity;
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "blog")
-    private List<CommentEntity> comments;
+    private List<CommentEntity1> comments;
 }

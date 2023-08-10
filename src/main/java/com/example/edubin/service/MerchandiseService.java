@@ -1,12 +1,11 @@
 package com.example.edubin.service;
 
 import com.example.edubin.dto.request.MerchandiseRequest;
-import com.example.edubin.enitity.MerchandiseEntity;
+import com.example.edubin.enitity.MerchandiseEntity1;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.MerchandiseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -26,42 +25,42 @@ public class MerchandiseService {
     public void addMerchandise(MerchandiseRequest merchandise) {
         String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(merchandise.getPicture().getOriginalFilename()));
         mediaService.internalWrite(merchandise.getPicture(), Paths.get(PATH_IMAGE + newPictureName));
-        MerchandiseEntity merchandiseEntity = MerchandiseEntity.builder()
+        MerchandiseEntity1 merchandiseEntity1 = MerchandiseEntity1.builder()
                 .picture(newPictureName)
                 .price(merchandise.getPrice())
                 .definition(merchandise.getDefinition())
                 .headline(merchandise.getHeadline())
                 .build();
         mediaService.savePicture(merchandise.getPicture(), newPictureName);
-        merchandiseRepository.save(merchandiseEntity);
+        merchandiseRepository.save(merchandiseEntity1);
     }
 
     public void deleteMerchandise(int id) {
-        MerchandiseEntity merchandiseEntity = merchandiseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+        MerchandiseEntity1 merchandiseEntity1 = merchandiseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} merchandise was not found in database", id)
         ));
-        mediaService.deleteExistImage(merchandiseEntity.getPicture());
-        merchandiseRepository.delete(merchandiseEntity);
+        mediaService.deleteExistImage(merchandiseEntity1.getPicture());
+        merchandiseRepository.delete(merchandiseEntity1);
     }
 
-    public List<MerchandiseEntity> getListMerchandise() {
+    public List<MerchandiseEntity1> getListMerchandise() {
         return merchandiseRepository.findAll();
     }
 
-    public List<MerchandiseEntity> getPageableListOfMerchandise(int id, int size) {
+    public List<MerchandiseEntity1> getPageableListOfMerchandise(int id, int size) {
         PageRequest page = PageRequest.of(id - 1, size, Sort.by("id"));
         return merchandiseRepository.findAll(page).getContent();
     }
 
-    public MerchandiseEntity getOneProduct(int id) {
+    public MerchandiseEntity1 getOneProduct(int id) {
         return merchandiseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} merchandise was not found in database", id)
         ));
     }
 
-    public List<MerchandiseEntity> getRecommendListOfMerchandise() {
-        List<MerchandiseEntity> allMerchandise = merchandiseRepository.findAll();
-        List<MerchandiseEntity> randomProduct= new ArrayList<>();
+    public List<MerchandiseEntity1> getRecommendListOfMerchandise() {
+        List<MerchandiseEntity1> allMerchandise = merchandiseRepository.findAll();
+        List<MerchandiseEntity1> randomProduct= new ArrayList<>();
 
         Set<Integer> index= new HashSet<>();
 
@@ -79,25 +78,25 @@ public class MerchandiseService {
     }
 
     public void updateMerchandise(int id, MerchandiseRequest merchandiseRequest) {
-        MerchandiseEntity merchandiseEntity = merchandiseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+        MerchandiseEntity1 merchandiseEntity1 = merchandiseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} merchandise was not found in database", id)
         ));
         if (merchandiseRequest.getPicture()!=null){
-            mediaService.deleteExistImage(merchandiseEntity.getPicture());
+            mediaService.deleteExistImage(merchandiseEntity1.getPicture());
             String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(merchandiseRequest.getPicture().getOriginalFilename()));
             mediaService.savePicture(merchandiseRequest.getPicture(), newPictureName);
             mediaService.internalWrite(merchandiseRequest.getPicture(), Paths.get(PATH_IMAGE + newPictureName));
-            merchandiseEntity.setPicture(newPictureName);
+            merchandiseEntity1.setPicture(newPictureName);
         }
         if (merchandiseRequest.getDefinition()!=null && !merchandiseRequest.getDefinition().equals("")){
-            merchandiseEntity.setDefinition(merchandiseRequest.getDefinition());
+            merchandiseEntity1.setDefinition(merchandiseRequest.getDefinition());
         }
         if (merchandiseRequest.getPrice()!=null){
-            merchandiseEntity.setPrice(merchandiseRequest.getPrice());
+            merchandiseEntity1.setPrice(merchandiseRequest.getPrice());
         }
         if (merchandiseRequest.getHeadline()!=null && !merchandiseRequest.getHeadline().equals("")){
-            merchandiseEntity.setHeadline(merchandiseRequest.getHeadline());
+            merchandiseEntity1.setHeadline(merchandiseRequest.getHeadline());
         }
-        merchandiseRepository.save(merchandiseEntity);
+        merchandiseRepository.save(merchandiseEntity1);
     }
 }

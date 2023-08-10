@@ -1,7 +1,7 @@
 package com.example.edubin.service;
 
 import com.example.edubin.dto.request.ContactRequest;
-import com.example.edubin.enitity.ContactEntity;
+import com.example.edubin.enitity.ContactEntity1;
 import com.example.edubin.repository.ContactRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class ContactService {
     private final ContactRepository contactRepository;
     public void saveSMS(ContactRequest request) {
 
-        ContactEntity contactEntity1 = ContactEntity.builder()
+        ContactEntity1 contactEntity1 = ContactEntity1.builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .text(request.getText())
@@ -26,7 +26,7 @@ public class ContactService {
         contactRepository.save(contactEntity1);
     }
 
-    public List<ContactEntity> getList() {
+    public List<ContactEntity1> getList() {
         return contactRepository.findAll();
     }
 }

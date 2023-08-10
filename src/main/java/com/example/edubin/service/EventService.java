@@ -1,18 +1,14 @@
 package com.example.edubin.service;
 
 import com.example.edubin.dto.request.EventRequest;
-import com.example.edubin.dto.request.OrderEvent;
-import com.example.edubin.enitity.EventEntity;
-import com.example.edubin.enitity.UserEntity;
+import com.example.edubin.enitity.EventEntity1;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
 import java.text.MessageFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +23,7 @@ public class EventService {
     public void addEvent(EventRequest eventRequest) {
         String pictureName = mediaService.generateRandomName(Objects.requireNonNull(eventRequest.getPicture().getOriginalFilename()));
         mediaService.internalWrite(eventRequest.getPicture(), Paths.get(PATH_IMAGE+pictureName));
-        EventEntity eventEntity= EventEntity.builder()
+        EventEntity1 eventEntity1 = EventEntity1.builder()
                 .about(eventRequest.getAbout())
                 .startTime(eventRequest.getStartTime())
                 .finishTime(eventRequest.getFinishTime())
@@ -38,60 +34,60 @@ public class EventService {
                 .seats(eventRequest.getSeats())
                 .build();
         mediaService.savePicture(eventRequest.getPicture(),pictureName);
-        eventRepository.save(eventEntity);
+        eventRepository.save(eventEntity1);
     }
 
     public void deleteEvent(int id) {
-        EventEntity eventEntity = eventRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+        EventEntity1 eventEntity1 = eventRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} event was Not found in database", id)
         ));
-        mediaService.deleteExistImage(eventEntity.getPicture());
-        eventRepository.delete(eventEntity);
+        mediaService.deleteExistImage(eventEntity1.getPicture());
+        eventRepository.delete(eventEntity1);
     }
 
     public void updateEvent(int id, EventRequest eventRequest) {
-        EventEntity eventEntity = eventRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
+        EventEntity1 eventEntity1 = eventRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} event was Not found in database", id)
         ));
         if (eventRequest.getHeadline()!=null && !eventRequest.getHeadline().equals(""))
         {
-            eventEntity.setHeadline(eventRequest.getHeadline());
+            eventEntity1.setHeadline(eventRequest.getHeadline());
         }
         if (eventRequest.getAbout()!=null && !eventRequest.getAbout().equals("")){
-            eventEntity.setAbout(eventRequest.getAbout());
+            eventEntity1.setAbout(eventRequest.getAbout());
         }
         if (eventRequest.getAddress()!=null && !eventRequest.getAddress().equals("")){
-            eventEntity.setAddress(eventRequest.getAddress());
+            eventEntity1.setAddress(eventRequest.getAddress());
         }
         if (eventRequest.getDate()!=null){
-            eventEntity.setDate(eventRequest.getDate());
+            eventEntity1.setDate(eventRequest.getDate());
         }
         if (eventRequest.getFinishTime()!=null){
-            eventEntity.setFinishTime(eventRequest.getFinishTime());
+            eventEntity1.setFinishTime(eventRequest.getFinishTime());
         }
         if (eventRequest.getStartTime()!=null){
-            eventEntity.setStartTime(eventRequest.getStartTime());
+            eventEntity1.setStartTime(eventRequest.getStartTime());
         }
         if (eventRequest.getPicture()!=null){
-            mediaService.deleteExistImage(eventEntity.getPicture());
+            mediaService.deleteExistImage(eventEntity1.getPicture());
             String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(eventRequest.getPicture().getOriginalFilename()));
             mediaService.savePicture(eventRequest.getPicture(),newPictureName);
             mediaService.internalWrite(eventRequest.getPicture(),Paths.get(PATH_IMAGE+newPictureName));
-            eventEntity.setPicture(newPictureName);
+            eventEntity1.setPicture(newPictureName);
         }
         if (eventRequest.getSeats()!=null){
-            eventEntity.setSeats(eventRequest.getSeats());
+            eventEntity1.setSeats(eventRequest.getSeats());
         }
-        eventRepository.save(eventEntity);
+        eventRepository.save(eventEntity1);
     }
 
-    public EventEntity getEventById(int id) {
+    public EventEntity1 getEventById(int id) {
         return eventRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(
                 MessageFormat.format("id = {0} event was Not found in database", id)
         ));
     }
 
-    public List<EventEntity> getList() {
+    public List<EventEntity1> getList() {
         return eventRepository.findAllByOrderByDate();
     }
 

@@ -3,7 +3,7 @@ package com.example.edubin.controller;
 import com.example.edubin.dto.request.BlogRequest;
 import com.example.edubin.dto.response.ApiResponse;
 import com.example.edubin.dto.response.BlogResponse;
-import com.example.edubin.enitity.BlogEntity;
+import com.example.edubin.enitity.BlogEntity1;
 import com.example.edubin.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,13 +32,13 @@ public class BlogsController {
     }
     @GetMapping("/list/{id}")// category id
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<BlogEntity>> getListByCategory(@PathVariable("id") int id){
+    private ApiResponse<List<BlogEntity1>> getListByCategory(@PathVariable("id") int id){
         return new ApiResponse<>("blogs List was token successfully in database",blogService.getListByCategory(id));
     }
 
     @GetMapping("/list/page/{id}/{page}")// category id
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<BlogEntity>> getPageableListByCategory(@PathVariable("id") int id,@PathVariable("page") int page){
+    private ApiResponse<List<BlogEntity1>> getPageableListByCategory(@PathVariable("id") int id, @PathVariable("page") int page){
         return new ApiResponse<>("blogs List was token successfully in database",blogService.getPageableListByCategory(id,page,4));
     }
 
@@ -55,8 +55,8 @@ public class BlogsController {
     }
 
     @GetMapping("/popular")// blog id
-    private ApiResponse<List<BlogEntity>> getPopularBlogs(){
-        List<BlogEntity> popularBlogs = blogService.findPopularBlogs();
+    private ApiResponse<List<BlogEntity1>> getPopularBlogs(){
+        List<BlogEntity1> popularBlogs = blogService.findPopularBlogs();
         return new ApiResponse<>(" popular blogs was token successfully in database", popularBlogs);
     }
 

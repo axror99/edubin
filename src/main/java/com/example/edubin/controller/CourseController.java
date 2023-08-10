@@ -1,17 +1,14 @@
 package com.example.edubin.controller;
 
 import com.example.edubin.dto.request.CourseRequest;
-import com.example.edubin.dto.request.PurchaseRequest;
 import com.example.edubin.dto.response.ApiResponse;
 import com.example.edubin.dto.response.TokenDTO;
-import com.example.edubin.enitity.CourseEntity;
+import com.example.edubin.enitity.CourseEntity1;
 import com.example.edubin.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -31,15 +28,15 @@ public class CourseController {
 
     @GetMapping("/get/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<CourseEntity> getCourse(@PathVariable("id") int id) {
-        CourseEntity course = courseService.getCourseById(id);
+    private ApiResponse<CourseEntity1> getCourse(@PathVariable("id") int id) {
+        CourseEntity1 course = courseService.getCourseById(id);
         return new ApiResponse<>("course was taken successfully in database", course);
     }
 
     @GetMapping("/get/teacher/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<CourseEntity>> getCourseByTeacherId(@PathVariable("id") int id) {
-        List<CourseEntity> list = courseService.getCourseByTeacherId(id);
+    private ApiResponse<List<CourseEntity1>> getCourseByTeacherId(@PathVariable("id") int id) {
+        List<CourseEntity1> list = courseService.getCourseByTeacherId(id);
         return new ApiResponse<>("course list related to TeacherId was taken successfully in database", list);
     }
 
@@ -59,7 +56,7 @@ public class CourseController {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<CourseEntity>> getCourseList() {
+    private ApiResponse<List<CourseEntity1>> getCourseList() {
         return new ApiResponse<>("courseList is here", courseService.getCourseList());
     }
 
@@ -71,8 +68,8 @@ public class CourseController {
 
     @GetMapping("/list/page/{start}")
     @ResponseStatus(HttpStatus.OK)
-    private ApiResponse<List<CourseEntity>> getPageableCourseList(@PathVariable("start") int start) {
-        List<CourseEntity> pageableCourseList = courseService.getPageableCourseList(start-1,6);
+    private ApiResponse<List<CourseEntity1>> getPageableCourseList(@PathVariable("start") int start) {
+        List<CourseEntity1> pageableCourseList = courseService.getPageableCourseList(start-1,6);
         System.out.println(pageableCourseList.size());
         return new ApiResponse<>("pageable courseList is here", pageableCourseList);
     }

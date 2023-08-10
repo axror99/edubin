@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,7 +12,7 @@ import java.time.LocalTime;
 @Getter
 @NoArgsConstructor
 @Entity
-public class FinanceEntity {
+public class FinanceEntity1 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,10 +22,10 @@ public class FinanceEntity {
     private long card;
     private String expiredDate;
     @OneToOne
-    private UserEntity user;
+    private UserEntity1 user;
     @OneToOne
-    private CourseEntity course;
+    private CourseEntity1 course;
     @OneToOne
-    private MerchandiseEntity merchandise;
+    private MerchandiseEntity1 merchandise;
 
 }

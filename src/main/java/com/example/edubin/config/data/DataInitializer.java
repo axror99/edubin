@@ -1,11 +1,10 @@
 package com.example.edubin.config.data;
 
-import com.example.edubin.enitity.UserEntity;
+import com.example.edubin.enitity.UserEntity1;
 import com.example.edubin.enitity.role.Permission;
 import com.example.edubin.enitity.role.Role;
 import com.example.edubin.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.results.graph.Initializer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -24,7 +23,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (!userRepository.existsByEmail("superAdmin@gmail.com")){
-            UserEntity user= new UserEntity();
+            UserEntity1 user= new UserEntity1();
             user.setName("Super_Admin_Bek");
             user.setEmail("superAdmin@gmail.com");
             user.setPassword(passwordEncoder.encode("superAdmin"));

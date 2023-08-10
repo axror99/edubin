@@ -1,6 +1,6 @@
 package com.example.edubin.repository;
 
-import com.example.edubin.enitity.BlogEntity;
+import com.example.edubin.enitity.BlogEntity1;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface BlogRepository extends JpaRepository<BlogEntity,Integer> {
-    Optional<List<BlogEntity>> findByCategoryEntity_Id(int id);
+public interface BlogRepository extends JpaRepository<BlogEntity1,Integer> {
+    Optional<List<BlogEntity1>> findByCategoryEntity_Id(int id);
 
-    Page<BlogEntity> findByCategoryEntity_Id(int id, Pageable page);
+    Page<BlogEntity1> findByCategoryEntity_Id(int id, Pageable page);
 }
