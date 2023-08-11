@@ -13,6 +13,6 @@ public class ContentRequest {
     private String title;
     private String definition;
     private MultipartFile video;
-    private MultipartFile task;
+//    private MultipartFile task;
 
 }

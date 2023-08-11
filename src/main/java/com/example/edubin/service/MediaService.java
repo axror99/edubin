@@ -4,10 +4,12 @@ import com.example.edubin.dto.request.ContentRequest;
 import com.example.edubin.enitity.ContentEntity1;
 import com.example.edubin.enitity.MediaContentEntity1;
 import com.example.edubin.enitity.MyMedia1;
+import com.example.edubin.enitity.VideoEntity1;
 import com.example.edubin.exception.GetBytesException;
 import com.example.edubin.exception.RecordNotFoundException;
 import com.example.edubin.repository.MediaRepository;
 import com.example.edubin.repository.MyMediaRepository;
+import com.example.edubin.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,7 @@ public class MediaService {
     private final MediaRepository mediaRepository;
     private final MyMediaRepository myMediaRepository;
     private final String pathForImage = "src/foto/";
-    private ScheduledExecutorService taskScheduler;
+    private final VideoRepository videoRepository;
 
     private final String pathCategory = "src/main/resources/static/assets/";
     private String pathForVideo = "src/main/resources/static/assets/video/";
@@ -73,7 +75,7 @@ public class MediaService {
         String contentType = file.getContentType();
         String randomName = generateRandomName(originalFilename);
 
-        if (contentType!=null && !contentType.equals("")) {
+        if (contentType != null && !contentType.equals("")) {
             writeImageToFile(file, randomName);
         } else {
             throw new IOException("File not saved in File !!!");
@@ -88,21 +90,22 @@ public class MediaService {
     }
 
     private void writeImageToFile(MultipartFile file, String randomName) {
-            String contentType = getContentType(file);
-            if (contentType.startsWith("video")){
-                Path download_Path = Paths.get(pathForVideo+randomName);
-                internalWrite(file,download_Path);
-            }
-            if (contentType.startsWith("application")){
-            Path download_Path = Paths.get(pathCategory+"application"+"/"+randomName);
-            internalWrite(file,download_Path);
-            }
-            if (contentType.startsWith("image")){
-            Path download_Path = Paths.get(pathForImage+randomName);
-            internalWrite(file,download_Path);
+        String contentType = getContentType(file);
+        if (contentType.startsWith("video")) {
+            Path download_Path = Paths.get(pathForVideo + randomName);
+            internalWrite(file, download_Path);
+        }
+        if (contentType.startsWith("application")) {
+            Path download_Path = Paths.get(pathCategory + "application" + "/" + randomName);
+            internalWrite(file, download_Path);
+        }
+        if (contentType.startsWith("image")) {
+            Path download_Path = Paths.get(pathForImage + randomName);
+            internalWrite(file, download_Path);
         }
     }
-    public void internalWrite(MultipartFile file,Path download_Path){
+
+    public void internalWrite(MultipartFile file, Path download_Path) {
         try {
             Files.copy(file.getInputStream(), download_Path);
         } catch (IOException e) {
@@ -123,12 +126,20 @@ public class MediaService {
     }
 
     public void createMediaAndSave(ContentEntity1 savedContent, ContentRequest contentRequest) {
-        MediaContentEntity1 mediaContent = MediaContentEntity1.builder()
-                .content(savedContent)
-                .videoBytes(getBytes(contentRequest.getVideo()))
-                .fileBytes(getBytes(contentRequest.getTask()))
-                .build();
-        saveMedia(mediaContent);
+//        MediaContentEntity1 mediaContent = MediaContentEntity1.builder()
+//                .content(savedContent)
+//                .videoBytes(getBytes(contentRequest.getVideo()))
+//                .fileBytes(getBytes(contentRequest.getTask()))
+//                .build();
+//        saveMedia(mediaContent);
+        try {
+            VideoEntity1 videoEntity1 = new VideoEntity1();
+            videoEntity1.setTitle(savedContent.getVideoName());
+            videoEntity1.setVideoData(contentRequest.getVideo().getBytes());
+            videoRepository.save(videoEntity1);
+        } catch (IOException e) {
+            throw new GetBytesException(e);
+        }
     }
 
     private void saveMedia(MediaContentEntity1 mediaContent) {
@@ -143,6 +154,7 @@ public class MediaService {
             System.out.println("file was NOT deleted and check it");
         }
     }
+
     public void deleteExistImage(String imageName) {
         File existImage = new File(pathForImage, imageName);
         if (existImage.delete()) {
@@ -159,7 +171,7 @@ public class MediaService {
     }
 
     public void updateMedia(MediaContentEntity1 oldMedia, ContentRequest contentRequest) {
-        oldMedia.setFileBytes(getBytes(contentRequest.getTask()));
+//        oldMedia.setFileBytes(getBytes(contentRequest.getTask()));
         oldMedia.setVideoBytes(getBytes(contentRequest.getVideo()));
         saveMedia(oldMedia);
     }
