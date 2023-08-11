@@ -43,7 +43,8 @@ public class EmployeeService {
         }
     }
     public void addEmployee(AdminUpdateEmployee adminUpdateEmployee){
-        String imageRandomName = mediaService.saveMultiPartFile(adminUpdateEmployee.getPicture());
+        String imageRandomName = mediaService.generateRandomName(Objects.requireNonNull(adminUpdateEmployee.getPicture().getOriginalFilename()));
+        mediaService.savePicture(adminUpdateEmployee.getPicture(),imageRandomName);
         SocialMediaEntity1 socialMedia = new SocialMediaEntity1();
         socialMedia.setFacebook("Facebook");
         socialMedia.setGoogle("Google");
@@ -97,8 +98,8 @@ public class EmployeeService {
             user.setPermission(adminUpdateEmployee.getPermissionList());
         }
         updateEmployeesPersonalInfo(user,adminUpdateEmployee);
-//        UserEntity1 savedUser = userRepository.save(user);
-        return jwtService.generateToken(user);
+        UserEntity1 savedUser = userRepository.save(user);
+        return jwtService.generateToken(savedUser);
     }
     public void updateEmployeesPersonalInfo(UserEntity1 user, Employee employee){
         if (employee.getName()!=null && !employee.getName().equals("")){
@@ -115,12 +116,11 @@ public class EmployeeService {
         }
         if (employee.getPicture() != null) {
 
-            String imageName = employee.getPicture().getOriginalFilename();
-//            mediaService.deleteExistImage(image);
-//            String randomName = mediaService.saveMultiPartFile(employee.getPicture());
-            String newName = mediaService.generateRandomName(imageName);
-            mediaService.savePicture(employee.getPicture(),newName);
-            user.setPicture(newName);
+            String image = employee.getPicture().getOriginalFilename();
+            mediaService.deleteExistImage(image);
+            String randomName = mediaService.saveMultiPartFile(employee.getPicture());
+            mediaService.savePicture(employee.getPicture(),randomName);
+            user.setPicture(randomName);
         }
         if (employee.getProfession()!=null && !employee.getProfession().equals("")){
             user.setProfession(employee.getProfession());
@@ -134,7 +134,6 @@ public class EmployeeService {
         if (employee.getMyObjective()!=null && !employee.getMyObjective().equals("")){
             user.setMyObjective(employee.getMyObjective());
         }
-        userRepository.save(user);
     }
 
     public List<UserEntity1> getAllEmployees() {
@@ -160,7 +159,9 @@ public class EmployeeService {
             user.setBirthDay(updateHimself.getBirthDay());
         }
         updateEmployeesPersonalInfo(user,updateHimself);
-//        userRepository.save(user);
+        String newName = mediaService.generateRandomName(Objects.requireNonNull(updateHimself.getPicture().getOriginalFilename()));
+        mediaService.savePicture(updateHimself.getPicture(), newName);
+        userRepository.save(user);
     }
 
     private SocialMediaEntity1 updateSocialMedia(SocialMediaEntity1 socialMediaEntity1, EmployeeUpdateHimself updateHimself){

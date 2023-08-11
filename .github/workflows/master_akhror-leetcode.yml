@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'akhror-leetcode'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6B25A24E34554E9C8319EE469E1B27A0 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0E41A99D6D4B404BA3BF1ADA7AB7DB15 }}
           package: '*.jar'
