@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -30,7 +31,7 @@ public class CourseService {
     public void addCourse(CourseRequest course) {
         CategoryEntity1 category = categoryService.findCategory(course.getCategory_di());
         UserEntity1 teacher = userService.findUser(course.getTeacher_id());
-        String imageRandomName = mediaService.saveMultiPartFile(course.getImage());
+        String imageRandomName = mediaService.generateRandomName(Objects.requireNonNull(course.getImage().getOriginalFilename()));
         CourseEntity1 courseEntity1 = CourseEntity1.builder()
                 .name(course.getName())
                 .courseSummery(course.getCourseSummery())
