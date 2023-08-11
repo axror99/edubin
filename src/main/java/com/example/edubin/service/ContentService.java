@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +23,8 @@ public class ContentService {
 
     public void saveContent(ContentRequest content,int id) {
         CourseEntity1 course = courseService.findCourse(id);
-        String videoName = mediaService.saveMultiPartFile(content.getVideo());
-        String taskName = mediaService.saveMultiPartFile(content.getTask());
+        String videoName = mediaService.generateRandomName(Objects.requireNonNull(content.getVideo().getOriginalFilename()));
+        String taskName = mediaService.generateRandomName(Objects.requireNonNull(content.getTask().getOriginalFilename()));
         ContentEntity1 contentEntity1 = ContentEntity1.builder()
                 .title(content.getTitle())
                 .definition(content.getDefinition())
