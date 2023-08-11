@@ -53,19 +53,18 @@ public class ContentService {
         }
         if (contentRequest.getVideo()!=null){
 //            mediaService.deleteExistFile("video/"+content.getVideoName());
-            String originalFilename = contentRequest.getVideo().getOriginalFilename();
-            String newVideoName = mediaService.generateRandomName(originalFilename);
+            String originalFilename = content.getVideoName();
+//            String newVideoName = mediaService.generateRandomName(originalFilename);
             VideoEntity1 deletedVideo = videoRepository.findByTitle(originalFilename);
-            videoRepository.delete(deletedVideo);
-            VideoEntity1 videoEntity1= new VideoEntity1();
+//            videoRepository.delete(deletedVideo);
+//            VideoEntity1 videoEntity1= new VideoEntity1();
             try {
-                videoEntity1.setVideoData(contentRequest.getVideo().getBytes());
-                videoEntity1.setTitle(newVideoName);
-                videoRepository.save(videoEntity1);
+                deletedVideo.setVideoData(contentRequest.getVideo().getBytes());
+                videoRepository.save(deletedVideo);
             } catch (IOException e) {
                 throw new GetBytesException(e);
             }
-            content.setVideoName(newVideoName);
+//            content.setVideoName(newVideoName);
         }
 //        if (contentRequest.getTask()!=null){
 //            mediaService.deleteExistFile("application/"+content.getTaskName());
