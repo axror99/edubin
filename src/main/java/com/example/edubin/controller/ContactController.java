@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/email/")
 @RequiredArgsConstructor
+@CrossOrigin
 public class ContactController {
 
     private final ContactService contactService;
