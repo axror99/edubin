@@ -11,9 +11,9 @@ spring:
     show-sql: true
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://ec2-34-236-100-103.compute-1.amazonaws.com:5432/dbhd86bgfjlndh
-    username: vahvkwcnxcjlgi
-    password: 5ccc3acf747abde8de2f3e29ed894f705456522bc8461fb00394dd34d1b2990b
+    url: jdbc:postgresql://ec2-3-210-173-88.compute-1.amazonaws.com:5432/d17cbt2tpqu5v
+    username: xvqtlkuwlkiqjp
+    password: 5121ab895b35e8d9e776ecc9d2ee804fba20e82400e9260ff6530476a14db218
 #    url: jdbc:postgresql://localhost:5432/edubin
 #    username: postgres
 #    password: admin
