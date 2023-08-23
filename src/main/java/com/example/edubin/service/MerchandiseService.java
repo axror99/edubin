@@ -24,7 +24,7 @@ public class MerchandiseService {
 
     public void addMerchandise(MerchandiseRequest merchandise) {
         String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(merchandise.getPicture().getOriginalFilename()));
-        mediaService.internalWrite(merchandise.getPicture(), Paths.get(PATH_IMAGE + newPictureName));
+//        mediaService.internalWrite(merchandise.getPicture(), Paths.get(PATH_IMAGE + newPictureName));
         MerchandiseEntity1 merchandiseEntity1 = MerchandiseEntity1.builder()
                 .picture(newPictureName)
                 .price(merchandise.getPrice())
@@ -85,7 +85,7 @@ public class MerchandiseService {
             mediaService.deleteExistImage(merchandiseEntity1.getPicture());
             String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(merchandiseRequest.getPicture().getOriginalFilename()));
             mediaService.savePicture(merchandiseRequest.getPicture(), newPictureName);
-            mediaService.internalWrite(merchandiseRequest.getPicture(), Paths.get(PATH_IMAGE + newPictureName));
+//            mediaService.internalWrite(merchandiseRequest.getPicture(), Paths.get(PATH_IMAGE + newPictureName));
             merchandiseEntity1.setPicture(newPictureName);
         }
         if (merchandiseRequest.getDefinition()!=null && !merchandiseRequest.getDefinition().equals("")){
