@@ -22,7 +22,7 @@ public class EventService {
 
     public void addEvent(EventRequest eventRequest) {
         String pictureName = mediaService.generateRandomName(Objects.requireNonNull(eventRequest.getPicture().getOriginalFilename()));
-        mediaService.internalWrite(eventRequest.getPicture(), Paths.get(PATH_IMAGE+pictureName));
+//        mediaService.internalWrite(eventRequest.getPicture(), Paths.get(PATH_IMAGE+pictureName));
         EventEntity1 eventEntity1 = EventEntity1.builder()
                 .about(eventRequest.getAbout())
                 .startTime(eventRequest.getStartTime())
@@ -72,7 +72,7 @@ public class EventService {
             mediaService.deleteExistImage(eventEntity1.getPicture());
             String newPictureName = mediaService.generateRandomName(Objects.requireNonNull(eventRequest.getPicture().getOriginalFilename()));
             mediaService.savePicture(eventRequest.getPicture(),newPictureName);
-            mediaService.internalWrite(eventRequest.getPicture(),Paths.get(PATH_IMAGE+newPictureName));
+//            mediaService.internalWrite(eventRequest.getPicture(),Paths.get(PATH_IMAGE+newPictureName));
             eventEntity1.setPicture(newPictureName);
         }
         if (eventRequest.getSeats()!=null){
