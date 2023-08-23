@@ -15,6 +15,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping("/api/auth/")
 @RequiredArgsConstructor
+@CrossOrigin
 public class AuthenticationController {
 
     private final UserService userService;
