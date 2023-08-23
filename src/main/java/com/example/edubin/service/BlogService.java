@@ -39,7 +39,7 @@ public class BlogService {
                 .categoryEntity(category)
                 .build();
         mediaService.savePicture(blogRequest.getPicture(), newPictureName);
-        mediaService.internalWrite(blogRequest.getPicture(), Paths.get(PATH_IMAGE+newPictureName));
+//        mediaService.internalWrite(blogRequest.getPicture(), Paths.get(PATH_IMAGE+newPictureName));
         blogRepository.save(blog);
     }
 
